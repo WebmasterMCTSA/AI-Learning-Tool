@@ -742,6 +742,171 @@ footer strong {
     color: var(--primary);
 }
 
+
+
+/* =========================================================
+   UNITY MISSION LEVELS
+========================================================= */
+
+.game-section {
+    background: linear-gradient(180deg, transparent, rgba(140,123,255,.035), transparent);
+}
+
+.mission-level-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 22px;
+}
+
+.mission-game-card {
+    background: linear-gradient(145deg, rgba(16,24,50,.97), rgba(7,12,30,.97));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: .25s;
+}
+
+.mission-game-card.unlocked:hover {
+    transform: translateY(-5px);
+    border-color: rgba(84,240,178,.45);
+}
+
+.mission-game-card.locked {
+    opacity: .62;
+}
+
+.mission-image {
+    height: 205px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.level-one { background: radial-gradient(circle at center, rgba(98,217,255,.22), transparent 58%), #071326; }
+.level-two { background: radial-gradient(circle at center, rgba(180,180,255,.2), transparent 58%), #090d24; }
+.level-three { background: radial-gradient(circle at center, rgba(140,123,255,.24), transparent 58%), #0a0924; }
+.level-four { background: radial-gradient(circle at center, rgba(84,240,178,.2), transparent 58%), #061a19; }
+.level-five { background: radial-gradient(circle at center, rgba(98,217,255,.2), transparent 42%), radial-gradient(circle at 70% 30%, rgba(140,123,255,.22), transparent 35%), #08051e; }
+
+.mission-emoji {
+    font-size: 72px;
+    filter: drop-shadow(0 0 24px rgba(98,217,255,.4));
+}
+
+.mission-number {
+    position: absolute;
+    left: 18px;
+    top: 12px;
+    font-size: 52px;
+    font-weight: bold;
+    color: rgba(255,255,255,.08);
+}
+
+.mission-lock {
+    position: absolute;
+    right: 18px;
+    top: 14px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(0,0,0,.32);
+    font-size: 18px;
+}
+
+.mission-info { padding: 24px; }
+
+.mission-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.unlocked-status {
+    color: var(--accent);
+    background: rgba(84,240,178,.08);
+    border: 1px solid rgba(84,240,178,.2);
+}
+
+.locked-status {
+    color: var(--muted);
+    background: rgba(255,255,255,.04);
+}
+
+.mission-info h3 { font-size: 22px; margin-bottom: 10px; }
+.mission-info p { min-height: 78px; }
+
+.mission-requirement {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin: 18px 0;
+    padding: 12px;
+    border-radius: 9px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--border);
+}
+
+.mission-requirement span { color: var(--muted); font-size: 10px; }
+.mission-requirement strong { color: var(--primary); font-size: 11px; text-align: right; }
+
+.mission-xp { color: var(--warning); font-size: 11px; font-weight: bold; margin-bottom: 15px; }
+
+.unity-player-container {
+    display: none;
+    margin-top: 35px;
+    padding: 22px;
+    border-radius: 18px;
+    background: rgba(4,8,20,.96);
+    border: 1px solid rgba(98,217,255,.25);
+}
+
+.unity-player-container.active { display: block; }
+
+.unity-player-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 18px;
+}
+
+.unity-frame {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    min-height: 500px;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.1);
+}
+
+.unity-frame iframe { width: 100%; height: 100%; border: 0; }
+
+.unity-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 35px;
+}
+
+.unity-icon { font-size: 70px; margin-bottom: 15px; }
+.unity-placeholder h3 { font-size: 24px; margin-bottom: 10px; }
+.unity-placeholder p { max-width: 560px; }
+
 /* MOBILE */
 
 @media(max-width:900px) {
@@ -750,7 +915,8 @@ footer strong {
     }
 
     .mission-grid,
-    .dashboard-grid {
+    .dashboard-grid,
+    .mission-level-grid {
         grid-template-columns: 1fr;
     }
 
@@ -796,6 +962,16 @@ footer strong {
     .player-mini {
         display: none;
     }
+
+    .unity-player-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .unity-frame,
+    .unity-placeholder {
+        min-height: 350px;
+    }
 }
 </style>
 </head>
@@ -811,7 +987,7 @@ footer strong {
 
         <div class="logo-text">
             <strong>PROJECT AURORA</strong>
-            <span>AI SPACE ACADEMY</span>
+            <span>AI SPACE PROGRAM</span>
         </div>
     </div>
 
@@ -819,9 +995,9 @@ footer strong {
         <li><a href="#mission">MISSION</a></li>
         <li><a href="#crew">CREW</a></li>
         <li><a href="#technology">TECHNOLOGY</a></li>
-        <li><a href="#academy">AI ACADEMY</a></li>
+        <li><a href="#academy">AI TRAINING</a></li>
         <li><a href="#dashboard">PROGRESS</a></li>
-        <li><a href="#challenges">MISSIONS</a></li>
+        <li><a href="#game">GAME LEVELS</a></li>
     </ul>
 
     <div class="player-mini">
@@ -1315,8 +1491,8 @@ footer strong {
                 </div>
 
                 <div class="stat">
-                    <strong id="challengeCount">0</strong>
-                    <span>Challenges</span>
+                    <strong id="gameLevelCount">0</strong>
+                    <span>Game Levels Unlocked</span>
                 </div>
 
                 <div class="stat">
@@ -1335,39 +1511,39 @@ footer strong {
             <div class="badges">
 
                 <div class="badge" id="badge1">
-                    <div class="badge-icon">🌱</div>
-                    <strong>First Contact</strong>
-                    <span>Complete your first module</span>
+                    <div class="badge-icon">🧠</div>
+                    <strong>AI Initiate</strong>
+                    <span>Complete AI Fundamentals</span>
                 </div>
 
                 <div class="badge" id="badge2">
-                    <div class="badge-icon">🧠</div>
-                    <strong>AI Apprentice</strong>
-                    <span>Complete 3 AI modules</span>
+                    <div class="badge-icon">🛠️</div>
+                    <strong>Tool Specialist</strong>
+                    <span>Complete AI Tools & Techniques</span>
                 </div>
 
                 <div class="badge" id="badge3">
-                    <div class="badge-icon">🚀</div>
-                    <strong>Mission Ready</strong>
-                    <span>Complete all modules</span>
+                    <div class="badge-icon">💬</div>
+                    <strong>Prompt Pilot</strong>
+                    <span>Complete Prompt Engineering</span>
                 </div>
 
                 <div class="badge" id="badge4">
                     <div class="badge-icon">⚖️</div>
                     <strong>Ethics Officer</strong>
-                    <span>Complete the ethics challenge</span>
+                    <span>Complete Ethical AI</span>
                 </div>
 
                 <div class="badge" id="badge5">
-                    <div class="badge-icon">💬</div>
-                    <strong>Prompt Pilot</strong>
-                    <span>Complete the prompt challenge</span>
+                    <div class="badge-icon">🚀</div>
+                    <strong>Space AI Specialist</strong>
+                    <span>Complete AI in Space</span>
                 </div>
 
                 <div class="badge" id="badge6">
                     <div class="badge-icon">🌌</div>
                     <strong>AURORA Specialist</strong>
-                    <span>Reach 2,500 XP</span>
+                    <span>Complete all five trainings</span>
                 </div>
 
             </div>
@@ -1379,104 +1555,119 @@ footer strong {
 </section>
 
 
-<!-- CHALLENGES -->
+<!-- UNITY GAME LEVELS -->
 
-<section id="challenges">
+<section class="game-section" id="game">
 
     <div class="section-heading">
-
-        <div class="section-label">06 / SIMULATION CENTER</div>
-
-        <h2>Test your skills.</h2>
-
+        <div class="section-label">06 / AURORA GAME LEVELS</div>
+        <h2>Train. Unlock. Explore.</h2>
         <p>
-            Real missions require more than memorizing information.
-            Complete interactive scenarios to prove you can use what
-            you've learned.
+            Every Unity game level is locked behind an AI training module.
+            Complete the training quiz to earn XP, unlock the corresponding
+            mission, and continue deeper into space.
         </p>
+    </div>
+
+    <div class="mission-level-grid">
+
+        <div class="mission-game-card locked" id="missionGame1">
+            <div class="mission-image level-one">
+                <div class="mission-number">01</div>
+                <div class="mission-emoji">🚀</div>
+                <div class="mission-lock">🔒</div>
+            </div>
+            <div class="mission-info">
+                <div class="mission-status locked-status">LOCKED</div>
+                <h3>Mission 01: Launch</h3>
+                <p>Prepare the Aurora spacecraft for launch. Complete system checks and begin your first AI-assisted mission.</p>
+                <div class="mission-requirement"><span>Required Training</span><strong>AI Fundamentals</strong></div>
+                <div class="mission-xp">+250 XP FROM TRAINING</div>
+                <button class="btn btn-secondary" id="levelButton1" onclick="launchUnityLevel(1)" disabled>🔒 COMPLETE TRAINING</button>
+            </div>
+        </div>
+
+        <div class="mission-game-card locked" id="missionGame2">
+            <div class="mission-image level-two">
+                <div class="mission-number">02</div>
+                <div class="mission-emoji">🌙</div>
+                <div class="mission-lock">🔒</div>
+            </div>
+            <div class="mission-info">
+                <div class="mission-status locked-status">LOCKED</div>
+                <h3>Mission 02: Lunar Base</h3>
+                <p>Establish the first Aurora research station on the Moon using AI-assisted tools to solve engineering problems.</p>
+                <div class="mission-requirement"><span>Required Training</span><strong>AI Tools & Techniques</strong></div>
+                <div class="mission-xp">+300 XP FROM TRAINING</div>
+                <button class="btn btn-secondary" id="levelButton2" onclick="launchUnityLevel(2)" disabled>🔒 COMPLETE TRAINING</button>
+            </div>
+        </div>
+
+        <div class="mission-game-card locked" id="missionGame3">
+            <div class="mission-image level-three">
+                <div class="mission-number">03</div>
+                <div class="mission-emoji">🪐</div>
+                <div class="mission-lock">🔒</div>
+            </div>
+            <div class="mission-info">
+                <div class="mission-status locked-status">LOCKED</div>
+                <h3>Mission 03: Deep Space</h3>
+                <p>Travel beyond the Moon during a communication blackout and use strong prompts to work with Aurora's AI.</p>
+                <div class="mission-requirement"><span>Required Training</span><strong>Prompt Engineering</strong></div>
+                <div class="mission-xp">+350 XP FROM TRAINING</div>
+                <button class="btn btn-secondary" id="levelButton3" onclick="launchUnityLevel(3)" disabled>🔒 COMPLETE TRAINING</button>
+            </div>
+        </div>
+
+        <div class="mission-game-card locked" id="missionGame4">
+            <div class="mission-image level-four">
+                <div class="mission-number">04</div>
+                <div class="mission-emoji">👽</div>
+                <div class="mission-lock">🔒</div>
+            </div>
+            <div class="mission-info">
+                <div class="mission-status locked-status">LOCKED</div>
+                <h3>Mission 04: Alien Frontier</h3>
+                <p>Explore an unknown world and make responsible decisions about privacy, bias, safety, and autonomous AI.</p>
+                <div class="mission-requirement"><span>Required Training</span><strong>Ethical AI</strong></div>
+                <div class="mission-xp">+400 XP FROM TRAINING</div>
+                <button class="btn btn-secondary" id="levelButton4" onclick="launchUnityLevel(4)" disabled>🔒 COMPLETE TRAINING</button>
+            </div>
+        </div>
+
+        <div class="mission-game-card locked" id="missionGame5">
+            <div class="mission-image level-five">
+                <div class="mission-number">05</div>
+                <div class="mission-emoji">🌌</div>
+                <div class="mission-lock">🔒</div>
+            </div>
+            <div class="mission-info">
+                <div class="mission-status locked-status">LOCKED</div>
+                <h3>Mission 05: Aurora Prime</h3>
+                <p>Complete humanity's ultimate AI-assisted exploration mission. Your knowledge determines whether Aurora succeeds.</p>
+                <div class="mission-requirement"><span>Required Training</span><strong>AI in Space</strong></div>
+                <div class="mission-xp">+500 XP FROM TRAINING</div>
+                <button class="btn btn-secondary" id="levelButton5" onclick="launchUnityLevel(5)" disabled>🔒 COMPLETE TRAINING</button>
+            </div>
+        </div>
 
     </div>
 
-    <div class="challenge-grid">
-
-        <!-- ETHICS -->
-
-        <div class="card">
-
-            <div class="module-icon">⚖️</div>
-
-            <h3>AI Ethics Simulation</h3>
-
-            <p>
-                Aurora's AI has analyzed an astronaut's private medical
-                information. A student researcher asks you to share the
-                data for a school project.
-            </p>
-
-            <div id="ethicsOptions">
-
-                <div class="challenge-option"
-                     onclick="ethicsAnswer(this,false)">
-                    Share everything because the research is educational.
-                </div>
-
-                <div class="challenge-option"
-                     onclick="ethicsAnswer(this,true)">
-                    Protect private information and only share properly
-                    authorized, anonymized data.
-                </div>
-
-                <div class="challenge-option"
-                     onclick="ethicsAnswer(this,false)">
-                    Post the information publicly so other researchers
-                    can review it.
-                </div>
-
+    <div class="unity-player-container" id="unityPlayerContainer">
+        <div class="unity-player-header">
+            <div>
+                <div class="section-label">UNITY WEBGL MISSION</div>
+                <h3 id="unityMissionTitle">Select an unlocked mission</h3>
             </div>
-
-            <div id="ethicsResult" class="result"></div>
-
+            <button class="btn btn-secondary" onclick="closeUnityGame()">CLOSE GAME</button>
         </div>
-
-
-        <!-- PROMPT -->
-
-        <div class="card">
-
-            <div class="module-icon">💬</div>
-
-            <h3>Prompt Engineering Simulation</h3>
-
-            <p>
-                You need AI to explain why astronauts experience
-                communication delays in deep space. Which prompt is best?
-            </p>
-
-            <div id="promptOptions">
-
-                <div class="challenge-option"
-                     onclick="promptAnswer(this,false)">
-                    Tell me about space.
-                </div>
-
-                <div class="challenge-option"
-                     onclick="promptAnswer(this,true)">
-                    Explain deep-space communication delays to a
-                    high-school student. Give three causes and one
-                    real-world example for each.
-                </div>
-
-                <div class="challenge-option"
-                     onclick="promptAnswer(this,false)">
-                    Space communication?
-                </div>
-
+        <div class="unity-frame" id="unityFrame">
+            <div class="unity-placeholder">
+                <div class="unity-icon">🚀</div>
+                <h3>AURORA UNITY SIMULATOR</h3>
+                <p>Complete training and select an unlocked mission to launch its separate Unity WebGL build.</p>
             </div>
-
-            <div id="promptResult" class="result"></div>
-
         </div>
-
     </div>
 
 </section>
@@ -1495,9 +1686,8 @@ footer strong {
         </h2>
 
         <p style="max-width:650px; margin:0 auto 25px; color:var(--muted); line-height:1.7;">
-            Complete the AI Academy, earn your badges, master the
-            simulations, and become part of the next generation of
-            explorers.
+            Complete all five AI trainings, earn your badges, unlock all five Unity
+            missions, and become part of the next generation of explorers.
         </p>
 
         <button class="btn btn-primary" onclick="scrollToSection('dashboard')">
@@ -1535,7 +1725,7 @@ footer strong {
 <footer>
 
     <p>
-        <strong>PROJECT AURORA</strong> — AI Space Academy
+        <strong>PROJECT AURORA</strong> — AI Space Program
     </p>
 
     <p style="margin-top:8px; font-size:12px;">
@@ -1751,6 +1941,23 @@ const modules = {
 
 
 /* =========================================================
+   UNITY GAME LEVELS
+========================================================= */
+
+/*
+ * Each level is a separate Unity WebGL build.
+ * Replace the URL for each level with your exported
+ * Unity WebGL index.html path.
+ */
+const unityLevels = {
+    1: { title: "Mission 01: Launch", module: 1, url: "UnityBuild/Level1/index.html" },
+    2: { title: "Mission 02: Lunar Base", module: 2, url: "UnityBuild/Level2/index.html" },
+    3: { title: "Mission 03: Deep Space", module: 3, url: "UnityBuild/Level3/index.html" },
+    4: { title: "Mission 04: Alien Frontier", module: 4, url: "UnityBuild/Level4/index.html" },
+    5: { title: "Mission 05: Aurora Prime", module: 5, url: "UnityBuild/Level5/index.html" }
+};
+
+/* =========================================================
    PLAYER DATA
 ========================================================= */
 
@@ -1926,8 +2133,8 @@ function updateUI() {
     document.getElementById("badgeCount")
         .textContent = player.badges.length;
 
-    document.getElementById("challengeCount")
-        .textContent = player.challenges.length;
+    document.getElementById("gameLevelCount")
+        .textContent = player.completed.length;
 
     document.getElementById("levelNumber")
         .textContent = level;
@@ -1956,6 +2163,9 @@ function updateUI() {
             );
 
     }
+
+
+    updateUnityLevels();
 
 }
 
@@ -2025,44 +2235,108 @@ function unlockBadge(id, title) {
 
 function checkBadges() {
 
-    if (player.completed.length >= 1) {
-
-        unlockBadge(
-            1,
-            "First Contact"
-        );
-
-    }
-
-    if (player.completed.length >= 3) {
-
-        unlockBadge(
-            2,
-            "AI Apprentice"
-        );
-
+    for (let i = 1; i <= 5; i++) {
+        if (player.completed.includes(i)) {
+            unlockBadge(i, modules[i].title + " badge earned");
+        }
     }
 
     if (player.completed.length >= 5) {
-
-        unlockBadge(
-            3,
-            "Mission Ready"
-        );
-
-    }
-
-    if (player.xp >= 2500) {
-
-        unlockBadge(
-            6,
-            "AURORA Specialist"
-        );
-
+        unlockBadge(6, "AURORA Specialist");
     }
 
 }
 
+
+
+
+/* =========================================================
+   UNITY LEVEL UNLOCKS
+========================================================= */
+
+function updateUnityLevels() {
+
+    for (let i = 1; i <= 5; i++) {
+
+        const unlocked = player.completed.includes(
+            unityLevels[i].module
+        );
+
+        const card = document.getElementById("missionGame" + i);
+        const button = document.getElementById("levelButton" + i);
+        const status = card.querySelector(".mission-status");
+        const lock = card.querySelector(".mission-lock");
+
+        card.classList.toggle("unlocked", unlocked);
+        card.classList.toggle("locked", !unlocked);
+
+        status.textContent = unlocked ? "UNLOCKED" : "LOCKED";
+        status.classList.toggle("unlocked-status", unlocked);
+        status.classList.toggle("locked-status", !unlocked);
+
+        lock.textContent = unlocked ? "✓" : "🔒";
+
+        button.disabled = !unlocked;
+        button.classList.toggle("btn-primary", unlocked);
+        button.classList.toggle("btn-secondary", !unlocked);
+        button.textContent = unlocked
+            ? "PLAY LEVEL " + i
+            : "🔒 COMPLETE TRAINING";
+    }
+}
+
+function launchUnityLevel(level) {
+
+    const mission = unityLevels[level];
+
+    if (!player.completed.includes(mission.module)) {
+        showToast(
+            "MISSION LOCKED",
+            "Complete " + modules[mission.module].title + " first."
+        );
+        return;
+    }
+
+    const container = document.getElementById("unityPlayerContainer");
+    const frame = document.getElementById("unityFrame");
+    const title = document.getElementById("unityMissionTitle");
+
+    title.textContent = mission.title;
+
+    frame.innerHTML = `
+        <iframe
+            src="${mission.url}"
+            title="${mission.title}"
+            allow="fullscreen"
+            allowfullscreen>
+        </iframe>
+    `;
+
+    container.classList.add("active");
+
+    setTimeout(() => {
+        container.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }, 100);
+}
+
+function closeUnityGame() {
+
+    const container = document.getElementById("unityPlayerContainer");
+    const frame = document.getElementById("unityFrame");
+
+    container.classList.remove("active");
+
+    frame.innerHTML = `
+        <div class="unity-placeholder">
+            <div class="unity-icon">🚀</div>
+            <h3>AURORA UNITY SIMULATOR</h3>
+            <p>Complete training and select an unlocked mission to launch its separate Unity WebGL build.</p>
+        </div>
+    `;
+}
 
 /* =========================================================
    OPEN MODULE
@@ -2092,7 +2366,7 @@ function openModule(id) {
     let html = `
 
         <div class="section-label">
-            AI ACADEMY / MODULE ${id}
+            AURORA TRAINING / MODULE ${id}
         </div>
 
         <h2>
@@ -2491,6 +2765,7 @@ document.getElementById(
 ========================================================= */
 
 updateUI();
+checkBadges();
 
 </script>
 
