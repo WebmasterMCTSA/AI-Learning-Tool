@@ -3,2771 +3,659 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>PROJECT AURORA | AI Space Academy</title>
-
 <style>
-:root {
-    --bg: #050816;
-    --bg2: #0b1026;
-    --panel: #101832;
-    --panel2: #151f42;
-    --primary: #62d9ff;
-    --secondary: #8c7bff;
-    --accent: #54f0b2;
-    --warning: #ffc857;
-    --danger: #ff6685;
-    --text: #f4f7ff;
-    --muted: #9ba8c7;
-    --border: rgba(255,255,255,.1);
-    --shadow: 0 20px 50px rgba(0,0,0,.35);
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background:
-        radial-gradient(circle at 20% 10%, rgba(98,217,255,.08), transparent 25%),
-        radial-gradient(circle at 80% 30%, rgba(140,123,255,.08), transparent 25%),
-        var(--bg);
-    color: var(--text);
-    overflow-x: hidden;
-}
-
-/* STARS */
-
-body::before,
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: -1;
-    background-image:
-        radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px),
-        radial-gradient(circle, rgba(98,217,255,.5) 1px, transparent 1px);
-    background-size: 90px 90px, 140px 140px;
-    background-position: 10px 20px, 50px 80px;
-    opacity: .25;
-}
-
-/* NAVBAR */
-
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 72px;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5%;
-    background: rgba(5,8,22,.88);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--border);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-}
-
-.logo-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 2px solid var(--primary);
-    display: grid;
-    place-items: center;
-    box-shadow: 0 0 20px rgba(98,217,255,.3);
-}
-
-.logo-icon::before {
-    content: "✦";
-    color: var(--primary);
-    font-size: 22px;
-}
-
-.logo-text strong {
-    display: block;
-    letter-spacing: 2px;
-}
-
-.logo-text span {
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 2px;
-}
-
-.nav-links {
-    display: flex;
-    gap: 22px;
-    list-style: none;
-}
-
-.nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: bold;
-    transition: .2s;
-}
-
-.nav-links a:hover {
-    color: var(--primary);
-}
-
-.player-mini {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.rank-mini {
-    padding: 7px 12px;
-    background: rgba(98,217,255,.08);
-    border: 1px solid rgba(98,217,255,.2);
-    border-radius: 20px;
-    font-size: 11px;
-    color: var(--primary);
-}
-
-.xp-mini {
-    font-size: 12px;
-    color: var(--warning);
-}
-
-/* HERO */
-
-.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 120px 8% 80px;
-    overflow: hidden;
-}
-
-.hero-content {
-    max-width: 750px;
-    z-index: 2;
-}
-
-.status {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--accent);
-    font-size: 12px;
-    letter-spacing: 2px;
-    border: 1px solid rgba(84,240,178,.25);
-    padding: 8px 14px;
-    border-radius: 30px;
-    background: rgba(84,240,178,.06);
-    margin-bottom: 25px;
-}
-
-.status-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 10px var(--accent);
-}
-
-.hero h1 {
-    font-size: clamp(50px, 8vw, 100px);
-    line-height: .9;
-    letter-spacing: -5px;
-    margin-bottom: 25px;
-}
-
-.hero h1 span {
-    color: var(--primary);
-    text-shadow: 0 0 30px rgba(98,217,255,.35);
-}
-
-.hero p {
-    max-width: 650px;
-    font-size: 18px;
-    line-height: 1.7;
-    color: var(--muted);
-    margin-bottom: 35px;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.btn {
-    border: none;
-    padding: 14px 22px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .2s;
-    font-size: 14px;
-}
-
-.btn-primary {
-    color: #031018;
-    background: var(--primary);
-    box-shadow: 0 0 25px rgba(98,217,255,.2);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 35px rgba(98,217,255,.35);
-}
-
-.btn-secondary {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-}
-
-.btn-secondary:hover {
-    border-color: var(--primary);
-}
-
-.orbit {
-    position: absolute;
-    width: 650px;
-    height: 650px;
-    right: -150px;
-    top: 120px;
-    border: 1px solid rgba(98,217,255,.12);
-    border-radius: 50%;
-    transform: rotate(-20deg);
-}
-
-.orbit::before {
-    content: "";
-    position: absolute;
-    inset: 80px;
-    border: 1px solid rgba(140,123,255,.15);
-    border-radius: 50%;
-}
-
-.planet {
-    position: absolute;
-    width: 230px;
-    height: 230px;
-    right: 110px;
-    top: 250px;
-    border-radius: 50%;
-    background:
-        radial-gradient(circle at 35% 30%, #b7f2ff, #3675a3 30%, #182b5a 65%, #080d22);
-    box-shadow:
-        0 0 50px rgba(98,217,255,.25),
-        inset -30px -20px 60px rgba(0,0,0,.6);
-}
-
-.satellite {
-    position: absolute;
-    width: 35px;
-    height: 35px;
-    border: 2px solid var(--warning);
-    right: 160px;
-    top: 110px;
-    border-radius: 50%;
-    box-shadow: 0 0 20px rgba(255,200,87,.5);
-}
-
-/* SECTION */
-
-section {
-    padding: 100px 7%;
-    scroll-margin-top: 70px;
-}
-
-.section-heading {
-    max-width: 700px;
-    margin-bottom: 45px;
-}
-
-.section-label {
-    color: var(--primary);
-    font-size: 11px;
-    letter-spacing: 3px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.section-heading h2 {
-    font-size: clamp(32px, 5vw, 55px);
-    margin-bottom: 15px;
-}
-
-.section-heading p {
-    color: var(--muted);
-    line-height: 1.7;
-}
-
-/* MISSION */
-
-.mission-grid {
-    display: grid;
-    grid-template-columns: 1.3fr .7fr;
-    gap: 25px;
-}
-
-.card {
-    background: linear-gradient(145deg, rgba(16,24,50,.95), rgba(11,16,38,.95));
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 28px;
-    box-shadow: var(--shadow);
-}
-
-.card h3 {
-    margin-bottom: 12px;
-}
-
-.card p {
-    color: var(--muted);
-    line-height: 1.7;
-}
-
-.mission-stats {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 15px;
-    margin-top: 25px;
-}
-
-.stat {
-    padding: 18px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    background: rgba(255,255,255,.02);
-}
-
-.stat strong {
-    display: block;
-    font-size: 25px;
-    color: var(--primary);
-}
-
-.stat span {
-    color: var(--muted);
-    font-size: 12px;
-}
-
-/* CREW */
-
-.crew-grid {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 20px;
-}
-
-.crew-card {
-    text-align: center;
-}
-
-.avatar {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 18px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-size: 42px;
-    background: linear-gradient(145deg, var(--panel2), #0b1127);
-    border: 1px solid rgba(98,217,255,.25);
-}
-
-.role {
-    color: var(--primary);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-}
-
-/* TECHNOLOGY */
-
-.tech-grid {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 20px;
-}
-
-.tech-card {
-    min-height: 220px;
-}
-
-.tech-icon {
-    font-size: 35px;
-    margin-bottom: 20px;
-}
-
-/* ACADEMY */
-
-.academy {
-    background:
-        linear-gradient(180deg, transparent, rgba(98,217,255,.025), transparent);
-}
-
-.learning-grid {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 20px;
-}
-
-.module-card {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: .25s;
-}
-
-.module-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(98,217,255,.4);
-}
-
-.module-number {
-    position: absolute;
-    right: 20px;
-    top: 18px;
-    font-size: 45px;
-    color: rgba(255,255,255,.05);
-    font-weight: bold;
-}
-
-.module-icon {
-    font-size: 32px;
-    margin-bottom: 20px;
-}
-
-.module-card h3 {
-    margin-bottom: 10px;
-}
-
-.module-card p {
-    margin-bottom: 20px;
-}
-
-.module-progress {
-    height: 5px;
-    background: rgba(255,255,255,.08);
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.module-progress span {
-    display: block;
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg,var(--primary),var(--secondary));
-    transition: .5s;
-}
-
-.module-status {
-    margin-top: 10px;
-    color: var(--muted);
-    font-size: 11px;
-}
-
-/* DASHBOARD */
-
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-}
-
-.xp-card {
-    grid-column: span 2;
-}
-
-.xp-top {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-.xp-bar {
-    height: 18px;
-    border-radius: 20px;
-    background: rgba(255,255,255,.08);
-    overflow: hidden;
-}
-
-.xp-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg,var(--primary),var(--secondary));
-    transition: .5s;
-}
-
-.level-info {
-    margin-top: 12px;
-    display: flex;
-    justify-content: space-between;
-    color: var(--muted);
-    font-size: 12px;
-}
-
-.badges {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.badge {
-    text-align: center;
-    padding: 18px 10px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    opacity: .3;
-    filter: grayscale(1);
-    transition: .3s;
-}
-
-.badge.unlocked {
-    opacity: 1;
-    filter: grayscale(0);
-    border-color: rgba(255,200,87,.35);
-    background: rgba(255,200,87,.04);
-}
-
-.badge-icon {
-    font-size: 32px;
-    margin-bottom: 8px;
-}
-
-.badge span {
-    display: block;
-    color: var(--muted);
-    font-size: 10px;
-}
-
-/* MODAL */
-
-.modal {
-    position: fixed;
-    inset: 0;
-    z-index: 2000;
-    background: rgba(0,0,0,.75);
-    backdrop-filter: blur(8px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.modal.active {
-    display: flex;
-}
-
-.modal-content {
-    width: min(750px,100%);
-    max-height: 90vh;
-    overflow-y: auto;
-    background: #0b1127;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 35px;
-    position: relative;
-    box-shadow: 0 30px 80px rgba(0,0,0,.5);
-}
-
-.close {
-    position: absolute;
-    top: 18px;
-    right: 22px;
-    border: none;
-    background: transparent;
-    color: var(--muted);
-    font-size: 25px;
-    cursor: pointer;
-}
-
-.modal-content h2 {
-    font-size: 32px;
-    margin-bottom: 10px;
-}
-
-.lesson-intro {
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 25px;
-}
-
-.lesson-box {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 15px;
-    background: rgba(255,255,255,.025);
-}
-
-.lesson-box h4 {
-    color: var(--primary);
-    margin-bottom: 8px;
-}
-
-.lesson-box p {
-    color: var(--muted);
-    line-height: 1.6;
-}
-
-.quiz-question {
-    margin-top: 25px;
-}
-
-.quiz-question h4 {
-    margin-bottom: 15px;
-}
-
-.answer {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 13px;
-    margin: 8px 0;
-    background: rgba(255,255,255,.04);
-    border: 1px solid var(--border);
-    color: var(--text);
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.answer:hover {
-    border-color: var(--primary);
-}
-
-.answer.correct {
-    border-color: var(--accent);
-    background: rgba(84,240,178,.1);
-}
-
-.answer.wrong {
-    border-color: var(--danger);
-    background: rgba(255,102,133,.1);
-}
-
-.result {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 10px;
-    display: none;
-}
-
-.result.show {
-    display: block;
-}
-
-/* CHALLENGE */
-
-.challenge-grid {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 20px;
-}
-
-.challenge-option {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px;
-    margin-top: 10px;
-    cursor: pointer;
-    color: var(--muted);
-}
-
-.challenge-option:hover {
-    border-color: var(--primary);
-    color: var(--text);
-}
-
-.challenge-option.selected {
-    border-color: var(--primary);
-    background: rgba(98,217,255,.08);
-    color: var(--text);
-}
-
-/* FOOTER */
-
-footer {
-    border-top: 1px solid var(--border);
-    padding: 45px 7%;
-    color: var(--muted);
-    text-align: center;
-}
-
-footer strong {
-    color: var(--primary);
-}
-
-/* TOAST */
-
-.toast {
-    position: fixed;
-    right: 25px;
-    bottom: 25px;
-    background: #111a37;
-    border: 1px solid rgba(98,217,255,.3);
-    padding: 16px 20px;
-    border-radius: 12px;
-    z-index: 3000;
-    transform: translateY(150px);
-    transition: .3s;
-    box-shadow: var(--shadow);
-}
-
-.toast.show {
-    transform: translateY(0);
-}
-
-.toast strong {
-    color: var(--primary);
-}
-
-
-
-/* =========================================================
-   UNITY MISSION LEVELS
-========================================================= */
-
-.game-section {
-    background: linear-gradient(180deg, transparent, rgba(140,123,255,.035), transparent);
-}
-
-.mission-level-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 22px;
-}
-
-.mission-game-card {
-    background: linear-gradient(145deg, rgba(16,24,50,.97), rgba(7,12,30,.97));
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    overflow: hidden;
-    transition: .25s;
-}
-
-.mission-game-card.unlocked:hover {
-    transform: translateY(-5px);
-    border-color: rgba(84,240,178,.45);
-}
-
-.mission-game-card.locked {
-    opacity: .62;
-}
-
-.mission-image {
-    height: 205px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.level-one { background: radial-gradient(circle at center, rgba(98,217,255,.22), transparent 58%), #071326; }
-.level-two { background: radial-gradient(circle at center, rgba(180,180,255,.2), transparent 58%), #090d24; }
-.level-three { background: radial-gradient(circle at center, rgba(140,123,255,.24), transparent 58%), #0a0924; }
-.level-four { background: radial-gradient(circle at center, rgba(84,240,178,.2), transparent 58%), #061a19; }
-.level-five { background: radial-gradient(circle at center, rgba(98,217,255,.2), transparent 42%), radial-gradient(circle at 70% 30%, rgba(140,123,255,.22), transparent 35%), #08051e; }
-
-.mission-emoji {
-    font-size: 72px;
-    filter: drop-shadow(0 0 24px rgba(98,217,255,.4));
-}
-
-.mission-number {
-    position: absolute;
-    left: 18px;
-    top: 12px;
-    font-size: 52px;
-    font-weight: bold;
-    color: rgba(255,255,255,.08);
-}
-
-.mission-lock {
-    position: absolute;
-    right: 18px;
-    top: 14px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: rgba(0,0,0,.32);
-    font-size: 18px;
-}
-
-.mission-info { padding: 24px; }
-
-.mission-status {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 9px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-}
-
-.unlocked-status {
-    color: var(--accent);
-    background: rgba(84,240,178,.08);
-    border: 1px solid rgba(84,240,178,.2);
-}
-
-.locked-status {
-    color: var(--muted);
-    background: rgba(255,255,255,.04);
-}
-
-.mission-info h3 { font-size: 22px; margin-bottom: 10px; }
-.mission-info p { min-height: 78px; }
-
-.mission-requirement {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    margin: 18px 0;
-    padding: 12px;
-    border-radius: 9px;
-    background: rgba(255,255,255,.03);
-    border: 1px solid var(--border);
-}
-
-.mission-requirement span { color: var(--muted); font-size: 10px; }
-.mission-requirement strong { color: var(--primary); font-size: 11px; text-align: right; }
-
-.mission-xp { color: var(--warning); font-size: 11px; font-weight: bold; margin-bottom: 15px; }
-
-.unity-player-container {
-    display: none;
-    margin-top: 35px;
-    padding: 22px;
-    border-radius: 18px;
-    background: rgba(4,8,20,.96);
-    border: 1px solid rgba(98,217,255,.25);
-}
-
-.unity-player-container.active { display: block; }
-
-.unity-player-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 18px;
-}
-
-.unity-frame {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    min-height: 500px;
-    background: #000;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,.1);
-}
-
-.unity-frame iframe { width: 100%; height: 100%; border: 0; }
-
-.unity-placeholder {
-    width: 100%;
-    height: 100%;
-    min-height: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 35px;
-}
-
-.unity-icon { font-size: 70px; margin-bottom: 15px; }
-.unity-placeholder h3 { font-size: 24px; margin-bottom: 10px; }
-.unity-placeholder p { max-width: 560px; }
-
-/* MOBILE */
-
-@media(max-width:900px) {
-    .nav-links {
-        display: none;
-    }
-
-    .mission-grid,
-    .dashboard-grid,
-    .mission-level-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .xp-card {
-        grid-column: span 1;
-    }
-
-    .crew-grid {
-        grid-template-columns: repeat(2,1fr);
-    }
-
-    .tech-grid,
-    .learning-grid,
-    .challenge-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .orbit,
-    .planet,
-    .satellite {
-        opacity: .2;
-    }
-}
-
-@media(max-width:600px) {
-    section {
-        padding: 75px 5%;
-    }
-
-    .hero {
-        padding-left: 5%;
-        padding-right: 5%;
-    }
-
-    .crew-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .badges {
-        grid-template-columns: repeat(2,1fr);
-    }
-
-    .player-mini {
-        display: none;
-    }
-
-    .unity-player-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .unity-frame,
-    .unity-placeholder {
-        min-height: 350px;
-    }
-}
+:root{--bg:#050816;--panel:#101832;--primary:#62d9ff;--secondary:#8c7bff;--accent:#54f0b2;--warning:#ffc857;--danger:#ff6685;--text:#f4f7ff;--muted:#a9b5d1;--border:rgba(255,255,255,.12);--shadow:0 20px 50px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at 20% 10%,rgba(98,217,255,.08),transparent 25%),radial-gradient(circle at 80% 30%,rgba(140,123,255,.08),transparent 25%),var(--bg);color:var(--text);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.25;background-image:radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1px),radial-gradient(circle,rgba(98,217,255,.5) 1px,transparent 1px);background-size:90px 90px,140px 140px;background-position:10px 20px,50px 80px}
+:focus-visible{outline:3px solid var(--warning);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--primary);color:#031018;padding:10px;z-index:5000;font-weight:bold}
+.skip:focus{left:8px}
+button{font-family:inherit;color:inherit}
+.navbar{position:fixed;top:0;left:0;right:0;height:72px;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(5,8,22,.92);backdrop-filter:blur(15px);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:12px;background:none;border:0;cursor:pointer;text-align:left}
+.logo-icon{width:42px;height:42px;border-radius:50%;border:2px solid var(--primary);display:grid;place-items:center;color:var(--primary);font-size:22px;box-shadow:0 0 20px rgba(98,217,255,.3)}
+.logo strong{display:block;letter-spacing:2px;font-size:14px}
+.logo span{font-size:10px;color:var(--muted);letter-spacing:2px}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:bold}
+.nav-links a:hover{color:var(--primary)}
+.player-mini{display:flex;align-items:center;gap:10px}
+.rank-mini{padding:7px 12px;background:rgba(98,217,255,.08);border:1px solid rgba(98,217,255,.25);border-radius:20px;font-size:11px;color:var(--primary)}
+.xp-mini{font-size:12px;color:var(--warning)}
+.menu-btn{display:none;background:none;border:1px solid var(--border);border-radius:8px;font-size:22px;padding:6px 12px;cursor:pointer}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:120px 8% 80px;overflow:hidden}
+.hero-content{max-width:750px;z-index:2}
+.status{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-size:12px;letter-spacing:2px;border:1px solid rgba(84,240,178,.25);padding:8px 14px;border-radius:30px;background:rgba(84,240,178,.06);margin-bottom:25px}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+.hero h1{font-size:clamp(46px,8vw,96px);line-height:.95;letter-spacing:-3px;margin-bottom:25px}
+.hero h1 span{color:var(--primary);text-shadow:0 0 30px rgba(98,217,255,.35)}
+.hero p{max-width:650px;font-size:18px;line-height:1.7;color:var(--muted);margin-bottom:35px}
+.hero-buttons{display:flex;gap:15px;flex-wrap:wrap}
+.btn{border:none;padding:14px 22px;border-radius:8px;font-weight:bold;cursor:pointer;transition:.2s;font-size:14px}
+.btn-primary{color:#031018;background:var(--primary)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(98,217,255,.4)}
+.btn-secondary{background:transparent;border:1px solid var(--border)}
+.btn-secondary:hover:not(:disabled){border-color:var(--primary)}
+.btn:disabled{cursor:not-allowed;opacity:.7}
+.orbit{position:absolute;width:650px;height:650px;right:-150px;top:120px;border:1px solid rgba(98,217,255,.12);border-radius:50%;transform:rotate(-20deg);animation:spin 80s linear infinite}
+.planet{position:absolute;width:230px;height:230px;right:110px;top:250px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b7f2ff,#3675a3 30%,#182b5a 65%,#080d22);box-shadow:0 0 50px rgba(98,217,255,.25),inset -30px -20px 60px rgba(0,0,0,.6)}
+@keyframes spin{to{transform:rotate(340deg)}}
+section{padding:100px 7%;scroll-margin-top:70px}
+.section-heading{max-width:700px;margin-bottom:45px}
+.section-label{color:var(--primary);font-size:11px;letter-spacing:3px;font-weight:bold;margin-bottom:10px}
+.section-heading h2{font-size:clamp(30px,5vw,52px);margin-bottom:15px}
+.section-heading p{color:var(--muted);line-height:1.7}
+.card{background:linear-gradient(145deg,rgba(16,24,50,.95),rgba(11,16,38,.95));border:1px solid var(--border);border-radius:18px;padding:28px;box-shadow:var(--shadow)}
+.card h3{margin-bottom:12px}
+.card p{color:var(--muted);line-height:1.7}
+.grid2{display:grid;grid-template-columns:1.3fr .7fr;gap:25px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:25px}
+.stat{padding:18px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.02)}
+.stat strong{display:block;font-size:25px;color:var(--primary)}
+.stat span{color:var(--muted);font-size:12px}
+.crew-card{text-align:center}
+.avatar{width:90px;height:90px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;font-size:40px;background:#111a37;border:1px solid rgba(98,217,255,.25)}
+.role{color:var(--primary);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.tech-icon,.module-icon{font-size:34px;margin-bottom:16px}
+.module-card{position:relative;text-align:left;color:inherit;cursor:pointer;transition:.25s;width:100%;font-size:inherit}
+.module-card:hover{transform:translateY(-5px);border-color:rgba(98,217,255,.4)}
+.module-card.locked{opacity:.65}
+.module-number{position:absolute;right:20px;top:14px;font-size:45px;color:rgba(255,255,255,.07);font-weight:bold}
+.module-card p{margin-bottom:18px}
+.bar{height:6px;background:rgba(255,255,255,.08);border-radius:5px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--secondary));transition:.5s}
+.module-status{margin-top:10px;color:var(--muted);font-size:11px;letter-spacing:1px}
+.dash{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.span2{grid-column:span 2}
+.xp-top{display:flex;justify-content:space-between;margin-bottom:15px}
+.xp-bar{height:18px;border-radius:20px;background:rgba(255,255,255,.08);overflow:hidden}
+.xp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--secondary));transition:.5s}
+.level-info{margin-top:12px;display:flex;justify-content:space-between;color:var(--muted);font-size:12px}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:15px}
+.badge{text-align:center;padding:18px 10px;border:1px solid var(--border);border-radius:12px;opacity:.4;filter:grayscale(1);transition:.3s}
+.badge.unlocked{opacity:1;filter:none;border-color:rgba(255,200,87,.4);background:rgba(255,200,87,.05)}
+.badge-icon{font-size:32px;margin-bottom:8px}
+.badge span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.mission-level-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.mg{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:linear-gradient(145deg,rgba(16,24,50,.97),rgba(7,12,30,.97))}
+.mg.locked{opacity:.65}
+.mg.unlocked{border-color:rgba(84,240,178,.4)}
+.mg-img{height:150px;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(circle at center,rgba(98,217,255,.22),transparent 58%),#071326}
+.mg:nth-child(even) .mg-img{background:radial-gradient(circle at center,rgba(140,123,255,.24),transparent 58%),#0a0924}
+.mg-emoji{font-size:62px}
+.mg-num{position:absolute;left:18px;top:10px;font-size:48px;font-weight:bold;color:rgba(255,255,255,.08)}
+.mg-lock{position:absolute;right:18px;top:14px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.35)}
+.mg-info{padding:24px}
+.mg-status{display:inline-block;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:bold;letter-spacing:1px;margin-bottom:10px;color:var(--muted);background:rgba(255,255,255,.05)}
+.mg.unlocked .mg-status{color:var(--accent);background:rgba(84,240,178,.08);border:1px solid rgba(84,240,178,.25)}
+.mg-info h3{font-size:21px;margin-bottom:10px}
+.mg-info p{color:var(--muted);line-height:1.6;min-height:72px}
+.req{display:flex;justify-content:space-between;gap:15px;margin:16px 0;padding:12px;border-radius:9px;background:rgba(255,255,255,.03);border:1px solid var(--border);font-size:12px}
+.req span{color:var(--muted)}
+.req strong{color:var(--primary);text-align:right}
+.soon{display:inline-block;margin-top:2px;color:var(--warning);border:1px dashed rgba(255,200,87,.5);border-radius:8px;padding:10px 14px;font-size:12px;font-weight:bold;letter-spacing:1px}
+.modal{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.active{display:flex}
+.modal-content{width:min(750px,100%);max-height:90vh;overflow-y:auto;background:#0b1127;border:1px solid var(--border);border-radius:20px;padding:35px;position:relative}
+.close{position:absolute;top:14px;right:18px;border:none;background:transparent;color:var(--muted);font-size:28px;cursor:pointer;padding:4px 10px}
+.modal-content h2{font-size:30px;margin-bottom:10px;padding-right:30px}
+.lesson-intro{color:var(--muted);line-height:1.7;margin-bottom:22px}
+.lesson-box{border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px;background:rgba(255,255,255,.025)}
+.lesson-box h4{color:var(--primary);margin-bottom:8px}
+.lesson-box p{color:var(--muted);line-height:1.6}
+.example{margin-top:10px;padding:10px 12px;border-left:3px solid var(--accent);background:rgba(84,240,178,.06);font-size:14px;line-height:1.5;color:var(--text)}
+.example.bad{border-color:var(--danger);background:rgba(255,102,133,.06)}
+.quiz-q{margin:22px 0 14px;line-height:1.5}
+.quiz-meta{color:var(--muted);font-size:12px;letter-spacing:1px;margin-top:24px}
+.answer{display:block;width:100%;text-align:left;padding:13px;margin:8px 0;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:14px;line-height:1.4}
+.answer:hover:not(:disabled){border-color:var(--primary)}
+.answer.correct{border-color:var(--accent);background:rgba(84,240,178,.12)}
+.answer.wrong{border-color:var(--danger);background:rgba(255,102,133,.12)}
+.result{margin-top:18px;padding:15px;border-radius:10px;background:rgba(98,217,255,.08);line-height:1.5}
+.sources ul{margin:14px 0 0 20px;color:var(--muted);line-height:1.9}
+footer{border-top:1px solid var(--border);padding:45px 7%;color:var(--muted);text-align:center}
+footer strong{color:var(--primary)}
+.toast{position:fixed;right:25px;bottom:25px;background:#111a37;border:1px solid rgba(98,217,255,.3);padding:16px 20px;border-radius:12px;z-index:3000;transform:translateY(150px);transition:.3s;box-shadow:var(--shadow);max-width:320px}
+.toast.show{transform:none}
+.toast strong{color:var(--primary)}
+.eq{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.chk{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--border);color:var(--muted);cursor:pointer}
+.chk input{width:20px;height:20px;accent-color:var(--accent)}
+.gframe{aspect-ratio:16/9;min-height:340px;background:#000;border-radius:12px;border:1px solid var(--border);overflow:hidden}
+.gframe iframe{width:100%;height:100%;border:0}
+.gph{height:100%;min-height:340px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;background:radial-gradient(circle at center,rgba(98,217,255,.15),transparent 60%)}
+.gph .big{font-size:64px;margin-bottom:12px}
+.gbtns{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.glist{margin:12px 0 0 20px;color:var(--muted);line-height:1.9}
+@media(max-width:900px){
+.menu-btn{display:block}
+.nav-links{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;background:#070c1f;border-bottom:1px solid var(--border)}
+.nav-links.open{display:flex}
+.nav-links a{display:block;padding:16px 5%;border-top:1px solid var(--border)}
+.grid2,.dash,.mission-level-grid,.grid3,.eq{grid-template-columns:1fr}
+.span2{grid-column:span 1}
+.grid4{grid-template-columns:repeat(2,1fr)}
+.orbit,.planet{opacity:.2}
+}
+@media(max-width:600px){
+section{padding:75px 5%}
+.hero{padding-left:5%;padding-right:5%}
+.grid4{grid-template-columns:1fr}
+.badges{grid-template-columns:repeat(2,1fr)}
+.player-mini{display:none}
+.modal-content{padding:24px 18px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
-
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<!-- NAVIGATION -->
-
-<nav class="navbar">
-
-    <div class="logo" onclick="scrollToSection('home')">
-        <div class="logo-icon"></div>
-
-        <div class="logo-text">
-            <strong>PROJECT AURORA</strong>
-            <span>AI SPACE PROGRAM</span>
-        </div>
-    </div>
-
-    <ul class="nav-links">
-        <li><a href="#mission">MISSION</a></li>
-        <li><a href="#crew">CREW</a></li>
-        <li><a href="#technology">TECHNOLOGY</a></li>
-        <li><a href="#academy">AI TRAINING</a></li>
-        <li><a href="#dashboard">PROGRESS</a></li>
-        <li><a href="#game">GAME LEVELS</a></li>
-    </ul>
-
-    <div class="player-mini">
-        <div class="rank-mini" id="navRank">CADET</div>
-        <div class="xp-mini" id="navXP">0 XP</div>
-    </div>
-
+<nav class="navbar" aria-label="Main">
+  <button class="logo" onclick="scrollToSection('home')" aria-label="Project Aurora home">
+    <span class="logo-icon" aria-hidden="true">✦</span>
+    <span><strong>PROJECT AURORA</strong><span>AI SPACE PROGRAM</span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#guide">ETHICAL AI GUIDE</a></li>
+    <li><a href="#academy">AI TRAINING</a></li>
+    <li><a href="#dashboard">PROGRESS</a></li>
+    <li><a href="#game">THE GAME</a></li>
+    <li><a href="#sources">SOURCES</a></li>
+  </ul>
+  <div class="player-mini">
+    <div class="rank-mini" id="navRank">CADET</div>
+    <div class="xp-mini" id="navXP">0 XP</div>
+  </div>
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">☰</button>
 </nav>
 
-
-<!-- HERO -->
-
+<main id="main">
 <header class="hero" id="home">
-
-    <div class="hero-content">
-
-        <div class="status">
-            <span class="status-dot"></span>
-            AURORA PROGRAM ONLINE
-        </div>
-
-        <h1>
-            HUMANITY'S<br>
-            <span>AI FRONTIER.</span>
-        </h1>
-
-        <p>
-            Welcome to Project Aurora — humanity's next-generation
-            deep-space exploration program. Train with artificial
-            intelligence, master futuristic technology, and earn your
-            mission clearance for the journey beyond Earth.
-        </p>
-
-        <div class="hero-buttons">
-            <button class="btn btn-primary" onclick="scrollToSection('academy')">
-                BEGIN AI TRAINING
-            </button>
-
-            <button class="btn btn-secondary" onclick="scrollToSection('mission')">
-                EXPLORE THE MISSION
-            </button>
-        </div>
-
+  <div class="hero-content">
+    <div class="status"><span class="status-dot"></span>AURORA PROGRAM ONLINE</div>
+    <h1>USE AI<br><span>THE RIGHT WAY.</span></h1>
+    <p>AI is a powerful tool for learning, but only when you use it honestly, safely, and thoughtfully. Learn the rules of ethical AI use, test your knowledge, then put it to work in the Project Aurora game.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary" onclick="scrollToSection('academy')">BEGIN AI TRAINING</button>
+      <button class="btn btn-secondary" onclick="scrollToSection('guide')">READ THE GUIDE</button>
     </div>
-
-    <div class="orbit"></div>
-    <div class="planet"></div>
-    <div class="satellite"></div>
-
+  </div>
+  <div class="orbit" aria-hidden="true"></div>
+  <div class="planet" aria-hidden="true"></div>
 </header>
 
-
-<!-- MISSION -->
-
-<section id="mission">
-
-    <div class="section-heading">
-        <div class="section-label">01 / THE MISSION</div>
-
-        <h2>Beyond Earth. Beyond Limits.</h2>
-
-        <p>
-            Project Aurora is a fictional international space exploration
-            program designed to prepare humanity for long-duration missions
-            beyond the Moon and Mars.
-        </p>
+<section id="guide">
+  <div class="section-heading">
+    <div class="section-label">01 / THE ETHICAL AI GUIDE</div>
+    <h2>Six rules for using AI well.</h2>
+    <p>Whether you are writing, studying, or coding, these habits keep you honest, safe, and actually learning. Always follow your own school's AI policy, which may be stricter.</p>
+  </div>
+  <div class="grid3">
+    <div class="card"><div class="tech-icon" aria-hidden="true">🤝</div><h3>1. Be Honest</h3><p>Say when you used AI and how, if your teacher asks for it. Submitting AI work as your own is cheating, even if no one catches it.</p></div>
+    <div class="card"><div class="tech-icon" aria-hidden="true">🧠</div><h3>2. Think First</h3><p>Try the problem yourself before asking AI. Use it to explain, quiz, or give feedback, so you build your own skills and don't skip them.</p></div>
+    <div class="card"><div class="tech-icon" aria-hidden="true">🔍</div><h3>3. Verify Everything</h3><p>AI can state wrong facts confidently and invent sources. Check important claims in textbooks or trusted websites before you rely on them.</p></div>
+    <div class="card"><div class="tech-icon" aria-hidden="true">🔒</div><h3>4. Protect Privacy</h3><p>Never enter passwords, addresses, or other people's personal information. Treat anything you type as something that could be stored.</p></div>
+    <div class="card"><div class="tech-icon" aria-hidden="true">⚖️</div><h3>5. Watch for Bias</h3><p>AI learns from human data and can repeat stereotypes or leave people out. Ask whether an answer is fair, and whose view is missing.</p></div>
+    <div class="card"><div class="tech-icon" aria-hidden="true">📜</div><h3>6. Follow the Rules</h3><p>Rules differ by class and school. If you are unsure whether AI is allowed for an assignment, ask your teacher first.</p></div>
+  </div>
+  <div class="eq" style="margin-top:25px">
+    <div class="card">
+      <h3>✅ Responsible uses</h3>
+      <div class="example">Asking AI to explain a concept in simpler words, then summarizing it yourself.</div>
+      <div class="example">Having AI quiz you before a test.</div>
+      <div class="example">Asking for feedback on your own draft, then revising it yourself.</div>
+      <div class="example">Brainstorming topic ideas, then researching your pick.</div>
     </div>
-
-    <div class="mission-grid">
-
-        <div class="card">
-
-            <h3>Our Mission</h3>
-
-            <p>
-                Aurora combines human exploration with advanced artificial
-                intelligence. Autonomous systems help astronauts navigate,
-                analyze alien environments, maintain spacecraft systems,
-                and make informed decisions when communication with Earth
-                is impossible.
-            </p>
-
-            <p style="margin-top:15px;">
-                The mission's greatest goal isn't simply reaching another
-                world. It is developing the knowledge, technology, and
-                people necessary for humanity to become a multi-planetary
-                civilization.
-            </p>
-
-            <div class="mission-stats">
-
-                <div class="stat">
-                    <strong>2042</strong>
-                    <span>Target Launch</span>
-                </div>
-
-                <div class="stat">
-                    <strong>4</strong>
-                    <span>Crew Members</span>
-                </div>
-
-                <div class="stat">
-                    <strong>18 mo.</strong>
-                    <span>Mission Duration</span>
-                </div>
-
-                <div class="stat">
-                    <strong>AI-X1</strong>
-                    <span>Primary AI</span>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="card">
-
-            <h3>Why AI Matters</h3>
-
-            <p>
-                Deep-space missions face enormous distances, limited
-                communication, and unpredictable environments.
-            </p>
-
-            <br>
-
-            <p>
-                AI can process information faster than humans, identify
-                patterns, support scientific research, and assist astronauts
-                without replacing human judgment.
-            </p>
-
-            <br>
-
-            <p style="color:var(--accent);">
-                The future of exploration will require both human
-                intelligence and artificial intelligence.
-            </p>
-
-        </div>
-
+    <div class="card">
+      <h3>🚫 Irresponsible uses</h3>
+      <div class="example bad">Submitting AI-written work as your own.</div>
+      <div class="example bad">Using AI during a test or quiz when it is not allowed.</div>
+      <div class="example bad">Citing sources the AI gave you without checking they exist.</div>
+      <div class="example bad">Making fake images or messages about real people.</div>
     </div>
-
+  </div>
+  <div class="card" style="margin-top:25px">
+    <h3>Before you hand it in: a quick checklist</h3>
+    <label class="chk"><input type="checkbox"> Is AI allowed for this assignment?</label>
+    <label class="chk"><input type="checkbox"> Is the final work mostly my own thinking and writing?</label>
+    <label class="chk"><input type="checkbox"> Did I check every fact and source?</label>
+    <label class="chk"><input type="checkbox"> Did I leave out private information?</label>
+    <label class="chk"><input type="checkbox"> Did I note my AI use if required?</label>
+  </div>
 </section>
 
-
-<!-- CREW -->
-
-<section id="crew">
-
-    <div class="section-heading">
-        <div class="section-label">02 / THE CREW</div>
-
-        <h2>Meet Aurora One.</h2>
-
-        <p>
-            Four specialists were selected to lead humanity's first
-            AI-assisted deep-space exploration mission.
-        </p>
-    </div>
-
-    <div class="crew-grid">
-
-        <div class="card crew-card">
-            <div class="avatar">👩‍🚀</div>
-            <h3>Dr. Maya Chen</h3>
-            <div class="role">Mission Commander</div>
-            <p>Leads the crew and manages critical mission decisions.</p>
-        </div>
-
-        <div class="card crew-card">
-            <div class="avatar">👨‍🚀</div>
-            <h3>Marcus Reed</h3>
-            <div class="role">Systems Engineer</div>
-            <p>Maintains spacecraft systems and autonomous technology.</p>
-        </div>
-
-        <div class="card crew-card">
-            <div class="avatar">👩‍🔬</div>
-            <h3>Dr. Sofia Alvarez</h3>
-            <div class="role">Astrobiologist</div>
-            <p>Studies potential signs of life and extraterrestrial biology.</p>
-        </div>
-
-        <div class="card crew-card">
-            <div class="avatar">🤖</div>
-            <h3>AI-X1</h3>
-            <div class="role">Autonomous Intelligence</div>
-            <p>Supports navigation, analysis, maintenance, and decision-making.</p>
-        </div>
-
-    </div>
-
+<section id="academy">
+  <div class="section-heading">
+    <div class="section-label">04 / AI ACADEMY</div>
+    <h2>Train for the future.</h2>
+    <p>Complete each module, then pass its 3-question knowledge check (2 correct to pass) to earn XP, unlock badges, and raise your rank. Modules unlock in order.</p>
+  </div>
+  <div class="grid3" id="moduleGrid"></div>
 </section>
-
-
-<!-- TECHNOLOGY -->
-
-<section id="technology">
-
-    <div class="section-heading">
-        <div class="section-label">03 / TECHNOLOGY</div>
-
-        <h2>The tools of tomorrow.</h2>
-
-        <p>
-            Aurora depends on technologies that allow humans and intelligent
-            machines to operate together in environments far beyond Earth.
-        </p>
-    </div>
-
-    <div class="tech-grid">
-
-        <div class="card tech-card">
-            <div class="tech-icon">🛰️</div>
-            <h3>Aurora Navigation AI</h3>
-            <p>
-                An autonomous navigation system capable of calculating
-                spacecraft trajectories and identifying hazards.
-            </p>
-        </div>
-
-        <div class="card tech-card">
-            <div class="tech-icon">🧠</div>
-            <h3>AI-X1 Intelligence Core</h3>
-            <p>
-                Processes scientific data, assists crew members, and
-                provides recommendations during emergencies.
-            </p>
-        </div>
-
-        <div class="card tech-card">
-            <div class="tech-icon">🦾</div>
-            <h3>ARES Robotics</h3>
-            <p>
-                Autonomous robots designed to explore dangerous environments
-                before humans enter them.
-            </p>
-        </div>
-
-        <div class="card tech-card">
-            <div class="tech-icon">🌱</div>
-            <h3>BioLoop Systems</h3>
-            <p>
-                Recycling systems designed to recover water, oxygen, and
-                nutrients during long-duration missions.
-            </p>
-        </div>
-
-        <div class="card tech-card">
-            <div class="tech-icon">🔭</div>
-            <h3>Deep-Space Sensors</h3>
-            <p>
-                Sensor arrays monitor radiation, temperature, atmospheric
-                composition, and geological conditions.
-            </p>
-        </div>
-
-        <div class="card tech-card">
-            <div class="tech-icon">⚡</div>
-            <h3>Helios Power Core</h3>
-            <p>
-                A fictional high-efficiency power system designed for
-                extended exploration missions.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- AI ACADEMY -->
-
-<section class="academy" id="academy">
-
-    <div class="section-heading">
-
-        <div class="section-label">04 / AI ACADEMY</div>
-
-        <h2>Train for the future.</h2>
-
-        <p>
-            Complete AI training modules to earn XP, unlock badges,
-            increase your mission rank, and become mission-ready.
-        </p>
-
-    </div>
-
-    <div class="learning-grid">
-
-        <div class="card module-card" onclick="openModule(1)">
-
-            <div class="module-number">01</div>
-
-            <div class="module-icon">🧠</div>
-
-            <h3>AI Fundamentals</h3>
-
-            <p>
-                Learn what artificial intelligence is, how it works,
-                and where we encounter it every day.
-            </p>
-
-            <div class="module-progress">
-                <span id="progress1"></span>
-            </div>
-
-            <div class="module-status" id="status1">
-                LOCKED: BEGIN TRAINING
-            </div>
-
-        </div>
-
-
-        <div class="card module-card" onclick="openModule(2)">
-
-            <div class="module-number">02</div>
-
-            <div class="module-icon">🛠️</div>
-
-            <h3>AI Tools & Techniques</h3>
-
-            <p>
-                Explore practical ways students can use AI for research,
-                brainstorming, writing, coding, and learning.
-            </p>
-
-            <div class="module-progress">
-                <span id="progress2"></span>
-            </div>
-
-            <div class="module-status" id="status2">
-                LOCKED
-            </div>
-
-        </div>
-
-
-        <div class="card module-card" onclick="openModule(3)">
-
-            <div class="module-number">03</div>
-
-            <div class="module-icon">💬</div>
-
-            <h3>Prompt Engineering</h3>
-
-            <p>
-                Learn how to communicate effectively with AI systems
-                using clear, structured prompts.
-            </p>
-
-            <div class="module-progress">
-                <span id="progress3"></span>
-            </div>
-
-            <div class="module-status" id="status3">
-                LOCKED
-            </div>
-
-        </div>
-
-
-        <div class="card module-card" onclick="openModule(4)">
-
-            <div class="module-number">04</div>
-
-            <div class="module-icon">⚖️</div>
-
-            <h3>Ethical AI</h3>
-
-            <p>
-                Understand bias, privacy, misinformation, academic
-                integrity, and responsible AI usage.
-            </p>
-
-            <div class="module-progress">
-                <span id="progress4"></span>
-            </div>
-
-            <div class="module-status" id="status4">
-                LOCKED
-            </div>
-
-        </div>
-
-
-        <div class="card module-card" onclick="openModule(5)">
-
-            <div class="module-number">05</div>
-
-            <div class="module-icon">🚀</div>
-
-            <h3>AI in Space</h3>
-
-            <p>
-                Discover how AI could help humans explore worlds beyond
-                Earth.
-            </p>
-
-            <div class="module-progress">
-                <span id="progress5"></span>
-            </div>
-
-            <div class="module-status" id="status5">
-                LOCKED
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- DASHBOARD -->
 
 <section id="dashboard">
-
-    <div class="section-heading">
-
-        <div class="section-label">05 / MISSION CONTROL</div>
-
-        <h2>Your Mission Dashboard.</h2>
-
-        <p>
-            Track your training progress and mission clearance.
-        </p>
-
+  <div class="section-heading">
+    <div class="section-label">05 / MISSION CONTROL</div>
+    <h2>Your Mission Dashboard.</h2>
+    <p>Track your training progress and mission clearance. Progress is saved in this browser.</p>
+  </div>
+  <div class="dash">
+    <div class="card span2">
+      <div class="xp-top">
+        <div><h3 id="rankTitle">CADET</h3><p id="levelText">Level 1</p></div>
+        <strong id="xpText">0 XP</strong>
+      </div>
+      <div class="xp-bar" role="progressbar" aria-label="XP to next level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="xpBarWrap"><div class="xp-fill" id="xpFill"></div></div>
+      <div class="level-info"><span id="currentXP">0 XP</span><span id="nextXP">250 XP</span></div>
     </div>
-
-    <div class="dashboard-grid">
-
-        <div class="card xp-card">
-
-            <div class="xp-top">
-
-                <div>
-                    <h3 id="rankTitle">CADET</h3>
-                    <p id="levelText" style="color:var(--muted); margin-top:5px;">
-                        Level 1
-                    </p>
-                </div>
-
-                <strong id="xpText">0 XP</strong>
-
-            </div>
-
-            <div class="xp-bar">
-                <div class="xp-fill" id="xpFill"></div>
-            </div>
-
-            <div class="level-info">
-                <span id="currentXP">0 XP</span>
-                <span id="nextXP">250 XP</span>
-            </div>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>Mission Readiness</h3>
-
-            <div style="font-size:55px; margin:20px 0; color:var(--primary);" id="readiness">
-                0%
-            </div>
-
-            <p>
-                Complete training modules and challenges to increase your
-                mission readiness.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>Training Statistics</h3>
-
-            <div class="mission-stats">
-
-                <div class="stat">
-                    <strong id="completedCount">0</strong>
-                    <span>Modules Complete</span>
-                </div>
-
-                <div class="stat">
-                    <strong id="badgeCount">0</strong>
-                    <span>Badges Earned</span>
-                </div>
-
-                <div class="stat">
-                    <strong id="gameLevelCount">0</strong>
-                    <span>Game Levels Unlocked</span>
-                </div>
-
-                <div class="stat">
-                    <strong id="levelNumber">1</strong>
-                    <span>Current Level</span>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="card xp-card">
-
-            <h3>Achievement Badges</h3>
-
-            <div class="badges">
-
-                <div class="badge" id="badge1">
-                    <div class="badge-icon">🧠</div>
-                    <strong>AI Initiate</strong>
-                    <span>Complete AI Fundamentals</span>
-                </div>
-
-                <div class="badge" id="badge2">
-                    <div class="badge-icon">🛠️</div>
-                    <strong>Tool Specialist</strong>
-                    <span>Complete AI Tools & Techniques</span>
-                </div>
-
-                <div class="badge" id="badge3">
-                    <div class="badge-icon">💬</div>
-                    <strong>Prompt Pilot</strong>
-                    <span>Complete Prompt Engineering</span>
-                </div>
-
-                <div class="badge" id="badge4">
-                    <div class="badge-icon">⚖️</div>
-                    <strong>Ethics Officer</strong>
-                    <span>Complete Ethical AI</span>
-                </div>
-
-                <div class="badge" id="badge5">
-                    <div class="badge-icon">🚀</div>
-                    <strong>Space AI Specialist</strong>
-                    <span>Complete AI in Space</span>
-                </div>
-
-                <div class="badge" id="badge6">
-                    <div class="badge-icon">🌌</div>
-                    <strong>AURORA Specialist</strong>
-                    <span>Complete all five trainings</span>
-                </div>
-
-            </div>
-
-        </div>
-
+    <div class="card">
+      <h3>Mission Readiness</h3>
+      <div style="font-size:55px;margin:20px 0;color:var(--primary)" id="readiness">0%</div>
+      <p>Complete all five modules to reach 100% readiness.</p>
     </div>
-
+    <div class="card">
+      <h3>Training Statistics</h3>
+      <div class="stats">
+        <div class="stat"><strong id="completedCount">0</strong><span>Modules Complete</span></div>
+        <div class="stat"><strong id="badgeCount">0</strong><span>Badges Earned</span></div>
+        <div class="stat"><strong id="gameLevelCount">0</strong><span>Game Levels Unlocked</span></div>
+        <div class="stat"><strong id="levelNumber">1</strong><span>Current Level</span></div>
+      </div>
+    </div>
+    <div class="card span2">
+      <h3>Achievement Badges</h3>
+      <div class="badges" id="badgeGrid"></div>
+      <div style="margin-top:20px"><button class="btn btn-secondary" onclick="resetProgress()">RESET PROGRESS</button></div>
+    </div>
+  </div>
 </section>
 
-
-<!-- UNITY GAME LEVELS -->
-
-<section class="game-section" id="game">
-
-    <div class="section-heading">
-        <div class="section-label">06 / AURORA GAME LEVELS</div>
-        <h2>Train. Unlock. Explore.</h2>
-        <p>
-            Every Unity game level is locked behind an AI training module.
-            Complete the training quiz to earn XP, unlock the corresponding
-            mission, and continue deeper into space.
-        </p>
+<section id="game">
+  <div class="section-heading">
+    <div class="section-label">06 / THE PROJECT AURORA GAME</div>
+    <h2>Practice it in the game.</h2>
+    <p>Our Unity game puts these ethical AI choices into action. Pass a training quiz here to unlock the matching game level.</p>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="gframe" id="gameFrame">
+        <div class="gph"><div class="big" aria-hidden="true">🎮</div><h3>PROJECT AURORA: THE GAME</h3><p>Coming soon. The Unity game is still in development and will play right here.</p></div>
+      </div>
+      <div class="gbtns">
+        <button class="btn btn-primary" onclick="loadGame()">PLAY GAME</button>
+        <button class="btn btn-secondary" onclick="fullscreenGame()">FULLSCREEN</button>
+      </div>
     </div>
-
-    <div class="mission-level-grid">
-
-        <div class="mission-game-card locked" id="missionGame1">
-            <div class="mission-image level-one">
-                <div class="mission-number">01</div>
-                <div class="mission-emoji">🚀</div>
-                <div class="mission-lock">🔒</div>
-            </div>
-            <div class="mission-info">
-                <div class="mission-status locked-status">LOCKED</div>
-                <h3>Mission 01: Launch</h3>
-                <p>Prepare the Aurora spacecraft for launch. Complete system checks and begin your first AI-assisted mission.</p>
-                <div class="mission-requirement"><span>Required Training</span><strong>AI Fundamentals</strong></div>
-                <div class="mission-xp">+250 XP FROM TRAINING</div>
-                <button class="btn btn-secondary" id="levelButton1" onclick="launchUnityLevel(1)" disabled>🔒 COMPLETE TRAINING</button>
-            </div>
-        </div>
-
-        <div class="mission-game-card locked" id="missionGame2">
-            <div class="mission-image level-two">
-                <div class="mission-number">02</div>
-                <div class="mission-emoji">🌙</div>
-                <div class="mission-lock">🔒</div>
-            </div>
-            <div class="mission-info">
-                <div class="mission-status locked-status">LOCKED</div>
-                <h3>Mission 02: Lunar Base</h3>
-                <p>Establish the first Aurora research station on the Moon using AI-assisted tools to solve engineering problems.</p>
-                <div class="mission-requirement"><span>Required Training</span><strong>AI Tools & Techniques</strong></div>
-                <div class="mission-xp">+300 XP FROM TRAINING</div>
-                <button class="btn btn-secondary" id="levelButton2" onclick="launchUnityLevel(2)" disabled>🔒 COMPLETE TRAINING</button>
-            </div>
-        </div>
-
-        <div class="mission-game-card locked" id="missionGame3">
-            <div class="mission-image level-three">
-                <div class="mission-number">03</div>
-                <div class="mission-emoji">🪐</div>
-                <div class="mission-lock">🔒</div>
-            </div>
-            <div class="mission-info">
-                <div class="mission-status locked-status">LOCKED</div>
-                <h3>Mission 03: Deep Space</h3>
-                <p>Travel beyond the Moon during a communication blackout and use strong prompts to work with Aurora's AI.</p>
-                <div class="mission-requirement"><span>Required Training</span><strong>Prompt Engineering</strong></div>
-                <div class="mission-xp">+350 XP FROM TRAINING</div>
-                <button class="btn btn-secondary" id="levelButton3" onclick="launchUnityLevel(3)" disabled>🔒 COMPLETE TRAINING</button>
-            </div>
-        </div>
-
-        <div class="mission-game-card locked" id="missionGame4">
-            <div class="mission-image level-four">
-                <div class="mission-number">04</div>
-                <div class="mission-emoji">👽</div>
-                <div class="mission-lock">🔒</div>
-            </div>
-            <div class="mission-info">
-                <div class="mission-status locked-status">LOCKED</div>
-                <h3>Mission 04: Alien Frontier</h3>
-                <p>Explore an unknown world and make responsible decisions about privacy, bias, safety, and autonomous AI.</p>
-                <div class="mission-requirement"><span>Required Training</span><strong>Ethical AI</strong></div>
-                <div class="mission-xp">+400 XP FROM TRAINING</div>
-                <button class="btn btn-secondary" id="levelButton4" onclick="launchUnityLevel(4)" disabled>🔒 COMPLETE TRAINING</button>
-            </div>
-        </div>
-
-        <div class="mission-game-card locked" id="missionGame5">
-            <div class="mission-image level-five">
-                <div class="mission-number">05</div>
-                <div class="mission-emoji">🌌</div>
-                <div class="mission-lock">🔒</div>
-            </div>
-            <div class="mission-info">
-                <div class="mission-status locked-status">LOCKED</div>
-                <h3>Mission 05: Aurora Prime</h3>
-                <p>Complete humanity's ultimate AI-assisted exploration mission. Your knowledge determines whether Aurora succeeds.</p>
-                <div class="mission-requirement"><span>Required Training</span><strong>AI in Space</strong></div>
-                <div class="mission-xp">+500 XP FROM TRAINING</div>
-                <button class="btn btn-secondary" id="levelButton5" onclick="launchUnityLevel(5)" disabled>🔒 COMPLETE TRAINING</button>
-            </div>
-        </div>
-
+    <div class="card">
+      <h3>About the game</h3>
+      <p>You are a cadet aboard Aurora One, working with the ship's AI through five missions. Each mission tests a habit from the guide.</p>
+      <ul class="glist">
+        <li>Know what AI can and can't do</li>
+        <li>Verify before you trust</li>
+        <li>Write clear prompts</li>
+        <li>Choose honesty and fairness</li>
+        <li>Protect privacy and spot fakes</li>
+      </ul>
     </div>
-
-    <div class="unity-player-container" id="unityPlayerContainer">
-        <div class="unity-player-header">
-            <div>
-                <div class="section-label">UNITY WEBGL MISSION</div>
-                <h3 id="unityMissionTitle">Select an unlocked mission</h3>
-            </div>
-            <button class="btn btn-secondary" onclick="closeUnityGame()">CLOSE GAME</button>
-        </div>
-        <div class="unity-frame" id="unityFrame">
-            <div class="unity-placeholder">
-                <div class="unity-icon">🚀</div>
-                <h3>AURORA UNITY SIMULATOR</h3>
-                <p>Complete training and select an unlocked mission to launch its separate Unity WebGL build.</p>
-            </div>
-        </div>
-    </div>
-
+  </div>
 </section>
-
-
-<!-- FINAL MISSION -->
 
 <section>
-
-    <div class="card" style="text-align:center; padding:60px 25px;">
-
-        <div class="section-label">FINAL CLEARANCE</div>
-
-        <h2 style="font-size:45px; margin-bottom:15px;">
-            Are you ready for Aurora?
-        </h2>
-
-        <p style="max-width:650px; margin:0 auto 25px; color:var(--muted); line-height:1.7;">
-            Complete all five AI trainings, earn your badges, unlock all five Unity
-            missions, and become part of the next generation of explorers.
-        </p>
-
-        <button class="btn btn-primary" onclick="scrollToSection('dashboard')">
-            VIEW MY CLEARANCE
-        </button>
-
-    </div>
-
+  <div class="card" style="text-align:center;padding:60px 25px">
+    <div class="section-label">FINAL CLEARANCE</div>
+    <h2 style="font-size:clamp(30px,5vw,45px);margin-bottom:15px">Ready to use AI the right way?</h2>
+    <p style="max-width:650px;margin:0 auto 25px">Complete all five trainings, earn your badges, and unlock every mission in the game.</p>
+    <button class="btn btn-primary" onclick="scrollToSection('dashboard')">VIEW MY CLEARANCE</button>
+  </div>
 </section>
 
+<section id="sources" class="sources">
+  <div class="card">
+    <div class="section-label">SOURCES &amp; CREDITS</div>
+    <h3>Where this content comes from</h3>
+    <p>Lesson text and quiz questions were written for this portal. The Aurora story and missions are fictional. Icons are standard Unicode emoji and the site uses system fonts, with no third-party images or code libraries. Further reading:</p>
+    <ul>
+      <li>AI4K12 Initiative, "Five Big Ideas in AI" (ai4k12.org)</li>
+      <li>UNESCO, "Guidance for generative AI in education and research" (2023)</li>
+      <li>Your school's or teacher's own policy on AI use</li>
+    </ul>
+  </div>
+</section>
+</main>
 
-<!-- MODAL -->
-
-<div class="modal" id="lessonModal">
-
-    <div class="modal-content">
-
-        <button class="close" onclick="closeModal()">×</button>
-
-        <div id="lessonContent"></div>
-
-    </div>
-
+<div class="modal" id="lessonModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-content">
+    <button class="close" onclick="closeModal()" aria-label="Close">×</button>
+    <div id="lessonContent"></div>
+  </div>
 </div>
 
-
-<!-- TOAST -->
-
-<div class="toast" id="toast">
-    <strong id="toastTitle">Achievement Unlocked!</strong>
-    <div id="toastMessage"></div>
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <strong id="toastTitle"></strong>
+  <div id="toastMessage"></div>
 </div>
-
 
 <footer>
-
-    <p>
-        <strong>PROJECT AURORA</strong> — AI Space Program
-    </p>
-
-    <p style="margin-top:8px; font-size:12px;">
-        A fictional educational space exploration program.
-    </p>
-
+  <p><strong>PROJECT AURORA</strong> — AI Space Program</p>
+  <p style="margin-top:8px;font-size:12px">A fictional educational space exploration program.</p>
 </footer>
 
-
 <script>
-
-/* =========================================================
-   GAME DATA
-========================================================= */
-
+/* ---------- DATA ---------- */
+/* In each quiz, the FIRST answer (a[0]) is correct; answers are shuffled when shown. */
 const modules = {
-
-    1: {
-        title: "AI Fundamentals",
-        icon: "🧠",
-        xp: 250,
-        intro:
-        "Artificial intelligence refers to computer systems designed to perform tasks that normally require human intelligence.",
-
-        lessons: [
-            {
-                title: "What is AI?",
-                text:
-                "AI systems can recognize patterns, make predictions, understand language, generate content, and help people solve problems."
-            },
-            {
-                title: "Machine Learning",
-                text:
-                "Machine learning is a branch of AI where systems learn patterns from data rather than being explicitly programmed with every possible rule."
-            },
-            {
-                title: "AI Around You",
-                text:
-                "Recommendation systems, voice assistants, navigation apps, spam filters, image recognition, and generative AI are examples of AI applications."
-            }
-        ],
-
-        question:
-        "Which statement best describes artificial intelligence?",
-
-        answers: [
-            "A computer system designed to perform tasks involving human-like intelligence.",
-            "A faster internet connection.",
-            "A type of computer monitor.",
-            "A programming language."
-        ],
-
-        correct: 0
-    },
-
-
-    2: {
-        title: "AI Tools & Techniques",
-        icon: "🛠️",
-        xp: 300,
-        intro:
-        "AI tools can support students with brainstorming, research, coding, studying, organization, and creative work.",
-
-        lessons: [
-            {
-                title: "AI as a Learning Assistant",
-                text:
-                "Students can ask AI to explain difficult concepts, generate practice questions, create examples, or provide feedback."
-            },
-            {
-                title: "Verification Matters",
-                text:
-                "AI systems can produce incorrect information. Important claims should be checked against reliable sources."
-            },
-            {
-                title: "Use AI to Extend Your Skills",
-                text:
-                "The best use of AI is often collaborative: the student provides judgment, creativity, context, and verification."
-            }
-        ],
-
-        question:
-        "What should you do when an AI system gives you an important factual claim?",
-
-        answers: [
-            "Automatically trust it.",
-            "Verify the information using reliable sources.",
-            "Share it immediately.",
-            "Assume AI cannot make mistakes."
-        ],
-
-        correct: 1
-    },
-
-
-    3: {
-        title: "Prompt Engineering",
-        icon: "💬",
-        xp: 350,
-        intro:
-        "Prompt engineering is the practice of creating clear instructions that help AI produce more useful results.",
-
-        lessons: [
-            {
-                title: "Be Specific",
-                text:
-                "Instead of asking a vague question, provide context, your goal, audience, desired format, and important constraints."
-            },
-            {
-                title: "Give the AI a Role",
-                text:
-                "You can tell an AI to act as a tutor, programmer, editor, researcher, or another useful role."
-            },
-            {
-                title: "Improve Through Iteration",
-                text:
-                "Strong prompting is often a process. Review the result, identify weaknesses, and refine the instructions."
-            }
-        ],
-
-        question:
-        "Which prompt is the most specific?",
-
-        answers: [
-            "Tell me something about AI.",
-            "AI?",
-            "Explain AI to a ninth-grade student using three examples and a short analogy.",
-            "Give me information."
-        ],
-
-        correct: 2
-    },
-
-
-    4: {
-        title: "Ethical AI",
-        icon: "⚖️",
-        xp: 400,
-        intro:
-        "Responsible AI requires people to think about privacy, bias, misinformation, academic integrity, safety, and human oversight.",
-
-        lessons: [
-            {
-                title: "Bias",
-                text:
-                "AI systems can reflect biases present in their training data or design. Users should consider whether an AI result is fair and appropriate."
-            },
-            {
-                title: "Privacy",
-                text:
-                "Do not enter sensitive or private information into AI systems unless you are authorized to do so and understand how the data is handled."
-            },
-            {
-                title: "Academic Integrity",
-                text:
-                "AI should support learning rather than replace a student's own thinking. Always follow your teacher's rules for AI use."
-            }
-        ],
-
-        question:
-        "Which is an example of responsible AI use in school?",
-
-        answers: [
-            "Submitting AI-generated work as entirely your own.",
-            "Using AI to cheat on an assessment.",
-            "Using AI to generate practice questions and then studying the material.",
-            "Sharing private student information with an AI system."
-        ],
-
-        correct: 2
-    },
-
-
-    5: {
-        title: "AI in Space",
-        icon: "🚀",
-        xp: 500,
-        intro:
-        "AI could become an important tool for future exploration because spacecraft operate far from Earth and often need to make decisions with limited communication.",
-
-        lessons: [
-            {
-                title: "Autonomous Navigation",
-                text:
-                "AI systems could help spacecraft identify hazards, calculate routes, and adjust mission plans."
-            },
-            {
-                title: "Scientific Discovery",
-                text:
-                "AI can analyze enormous quantities of scientific data and identify patterns that humans may miss."
-            },
-            {
-                title: "Human + AI",
-                text:
-                "Future exploration is likely to involve humans and AI working together, with humans maintaining responsibility for important decisions."
-            }
-        ],
-
-        question:
-        "Why could AI be especially useful during deep-space missions?",
-
-        answers: [
-            "Spacecraft can always communicate instantly with Earth.",
-            "AI can process information locally when communication delays make immediate help impossible.",
-            "AI eliminates the need for astronauts.",
-            "AI makes spacecraft unnecessary."
-        ],
-
-        correct: 1
-    }
-
+1:{title:"AI Fundamentals",icon:"🧠",xp:250,
+ intro:"Artificial intelligence refers to computer systems designed to perform tasks that normally require human intelligence.",
+ lessons:[
+  {t:"What is AI?",x:"AI systems can recognize patterns, make predictions, understand language, generate content, and help solve problems. Today's AI is 'narrow': it is good at specific tasks and does not think or understand like a person."},
+  {t:"Machine Learning",x:"Machine learning is a branch of AI where systems learn patterns from data instead of following hand-written rules for every case.",ex:"Example: show a model thousands of labeled photos of cats and dogs, and it learns to tell them apart on new photos."},
+  {t:"Generative AI",x:"Generative AI creates new text, images, code, or audio. Chatbots predict likely words based on patterns in their training data, which is why they can sound confident and still be wrong."},
+  {t:"AI Around You",x:"Recommendations on video apps, voice assistants, navigation apps, spam filters, face unlock, and translation tools all use AI."}],
+ quiz:[
+  {q:"Which statement best describes artificial intelligence?",a:["A computer system designed to perform tasks involving human-like intelligence.","A faster internet connection.","A type of computer monitor.","A programming language."]},
+  {q:"In machine learning, how does a system learn?",a:["By finding patterns in data.","By being told every possible rule.","By connecting to a human brain.","By copying the internet word for word."]},
+  {q:"Which is an example of AI you might use every day?",a:["A spam filter that sorts your email.","A paper calendar.","A basic calculator that adds numbers.","A light switch."]}]},
+2:{title:"AI Tools & Techniques",icon:"🛠️",xp:300,
+ intro:"AI tools can support students with brainstorming, research, coding, studying, and organization, when used as a helper and not a replacement for thinking.",
+ lessons:[
+  {t:"Types of AI Tools",x:"Chatbots such as Claude, ChatGPT, and Gemini help explain ideas and draft text. Other tools translate languages, transcribe speech, recognize images, suggest code, or generate pictures. Always check which tools your school allows."},
+  {t:"AI as a Study Partner",x:"Ask AI to explain a hard idea in simpler words, quiz you, or give feedback on your own draft.",ex:"Good use: \"Quiz me on photosynthesis with 5 questions, one at a time, and tell me why my answers are right or wrong.\""},
+  {t:"Verification Matters",x:"AI can produce incorrect facts and even invent sources. Check important claims against reliable sources such as textbooks, encyclopedias, or official websites."},
+  {t:"Good vs. Poor Use",x:"The best use is collaborative: you provide the judgment, creativity, and checking.",ex:"Good: asking AI to critique your essay's argument, then rewriting it yourself.",bad:"Poor: pasting the assignment and submitting the answer as your own work."}],
+ quiz:[
+  {q:"What should you do when AI gives you an important factual claim?",a:["Verify it using reliable sources.","Automatically trust it.","Share it immediately.","Assume AI cannot make mistakes."]},
+  {q:"Which is the best study use of AI?",a:["Asking it to quiz you and explain your mistakes.","Having it write your whole assignment.","Asking it to take your test.","Copying its answer without reading it."]},
+  {q:"Why might an AI-provided source or citation be a problem?",a:["It might not exist, so you must check it.","AI sources are always real.","Citations never matter.","AI only uses printed books."]}]},
+3:{title:"Prompt Engineering",icon:"💬",xp:350,
+ intro:"Prompt engineering is writing clear instructions that help AI produce more useful results.",
+ lessons:[
+  {t:"Be Specific",x:"Give context, your goal, the audience, the format you want, and any limits.",ex:"Strong: \"Explain how vaccines work to a ninth grader in 3 short paragraphs, with one analogy.\"",bad:"Weak: \"Tell me about vaccines.\""},
+  {t:"Give a Role and Examples",x:"Telling an AI to act as a tutor, editor, or coding mentor changes the style of its help. Showing an example of the output you want helps even more."},
+  {t:"Iterate",x:"Strong prompting is a process. Read the result, find what is missing, and refine.",ex:"Follow-up: \"Make it shorter, use simpler words, and add a real-world example.\""},
+  {t:"Ask for Reasoning",x:"Ask the AI to explain its steps or say how confident it is. That makes mistakes easier to spot."}],
+ quiz:[
+  {q:"Which prompt is the most specific?",a:["Explain AI to a ninth-grade student using three examples and a short analogy.","Tell me something about AI.","AI?","Give me information."]},
+  {q:"The first answer isn't quite right. What is a good next step?",a:["Refine the prompt with what's missing.","Give up on AI.","Accept it as-is.","Repeat the exact same prompt."]},
+  {q:"Why give an AI a role, like 'act as a math tutor'?",a:["It shapes the style and focus of its answer.","It makes the AI always correct.","It gives the AI feelings.","It removes the need to check the answer."]}]},
+4:{title:"Ethical AI",icon:"⚖️",xp:400,
+ intro:"Responsible AI use means thinking about privacy, bias, misinformation, academic integrity, safety, and human oversight.",
+ lessons:[
+  {t:"Bias",x:"AI can reflect biases in its training data or design. Ask whether a result is fair, and whether anyone is left out or stereotyped."},
+  {t:"Privacy",x:"Do not enter passwords, personal details, or other people's private information into AI tools unless you are authorized and understand how the data is handled."},
+  {t:"Misinformation",x:"AI can generate convincing but false text, images, and audio (deepfakes). Check sources before believing or sharing."},
+  {t:"Academic Integrity",x:"AI should support your learning, not replace your thinking. Follow your teacher's rules, and credit AI help when required.",ex:"Responsible: using AI to make practice questions, then studying.",bad:"Irresponsible: submitting AI-written work as your own."}],
+ quiz:[
+  {q:"Which is an example of responsible AI use in school?",a:["Using AI to generate practice questions, then studying the material.","Submitting AI-generated work as entirely your own.","Using AI to cheat on an assessment.","Sharing private student information with an AI system."]},
+  {q:"Why can an AI system produce biased results?",a:["It can reflect biases in its training data or design.","AI is always perfectly neutral.","Bias only comes from the user's typing speed.","AI cannot be affected by data."]},
+  {q:"Which information is safest to enter into an AI tool?",a:["A general question about how volcanoes form.","Your home address.","A classmate's private medical info.","Your account password."]}]},
+5:{title:"Privacy, Safety & Deepfakes",icon:"🛡️",xp:500,
+ intro:"AI makes it easy to create convincing fakes and to overshare personal data. Staying safe means knowing both risks.",
+ lessons:[
+  {t:"Protect Your Data",x:"Anything you type into an AI tool may be stored or reviewed, depending on the service. Keep passwords, full names with addresses, school IDs, and photos of other people out of prompts.",ex:"Safer: \"Help me write a thank-you note to a teacher.\"",bad:"Risky: pasting a classmate's private message or your login details."},
+  {t:"Deepfakes and Fakes",x:"AI can make realistic fake images, voices, and videos. Look for odd details, check the original source, and be careful before sharing shocking content."},
+  {t:"Never Harm Others",x:"Using AI to impersonate, harass, or embarrass someone is harmful and can break school rules or the law. If you see it happening, tell a trusted adult."},
+  {t:"Keep Humans in Charge",x:"AI can make mistakes, so people should make important decisions, especially about health, safety, or fairness. Ask a real person when it matters."}],
+ quiz:[
+  {q:"Which information should you NOT put into an AI tool?",a:["Your passwords and personal details.","A question about how plants grow.","A request for study tips.","A general math problem."]},
+  {q:"You see a shocking video online. What should you do first?",a:["Check whether it comes from a reliable original source.","Share it right away.","Assume it is real because it looks real.","Comment before reading anything."]},
+  {q:"Who should make important decisions that affect people's health or safety?",a:["People, using AI only as a helper.","The AI alone.","Whoever asks AI first.","No one needs to decide."]}]}
 };
 
-
-/* =========================================================
-   UNITY GAME LEVELS
-========================================================= */
-
-/*
- * Each level is a separate Unity WebGL build.
- * Replace the URL for each level with your exported
- * Unity WebGL index.html path.
- */
-const unityLevels = {
-    1: { title: "Mission 01: Launch", module: 1, url: "UnityBuild/Level1/index.html" },
-    2: { title: "Mission 02: Lunar Base", module: 2, url: "UnityBuild/Level2/index.html" },
-    3: { title: "Mission 03: Deep Space", module: 3, url: "UnityBuild/Level3/index.html" },
-    4: { title: "Mission 04: Alien Frontier", module: 4, url: "UnityBuild/Level4/index.html" },
-    5: { title: "Mission 05: Aurora Prime", module: 5, url: "UnityBuild/Level5/index.html" }
-};
-
-/* =========================================================
-   PLAYER DATA
-========================================================= */
-
-let player = JSON.parse(localStorage.getItem("auroraPlayer")) || {
-
-    xp: 0,
-
-    completed: [],
-
-    challenges: [],
-
-    badges: []
-
-};
-
-
-/* =========================================================
-   RANKS
-========================================================= */
-
-const ranks = [
-
-    {
-        name: "CADET",
-        xp: 0
-    },
-
-    {
-        name: "MISSION TRAINEE",
-        xp: 250
-    },
-
-    {
-        name: "SYSTEMS SPECIALIST",
-        xp: 500
-    },
-
-    {
-        name: "MISSION ANALYST",
-        xp: 1000
-    },
-
-    {
-        name: "AI FLIGHT SPECIALIST",
-        xp: 1500
-    },
-
-    {
-        name: "AURORA SPECIALIST",
-        xp: 2500
-    }
-
+const badgeInfo = [
+ [1,"🧠","AI Initiate","Complete AI Fundamentals"],
+ [2,"🛠️","Tool Specialist","Complete AI Tools & Techniques"],
+ [3,"💬","Prompt Pilot","Complete Prompt Engineering"],
+ [4,"⚖️","Ethics Officer","Complete Ethical AI"],
+ [5,"🛡️","Privacy Guardian","Complete Privacy, Safety & Deepfakes"],
+ [6,"🌌","AURORA Specialist","Complete all five trainings"]
 ];
 
+/* Max total XP is 1800, so the top rank is reachable. */
+const ranks = [
+ {name:"CADET",xp:0},{name:"MISSION TRAINEE",xp:250},{name:"SYSTEMS SPECIALIST",xp:550},
+ {name:"MISSION ANALYST",xp:900},{name:"AI FLIGHT SPECIALIST",xp:1350},{name:"AURORA SPECIALIST",xp:1800}
+];
 
-/* =========================================================
-   SAVE
-========================================================= */
+const PASS_MARK = 2;
 
-function savePlayer() {
+/* ---------- SAFE STORAGE ---------- */
+let player = {xp:0,completed:[],badges:[]};
+try {
+  const saved = JSON.parse(localStorage.getItem("auroraPlayer"));
+  if (saved && typeof saved === "object") {
+    if (typeof saved.xp === "number") player.xp = saved.xp;
+    if (Array.isArray(saved.completed)) player.completed = saved.completed;
+    if (Array.isArray(saved.badges)) player.badges = saved.badges;
+  }
+} catch(e) {}
 
-    localStorage.setItem(
-        "auroraPlayer",
-        JSON.stringify(player)
-    );
-
+function savePlayer(){ try { localStorage.setItem("auroraPlayer", JSON.stringify(player)); } catch(e) {} }
+function resetProgress(){
+  if (!confirm("Reset all progress? This cannot be undone.")) return;
+  player = {xp:0,completed:[],badges:[]};
+  savePlayer(); updateUI();
+  showToast("PROGRESS RESET","Starting fresh, cadet.");
 }
 
+/* ---------- HELPERS ---------- */
+const $ = id => document.getElementById(id);
+function getRank(){ let c = ranks[0]; for (const r of ranks) if (player.xp >= r.xp) c = r; return c; }
+function getLevel(){ return Math.floor(player.xp / 250) + 1; }
+function isAvailable(i){ return i === 1 || player.completed.includes(i-1); }
+function shuffle(arr){ const a = arr.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function scrollToSection(id){ $(id).scrollIntoView({behavior:"smooth"}); }
 
-/* =========================================================
-   RANK
-========================================================= */
+/* ---------- BUILD STATIC UI ---------- */
+function buildUI(){
+  let m = "";
+  for (let i=1;i<=5;i++){
+    const mod = modules[i];
+    m += `<button class="card module-card" id="mod${i}" onclick="openModule(${i})">
+      <div class="module-number" aria-hidden="true">0${i}</div>
+      <div class="module-icon" aria-hidden="true">${mod.icon}</div>
+      <h3>${mod.title}</h3>
+      <p>${mod.intro}</p>
+      <div class="bar"><span id="progress${i}"></span></div>
+      <div class="module-status" id="status${i}"></div>
+    </button>`;
+  }
+  $("moduleGrid").innerHTML = m;
 
-function getRank() {
-
-    let current = ranks[0];
-
-    for (let rank of ranks) {
-
-        if (player.xp >= rank.xp) {
-
-            current = rank;
-
-        }
-
-    }
-
-    return current;
-
+  $("badgeGrid").innerHTML = badgeInfo.map(b =>
+    `<div class="badge" id="badge${b[0]}"><div class="badge-icon" aria-hidden="true">${b[1]}</div><strong>${b[2]}</strong><span>${b[3]}</span></div>`).join("");
 }
 
+/* ---------- UPDATE UI ---------- */
+function updateUI(){
+  const rank = getRank(), level = getLevel();
+  $("navRank").textContent = rank.name;
+  $("navXP").textContent = player.xp + " XP";
+  $("rankTitle").textContent = rank.name;
+  $("levelText").textContent = "Level " + level;
+  $("xpText").textContent = player.xp + " XP";
+  $("currentXP").textContent = player.xp + " XP";
+  const next = level * 250, prev = (level-1) * 250;
+  $("nextXP").textContent = next + " XP";
+  const pct = Math.min(100, Math.max(0, (player.xp - prev) / (next - prev) * 100));
+  $("xpFill").style.width = pct + "%";
+  $("xpBarWrap").setAttribute("aria-valuenow", Math.round(pct));
 
-function getLevel() {
+  for (let i=1;i<=5;i++){
+    const done = player.completed.includes(i), avail = isAvailable(i);
+    $("progress"+i).style.width = done ? "100%" : "0%";
+    $("status"+i).textContent = done ? "✓ MODULE COMPLETE" : avail ? "AVAILABLE: BEGIN TRAINING" : "🔒 LOCKED: FINISH THE PREVIOUS MODULE";
+    $("mod"+i).classList.toggle("locked", !avail && !done);
+  }
 
-    return Math.floor(player.xp / 250) + 1;
-
+  $("completedCount").textContent = player.completed.length;
+  $("badgeCount").textContent = player.badges.length;
+  $("gameLevelCount").textContent = player.completed.length;
+  $("levelNumber").textContent = level;
+  $("readiness").textContent = Math.round(player.completed.length / 5 * 100) + "%";
+  for (let i=1;i<=6;i++) $("badge"+i).classList.toggle("unlocked", player.badges.includes(i));
 }
 
-
-/* =========================================================
-   UPDATE UI
-========================================================= */
-
-function updateUI() {
-
-    const rank = getRank();
-
-    const level = getLevel();
-
-    document.getElementById("navRank").textContent =
-        rank.name;
-
-    document.getElementById("navXP").textContent =
-        player.xp + " XP";
-
-    document.getElementById("rankTitle").textContent =
-        rank.name;
-
-    document.getElementById("levelText").textContent =
-        "Level " + level;
-
-    document.getElementById("xpText").textContent =
-        player.xp + " XP";
-
-    document.getElementById("currentXP").textContent =
-        player.xp + " XP";
-
-    const nextLevelXP = level * 250;
-
-    document.getElementById("nextXP").textContent =
-        nextLevelXP + " XP";
-
-    let previousLevelXP = (level - 1) * 250;
-
-    let progress =
-        ((player.xp - previousLevelXP) /
-        (nextLevelXP - previousLevelXP)) * 100;
-
-    progress = Math.min(100, Math.max(0, progress));
-
-    document.getElementById("xpFill").style.width =
-        progress + "%";
-
-
-    /* MODULES */
-
-    for (let i = 1; i <= 5; i++) {
-
-        const complete =
-            player.completed.includes(i);
-
-        document.getElementById(
-            "progress" + i
-        ).style.width =
-            complete ? "100%" : "0%";
-
-        document.getElementById(
-            "status" + i
-        ).textContent =
-            complete
-            ? "✓ MODULE COMPLETE"
-            : i === 1 || player.completed.includes(i - 1)
-                ? "AVAILABLE — BEGIN TRAINING"
-                : "LOCKED";
-    }
-
-
-    /* STATISTICS */
-
-    document.getElementById("completedCount")
-        .textContent = player.completed.length;
-
-    document.getElementById("badgeCount")
-        .textContent = player.badges.length;
-
-    document.getElementById("gameLevelCount")
-        .textContent = player.completed.length;
-
-    document.getElementById("levelNumber")
-        .textContent = level;
-
-
-    /* READINESS */
-
-    let readiness =
-        Math.round(
-            (player.completed.length / 5) * 80 +
-            (player.challenges.length / 2) * 20
-        );
-
-    document.getElementById("readiness")
-        .textContent = readiness + "%";
-
-
-    /* BADGES */
-
-    for (let i = 1; i <= 6; i++) {
-
-        document.getElementById("badge" + i)
-            .classList.toggle(
-                "unlocked",
-                player.badges.includes(i)
-            );
-
-    }
-
-
-    updateUnityLevels();
-
+/* ---------- XP & BADGES ---------- */
+function addXP(amount, reason){
+  const old = getRank().name;
+  player.xp += amount;
+  savePlayer(); updateUI();
+  showToast("+" + amount + " XP", reason);
+  const nr = getRank().name;
+  if (nr !== old) setTimeout(() => showToast("RANK PROMOTION", "You are now " + nr), 3700);
+}
+function unlockBadge(id, title){
+  if (!player.badges.includes(id)){
+    player.badges.push(id);
+    savePlayer(); updateUI();
+    setTimeout(() => showToast("BADGE UNLOCKED", title), 600);
+  }
+}
+function checkBadges(){
+  for (let i=1;i<=5;i++) if (player.completed.includes(i)) unlockBadge(i, badgeInfo[i-1][2]);
+  if (player.completed.length >= 5) unlockBadge(6, "AURORA Specialist");
 }
 
+/* ---------- MODAL / QUIZ ---------- */
+let lastFocus = null, quiz = null;
 
-/* =========================================================
-   XP
-========================================================= */
+function openModule(id){
+  if (!isAvailable(id)){
+    showToast("MODULE LOCKED","Complete the previous module first.");
+    return;
+  }
+  lastFocus = document.activeElement;
+  const mod = modules[id];
+  let html = `<div class="section-label">AURORA TRAINING / MODULE ${id}</div>
+    <h2 id="modalTitle">${mod.icon} ${mod.title}</h2>
+    <p class="lesson-intro">${mod.intro}</p>`;
+  mod.lessons.forEach(l => {
+    html += `<div class="lesson-box"><h4>${l.t}</h4><p>${l.x}</p>`;
+    if (l.ex) html += `<div class="example">${l.ex}</div>`;
+    if (l.bad) html += `<div class="example bad">${l.bad}</div>`;
+    html += `</div>`;
+  });
+  html += `<div id="quizArea"></div>`;
+  $("lessonContent").innerHTML = html;
+  $("lessonModal").classList.add("active");
+  quiz = {id, index:0, score:0};
+  renderQuestion();
+  $("lessonModal").querySelector(".close").focus();
+}
 
-function addXP(amount, reason) {
+function renderQuestion(){
+  const mod = modules[quiz.id], q = mod.quiz[quiz.index];
+  const answers = shuffle(q.a.map((text,i) => ({text, ok:i===0})));
+  let html = `<div class="quiz-meta">KNOWLEDGE CHECK: QUESTION ${quiz.index+1} OF ${mod.quiz.length}</div>
+    <h4 class="quiz-q">${q.q}</h4><div id="answerList">`;
+  answers.forEach((a,i) => html += `<button class="answer" data-ok="${a.ok}" onclick="pickAnswer(this)">${a.text}</button>`);
+  html += `</div><div id="quizFeedback" aria-live="polite"></div>`;
+  $("quizArea").innerHTML = html;
+}
 
-    const oldRank = getRank().name;
+function pickAnswer(el){
+  const buttons = $("answerList").querySelectorAll(".answer");
+  buttons.forEach(b => { b.disabled = true; if (b.dataset.ok === "true") b.classList.add("correct"); });
+  const ok = el.dataset.ok === "true";
+  if (ok) quiz.score++; else el.classList.add("wrong");
+  const last = quiz.index === modules[quiz.id].quiz.length - 1;
+  $("quizFeedback").innerHTML = `<div class="result"><strong>${ok ? "✓ Correct!" : "✗ Not quite."}</strong> ${ok ? "" : "The correct answer is highlighted."}</div>
+    <div style="margin-top:14px"><button class="btn btn-primary" onclick="${last ? "finishQuiz()" : "nextQuestion()"}">${last ? "SEE RESULTS" : "NEXT QUESTION"}</button></div>`;
+}
 
-    player.xp += amount;
+function nextQuestion(){ quiz.index++; renderQuestion(); }
 
+function finishQuiz(){
+  const mod = modules[quiz.id], total = mod.quiz.length, id = quiz.id;
+  const passed = quiz.score >= PASS_MARK;
+  let msg = `<div class="quiz-meta">RESULTS</div><div class="result" style="margin-top:12px"><strong>You scored ${quiz.score} out of ${total}.</strong><br>`;
+  if (passed){
+    msg += player.completed.includes(id)
+      ? "Passed! This module already awarded its XP."
+      : `Passed! Module complete. You earned ${mod.xp} XP and unlocked Mission 0${id}.`;
+  } else {
+    msg += `You need ${PASS_MARK} correct to pass. Review the lessons above and try again.`;
+  }
+  msg += `</div><div style="margin-top:14px"><button class="btn ${passed?"btn-secondary":"btn-primary"}" onclick="retryQuiz()">${passed?"RETAKE QUIZ":"TRY AGAIN"}</button> <button class="btn btn-secondary" onclick="closeModal()">CLOSE</button></div>`;
+  $("quizArea").innerHTML = msg;
+  if (passed && !player.completed.includes(id)){
+    player.completed.push(id);
     savePlayer();
-
-    updateUI();
-
-    showToast(
-        "+" + amount + " XP",
-        reason
-    );
-
-    const newRank = getRank().name;
-
-    if (newRank !== oldRank) {
-
-        setTimeout(() => {
-
-            showToast(
-                "RANK PROMOTION",
-                "You are now " + newRank
-            );
-
-        }, 500);
-
-    }
-
+    addXP(mod.xp, mod.title + " completed");
     checkBadges();
-
+  }
 }
 
+function retryQuiz(){ quiz.index = 0; quiz.score = 0; renderQuestion(); }
 
-/* =========================================================
-   BADGES
-========================================================= */
-
-function unlockBadge(id, title) {
-
-    if (!player.badges.includes(id)) {
-
-        player.badges.push(id);
-
-        savePlayer();
-
-        updateUI();
-
-        showToast(
-            "BADGE UNLOCKED",
-            title
-        );
-
-    }
-
+function closeModal(){
+  $("lessonModal").classList.remove("active");
+  if (lastFocus) lastFocus.focus();
 }
 
+/* Close on backdrop click, Escape, and trap focus inside the dialog */
+$("lessonModal").addEventListener("click", e => { if (e.target === $("lessonModal")) closeModal(); });
+document.addEventListener("keydown", e => {
+  if (!$("lessonModal").classList.contains("active")) return;
+  if (e.key === "Escape") { closeModal(); return; }
+  if (e.key === "Tab"){
+    const f = $("lessonModal").querySelectorAll("button:not(:disabled)");
+    if (!f.length) return;
+    const first = f[0], last = f[f.length-1];
+    if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  }
+});
 
-function checkBadges() {
-
-    for (let i = 1; i <= 5; i++) {
-        if (player.completed.includes(i)) {
-            unlockBadge(i, modules[i].title + " badge earned");
-        }
-    }
-
-    if (player.completed.length >= 5) {
-        unlockBadge(6, "AURORA Specialist");
-    }
-
+/* ---------- TOAST ---------- */
+let toastTimer;
+function showToast(title, message){
+  $("toastTitle").textContent = title;
+  $("toastMessage").textContent = message;
+  $("toast").classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $("toast").classList.remove("show"), 3500);
 }
 
+/* ---------- MOBILE MENU ---------- */
+$("menuBtn").addEventListener("click", () => {
+  const open = $("navLinks").classList.toggle("open");
+  $("menuBtn").setAttribute("aria-expanded", open);
+  $("menuBtn").textContent = open ? "✕" : "☰";
+});
+$("navLinks").addEventListener("click", e => {
+  if (e.target.tagName === "A"){
+    $("navLinks").classList.remove("open");
+    $("menuBtn").setAttribute("aria-expanded", "false");
+    $("menuBtn").textContent = "☰";
+  }
+});
 
-
-
-/* =========================================================
-   UNITY LEVEL UNLOCKS
-========================================================= */
-
-function updateUnityLevels() {
-
-    for (let i = 1; i <= 5; i++) {
-
-        const unlocked = player.completed.includes(
-            unityLevels[i].module
-        );
-
-        const card = document.getElementById("missionGame" + i);
-        const button = document.getElementById("levelButton" + i);
-        const status = card.querySelector(".mission-status");
-        const lock = card.querySelector(".mission-lock");
-
-        card.classList.toggle("unlocked", unlocked);
-        card.classList.toggle("locked", !unlocked);
-
-        status.textContent = unlocked ? "UNLOCKED" : "LOCKED";
-        status.classList.toggle("unlocked-status", unlocked);
-        status.classList.toggle("locked-status", !unlocked);
-
-        lock.textContent = unlocked ? "✓" : "🔒";
-
-        button.disabled = !unlocked;
-        button.classList.toggle("btn-primary", unlocked);
-        button.classList.toggle("btn-secondary", !unlocked);
-        button.textContent = unlocked
-            ? "PLAY LEVEL " + i
-            : "🔒 COMPLETE TRAINING";
-    }
+/* ---------- UNITY GAME ---------- */
+/* After exporting your Unity WebGL build, set this to its index.html path (e.g. "UnityBuild/index.html").
+   Leave it empty to show the "coming soon" placeholder. The page passes unlocked missions as ?unlocked=1,2,3 */
+const UNITY_BUILD_URL = "";
+function loadGame(){
+  if (!UNITY_BUILD_URL){ showToast("COMING SOON","The Unity game is still in development."); return; }
+  const q = encodeURIComponent(player.completed.join(","));
+  $("gameFrame").innerHTML = '<iframe src="' + UNITY_BUILD_URL + '?unlocked=' + q + '" title="Project Aurora game" allow="fullscreen" allowfullscreen></iframe>';
+}
+function fullscreenGame(){
+  const f = $("gameFrame");
+  if (!UNITY_BUILD_URL){ showToast("COMING SOON","The game isn't available yet."); return; }
+  if (f.requestFullscreen) f.requestFullscreen();
 }
 
-function launchUnityLevel(level) {
-
-    const mission = unityLevels[level];
-
-    if (!player.completed.includes(mission.module)) {
-        showToast(
-            "MISSION LOCKED",
-            "Complete " + modules[mission.module].title + " first."
-        );
-        return;
-    }
-
-    const container = document.getElementById("unityPlayerContainer");
-    const frame = document.getElementById("unityFrame");
-    const title = document.getElementById("unityMissionTitle");
-
-    title.textContent = mission.title;
-
-    frame.innerHTML = `
-        <iframe
-            src="${mission.url}"
-            title="${mission.title}"
-            allow="fullscreen"
-            allowfullscreen>
-        </iframe>
-    `;
-
-    container.classList.add("active");
-
-    setTimeout(() => {
-        container.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    }, 100);
-}
-
-function closeUnityGame() {
-
-    const container = document.getElementById("unityPlayerContainer");
-    const frame = document.getElementById("unityFrame");
-
-    container.classList.remove("active");
-
-    frame.innerHTML = `
-        <div class="unity-placeholder">
-            <div class="unity-icon">🚀</div>
-            <h3>AURORA UNITY SIMULATOR</h3>
-            <p>Complete training and select an unlocked mission to launch its separate Unity WebGL build.</p>
-        </div>
-    `;
-}
-
-/* =========================================================
-   OPEN MODULE
-========================================================= */
-
-function openModule(id) {
-
-    const module = modules[id];
-
-    /* Lock later modules */
-
-    if (
-        id > 1 &&
-        !player.completed.includes(id - 1)
-    ) {
-
-        showToast(
-            "MODULE LOCKED",
-            "Complete the previous module first."
-        );
-
-        return;
-
-    }
-
-
-    let html = `
-
-        <div class="section-label">
-            AURORA TRAINING / MODULE ${id}
-        </div>
-
-        <h2>
-            ${module.icon} ${module.title}
-        </h2>
-
-        <p class="lesson-intro">
-            ${module.intro}
-        </p>
-
-    `;
-
-
-    module.lessons.forEach(
-        lesson => {
-
-            html += `
-
-                <div class="lesson-box">
-
-                    <h4>
-                        ${lesson.title}
-                    </h4>
-
-                    <p>
-                        ${lesson.text}
-                    </p>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-
-    html += `
-
-        <div class="quiz-question">
-
-            <h4>
-                Knowledge Check
-            </h4>
-
-            <p style="color:var(--muted); margin-bottom:15px;">
-                ${module.question}
-            </p>
-
-    `;
-
-
-    module.answers.forEach(
-        (answer,index) => {
-
-            html += `
-
-                <button
-                    class="answer"
-                    onclick="moduleAnswer(
-                        ${id},
-                        ${index},
-                        this
-                    )">
-
-                    ${answer}
-
-                </button>
-
-            `;
-
-        }
-    );
-
-
-    html += `
-
-        </div>
-
-        <div
-            id="moduleResult"
-            class="result">
-        </div>
-
-    `;
-
-
-    document.getElementById(
-        "lessonContent"
-    ).innerHTML = html;
-
-
-    document.getElementById(
-        "lessonModal"
-    ).classList.add("active");
-
-}
-
-
-/* =========================================================
-   MODULE ANSWER
-========================================================= */
-
-function moduleAnswer(id, answer, element) {
-
-    const module = modules[id];
-
-    const buttons =
-        element.parentElement
-        .querySelectorAll(".answer");
-
-    buttons.forEach(
-        button => button.disabled = true
-    );
-
-
-    const result =
-        document.getElementById(
-            "moduleResult"
-        );
-
-
-    if (answer === module.correct) {
-
-        element.classList.add("correct");
-
-        result.className =
-            "result show";
-
-        result.style.background =
-            "rgba(84,240,178,.1)";
-
-        result.style.border =
-            "1px solid rgba(84,240,178,.2)";
-
-        result.innerHTML =
-            "<strong>✓ Correct!</strong><br>" +
-            "Excellent work, cadet.";
-
-        if (!player.completed.includes(id)) {
-
-            player.completed.push(id);
-
-            savePlayer();
-
-            addXP(
-                module.xp,
-                module.title + " completed"
-            );
-
-        } else {
-
-            showToast(
-                "ALREADY COMPLETE",
-                "This module has already awarded XP."
-            );
-
-        }
-
-    } else {
-
-        element.classList.add("wrong");
-
-        result.className =
-            "result show";
-
-        result.style.background =
-            "rgba(255,102,133,.1)";
-
-        result.innerHTML =
-            "<strong>✗ Not quite.</strong><br>" +
-            "Review the lesson and try again.";
-
-        buttons.forEach(
-            button => button.disabled = false
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   ETHICS CHALLENGE
-========================================================= */
-
-function ethicsAnswer(element, correct) {
-
-    if (
-        player.challenges.includes("ethics")
-    ) {
-
-        showToast(
-            "CHALLENGE COMPLETE",
-            "You already earned XP for this simulation."
-        );
-
-        return;
-
-    }
-
-
-    const result =
-        document.getElementById(
-            "ethicsResult"
-        );
-
-
-    if (correct) {
-
-        element.classList.add("selected");
-
-        result.className =
-            "result show";
-
-        result.style.background =
-            "rgba(84,240,178,.1)";
-
-        result.innerHTML =
-            "<strong>✓ Correct decision.</strong><br>" +
-            "Privacy and authorization must be respected.";
-
-        player.challenges.push("ethics");
-
-        addXP(
-            300,
-            "Ethics simulation completed"
-        );
-
-        unlockBadge(
-            4,
-            "Ethics Officer"
-        );
-
-    } else {
-
-        result.className =
-            "result show";
-
-        result.style.background =
-            "rgba(255,102,133,.1)";
-
-        result.innerHTML =
-            "<strong>✗ Mission protocol violation.</strong><br>" +
-            "Private information must be protected.";
-
-    }
-
-}
-
-
-/* =========================================================
-   PROMPT CHALLENGE
-========================================================= */
-
-function promptAnswer(element, correct) {
-
-    if (
-        player.challenges.includes("prompt")
-    ) {
-
-        showToast(
-            "CHALLENGE COMPLETE",
-            "You already earned XP for this simulation."
-        );
-
-        return;
-
-    }
-
-
-    const result =
-        document.getElementById(
-            "promptResult"
-        );
-
-
-    if (correct) {
-
-        element.classList.add("selected");
-
-        result.className =
-            "result show";
-
-        result.style.background =
-            "rgba(84,240,178,.1)";
-
-        result.innerHTML =
-            "<strong>✓ Excellent prompt.</strong><br>" +
-            "It provides context, audience, structure, and a clear goal.";
-
-        player.challenges.push("prompt");
-
-        addXP(
-            300,
-            "Prompt engineering simulation completed"
-        );
-
-        unlockBadge(
-            5,
-            "Prompt Pilot"
-        );
-
-    } else {
-
-        result.className =
-            "result show";
-
-        result.style.background =
-            "rgba(255,102,133,.1)";
-
-        result.innerHTML =
-            "<strong>✗ Prompt needs more detail.</strong><br>" +
-            "Try adding context, audience, and a specific output.";
-
-    }
-
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-function closeModal() {
-
-    document.getElementById(
-        "lessonModal"
-    ).classList.remove("active");
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-function showToast(title, message) {
-
-    const toast =
-        document.getElementById("toast");
-
-    document.getElementById(
-        "toastTitle"
-    ).textContent = title;
-
-    document.getElementById(
-        "toastMessage"
-    ).textContent = message;
-
-    toast.classList.add("show");
-
-    setTimeout(
-        () => toast.classList.remove("show"),
-        3500
-    );
-
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function scrollToSection(id) {
-
-    document.getElementById(id)
-        .scrollIntoView({
-            behavior: "smooth"
-        });
-
-}
-
-
-/* =========================================================
-   CLOSE MODAL OUTSIDE
-========================================================= */
-
-document.getElementById(
-    "lessonModal"
-).addEventListener(
-    "click",
-    function(e) {
-
-        if (e.target === this) {
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
+/* ---------- INIT ---------- */
+buildUI();
 updateUI();
 checkBadges();
-
 </script>
-
 </body>
 </html>
