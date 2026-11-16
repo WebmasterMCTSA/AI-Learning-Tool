@@ -5,162 +5,135 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PROJECT AURORA | AI Space Academy</title>
 <style>
-:root{--bg:#050816;--panel:#101832;--primary:#62d9ff;--secondary:#8c7bff;--accent:#54f0b2;--warning:#ffc857;--danger:#ff6685;--text:#f4f7ff;--muted:#a9b5d1;--border:rgba(255,255,255,.12);--shadow:0 20px 50px rgba(0,0,0,.35)}
+:root{--bg:#12162e;--panel:#1b2040;--line:#323a6b;--text:#e9e8f5;--muted:#a3a9d0;--accent:#9b8cff;--teal:#5aa9ff;--bad:#e57373}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at 20% 10%,rgba(98,217,255,.08),transparent 25%),radial-gradient(circle at 80% 30%,rgba(140,123,255,.08),transparent 25%),var(--bg);color:var(--text);overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.25;background-image:radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1px),radial-gradient(circle,rgba(98,217,255,.5) 1px,transparent 1px);background-size:90px 90px,140px 140px;background-position:10px 20px,50px 80px}
-:focus-visible{outline:3px solid var(--warning);outline-offset:3px}
-.skip{position:absolute;left:-999px;top:8px;background:var(--primary);color:#031018;padding:10px;z-index:5000;font-weight:bold}
+body{font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:Georgia,"Times New Roman",serif;font-weight:700}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:#111;padding:10px;z-index:5000;font-weight:bold}
 .skip:focus{left:8px}
 button{font-family:inherit;color:inherit}
-.navbar{position:fixed;top:0;left:0;right:0;height:72px;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(5,8,22,.92);backdrop-filter:blur(15px);border-bottom:1px solid var(--border)}
-.logo{display:flex;align-items:center;gap:12px;background:none;border:0;cursor:pointer;text-align:left}
-.logo-icon{width:42px;height:42px;border-radius:50%;border:2px solid var(--primary);display:grid;place-items:center;color:var(--primary);font-size:22px;box-shadow:0 0 20px rgba(98,217,255,.3)}
-.logo strong{display:block;letter-spacing:2px;font-size:14px}
-.logo span{font-size:10px;color:var(--muted);letter-spacing:2px}
-.nav-links{display:flex;gap:20px;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:bold}
-.nav-links a:hover{color:var(--primary)}
-.player-mini{display:flex;align-items:center;gap:10px}
-.rank-mini{padding:7px 12px;background:rgba(98,217,255,.08);border:1px solid rgba(98,217,255,.25);border-radius:20px;font-size:11px;color:var(--primary)}
-.xp-mini{font-size:12px;color:var(--warning)}
-.menu-btn{display:none;background:none;border:1px solid var(--border);border-radius:8px;font-size:22px;padding:6px 12px;cursor:pointer}
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:120px 8% 80px;overflow:hidden}
-.hero-content{max-width:750px;z-index:2}
-.status{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-size:12px;letter-spacing:2px;border:1px solid rgba(84,240,178,.25);padding:8px 14px;border-radius:30px;background:rgba(84,240,178,.06);margin-bottom:25px}
-.status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
-.hero h1{font-size:clamp(46px,8vw,96px);line-height:.95;letter-spacing:-3px;margin-bottom:25px}
-.hero h1 span{color:var(--primary);text-shadow:0 0 30px rgba(98,217,255,.35)}
-.hero p{max-width:650px;font-size:18px;line-height:1.7;color:var(--muted);margin-bottom:35px}
-.hero-buttons{display:flex;gap:15px;flex-wrap:wrap}
-.btn{border:none;padding:14px 22px;border-radius:8px;font-weight:bold;cursor:pointer;transition:.2s;font-size:14px}
-.btn-primary{color:#031018;background:var(--primary)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(98,217,255,.4)}
-.btn-secondary{background:transparent;border:1px solid var(--border)}
-.btn-secondary:hover:not(:disabled){border-color:var(--primary)}
-.btn:disabled{cursor:not-allowed;opacity:.7}
-.orbit{position:absolute;width:650px;height:650px;right:-150px;top:120px;border:1px solid rgba(98,217,255,.12);border-radius:50%;transform:rotate(-20deg);animation:spin 80s linear infinite}
-.planet{position:absolute;width:230px;height:230px;right:110px;top:250px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b7f2ff,#3675a3 30%,#182b5a 65%,#080d22);box-shadow:0 0 50px rgba(98,217,255,.25),inset -30px -20px 60px rgba(0,0,0,.6)}
-@keyframes spin{to{transform:rotate(340deg)}}
-section{padding:100px 7%;scroll-margin-top:70px}
-.section-heading{max-width:700px;margin-bottom:45px}
-.section-label{color:var(--primary);font-size:11px;letter-spacing:3px;font-weight:bold;margin-bottom:10px}
-.section-heading h2{font-size:clamp(30px,5vw,52px);margin-bottom:15px}
-.section-heading p{color:var(--muted);line-height:1.7}
-.card{background:linear-gradient(145deg,rgba(16,24,50,.95),rgba(11,16,38,.95));border:1px solid var(--border);border-radius:18px;padding:28px;box-shadow:var(--shadow)}
-.card h3{margin-bottom:12px}
-.card p{color:var(--muted);line-height:1.7}
-.grid2{display:grid;grid-template-columns:1.3fr .7fr;gap:25px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:25px}
-.stat{padding:18px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.02)}
-.stat strong{display:block;font-size:25px;color:var(--primary)}
-.stat span{color:var(--muted);font-size:12px}
-.crew-card{text-align:center}
-.avatar{width:90px;height:90px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;font-size:40px;background:#111a37;border:1px solid rgba(98,217,255,.25)}
-.role{color:var(--primary);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
-.tech-icon,.module-icon{font-size:34px;margin-bottom:16px}
-.module-card{position:relative;text-align:left;color:inherit;cursor:pointer;transition:.25s;width:100%;font-size:inherit}
-.module-card:hover{transform:translateY(-5px);border-color:rgba(98,217,255,.4)}
-.module-card.locked{opacity:.65}
-.module-number{position:absolute;right:20px;top:14px;font-size:45px;color:rgba(255,255,255,.07);font-weight:bold}
-.module-card p{margin-bottom:18px}
-.bar{height:6px;background:rgba(255,255,255,.08);border-radius:5px;overflow:hidden}
-.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--secondary));transition:.5s}
-.module-status{margin-top:10px;color:var(--muted);font-size:11px;letter-spacing:1px}
-.dash{display:grid;grid-template-columns:1fr 1fr;gap:25px}
-.span2{grid-column:span 2}
-.xp-top{display:flex;justify-content:space-between;margin-bottom:15px}
-.xp-bar{height:18px;border-radius:20px;background:rgba(255,255,255,.08);overflow:hidden}
-.xp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--secondary));transition:.5s}
-.level-info{margin-top:12px;display:flex;justify-content:space-between;color:var(--muted);font-size:12px}
-.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:15px}
-.badge{text-align:center;padding:18px 10px;border:1px solid var(--border);border-radius:12px;opacity:.4;filter:grayscale(1);transition:.3s}
-.badge.unlocked{opacity:1;filter:none;border-color:rgba(255,200,87,.4);background:rgba(255,200,87,.05)}
-.badge-icon{font-size:32px;margin-bottom:8px}
-.badge span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
-.mission-level-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
-.mg{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:linear-gradient(145deg,rgba(16,24,50,.97),rgba(7,12,30,.97))}
-.mg.locked{opacity:.65}
-.mg.unlocked{border-color:rgba(84,240,178,.4)}
-.mg-img{height:150px;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(circle at center,rgba(98,217,255,.22),transparent 58%),#071326}
-.mg:nth-child(even) .mg-img{background:radial-gradient(circle at center,rgba(140,123,255,.24),transparent 58%),#0a0924}
-.mg-emoji{font-size:62px}
-.mg-num{position:absolute;left:18px;top:10px;font-size:48px;font-weight:bold;color:rgba(255,255,255,.08)}
-.mg-lock{position:absolute;right:18px;top:14px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.35)}
-.mg-info{padding:24px}
-.mg-status{display:inline-block;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:bold;letter-spacing:1px;margin-bottom:10px;color:var(--muted);background:rgba(255,255,255,.05)}
-.mg.unlocked .mg-status{color:var(--accent);background:rgba(84,240,178,.08);border:1px solid rgba(84,240,178,.25)}
-.mg-info h3{font-size:21px;margin-bottom:10px}
-.mg-info p{color:var(--muted);line-height:1.6;min-height:72px}
-.req{display:flex;justify-content:space-between;gap:15px;margin:16px 0;padding:12px;border-radius:9px;background:rgba(255,255,255,.03);border:1px solid var(--border);font-size:12px}
-.req span{color:var(--muted)}
-.req strong{color:var(--primary);text-align:right}
-.soon{display:inline-block;margin-top:2px;color:var(--warning);border:1px dashed rgba(255,200,87,.5);border-radius:8px;padding:10px 14px;font-size:12px;font-weight:bold;letter-spacing:1px}
-.modal{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}
-.modal.active{display:flex}
-.modal-content{width:min(750px,100%);max-height:90vh;overflow-y:auto;background:#0b1127;border:1px solid var(--border);border-radius:20px;padding:35px;position:relative}
-.close{position:absolute;top:14px;right:18px;border:none;background:transparent;color:var(--muted);font-size:28px;cursor:pointer;padding:4px 10px}
-.modal-content h2{font-size:30px;margin-bottom:10px;padding-right:30px}
-.lesson-intro{color:var(--muted);line-height:1.7;margin-bottom:22px}
-.lesson-box{border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px;background:rgba(255,255,255,.025)}
-.lesson-box h4{color:var(--primary);margin-bottom:8px}
-.lesson-box p{color:var(--muted);line-height:1.6}
-.example{margin-top:10px;padding:10px 12px;border-left:3px solid var(--accent);background:rgba(84,240,178,.06);font-size:14px;line-height:1.5;color:var(--text)}
-.example.bad{border-color:var(--danger);background:rgba(255,102,133,.06)}
-.quiz-q{margin:22px 0 14px;line-height:1.5}
-.quiz-meta{color:var(--muted);font-size:12px;letter-spacing:1px;margin-top:24px}
-.answer{display:block;width:100%;text-align:left;padding:13px;margin:8px 0;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:14px;line-height:1.4}
-.answer:hover:not(:disabled){border-color:var(--primary)}
-.answer.correct{border-color:var(--accent);background:rgba(84,240,178,.12)}
-.answer.wrong{border-color:var(--danger);background:rgba(255,102,133,.12)}
-.result{margin-top:18px;padding:15px;border-radius:10px;background:rgba(98,217,255,.08);line-height:1.5}
-.sources ul{margin:14px 0 0 20px;color:var(--muted);line-height:1.9}
-footer{border-top:1px solid var(--border);padding:45px 7%;color:var(--muted);text-align:center}
-footer strong{color:var(--primary)}
-.toast{position:fixed;right:25px;bottom:25px;background:#111a37;border:1px solid rgba(98,217,255,.3);padding:16px 20px;border-radius:12px;z-index:3000;transform:translateY(150px);transition:.3s;box-shadow:var(--shadow);max-width:320px}
-.toast.show{transform:none}
-.toast strong{color:var(--primary)}
+.navbar{position:fixed;top:0;left:0;right:0;height:64px;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:var(--bg);border-bottom:1px solid var(--line)}
+.logo{background:none;border:0;cursor:pointer;text-align:left;line-height:1.2}
+.logo strong{display:block;font-family:Georgia,serif;font-size:18px}
+.logo span{font-size:12px;color:var(--muted)}
+.nav-links{display:flex;gap:22px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:14px}
+.nav-links a:hover{color:var(--accent);text-decoration:underline}
+.player-mini{display:flex;align-items:center;gap:12px;font-size:13px}
+.rank-mini{color:var(--teal)}
+.xp-mini{color:var(--accent)}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:6px;font-size:20px;padding:4px 12px;cursor:pointer}
+.hero{padding:140px 7% 80px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:40px}
+.hero-art{width:min(340px,34%);flex:none}
+.hero-content{max-width:720px}
+.hero h1{font-size:clamp(40px,7vw,76px);line-height:1.05;margin-bottom:24px}
+.hero h1 span{color:var(--accent);font-style:italic}
+.hero p{font-size:19px;color:var(--muted);margin-bottom:32px;max-width:600px}
+.hero-buttons{display:flex;gap:14px;flex-wrap:wrap}
+.btn{border:2px solid var(--accent);padding:12px 20px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:14px;background:var(--accent);color:#111}
+.btn:hover:not(:disabled){background:#b3a7ff}
+.btn-primary{background:var(--accent);color:#111}
+.btn-secondary{background:transparent;color:var(--text);border-color:var(--line)}
+.btn-secondary:hover:not(:disabled){background:transparent;border-color:var(--accent)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+section{padding:80px 7%;scroll-margin-top:64px}
+.section-heading{max-width:640px;margin-bottom:36px}
+.section-heading h2{font-size:clamp(28px,4vw,42px);margin-bottom:12px}
+.section-heading p{color:var(--muted)}
+.section-label{color:var(--accent);font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;font-weight:bold}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:24px}
+.card h3{margin-bottom:10px;font-size:20px}
+.card p{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1.4fr .8fr;gap:24px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .eq{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.chk{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--border);color:var(--muted);cursor:pointer}
-.chk input{width:20px;height:20px;accent-color:var(--accent)}
-.gframe{aspect-ratio:16/9;min-height:340px;background:#000;border-radius:12px;border:1px solid var(--border);overflow:hidden}
+.rules{list-style:none;counter-reset:r;display:grid;grid-template-columns:1fr 1fr;gap:34px 50px;max-width:980px}
+.rules li{counter-increment:r;padding-left:64px;position:relative}
+.rules li::before{content:counter(r);position:absolute;left:0;top:-6px;font-family:Georgia,serif;font-size:48px;color:var(--accent);line-height:1}
+.rules h3{font-size:21px;margin-bottom:6px}
+.rules p{color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.stat{padding:14px;border:1px solid var(--line);border-radius:6px}
+.stat strong{display:block;font-size:26px;font-family:Georgia,serif;color:var(--accent)}
+.stat span{color:var(--muted);font-size:13px}
+.module-card{text-align:left;color:inherit;cursor:pointer;width:100%;font-size:inherit;display:block}
+.module-card:hover{border-color:var(--accent)}
+.module-card.locked{opacity:.6}
+.module-number{color:var(--accent);font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;font-weight:bold}
+.module-card p{margin-bottom:16px;font-size:15px}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--teal);transition:width .4s}
+.module-status{margin-top:10px;color:var(--muted);font-size:13px}
+.dash{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.span2{grid-column:span 2}
+.xp-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.xp-bar{height:14px;border-radius:7px;background:var(--line);overflow:hidden}
+.xp-fill{height:100%;width:0;background:var(--accent);transition:width .4s}
+.level-info{margin-top:10px;display:flex;justify-content:space-between;color:var(--muted);font-size:13px}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.badge{padding:14px;border:1px dashed var(--line);border-radius:6px;color:var(--muted);opacity:.55}
+.badge.unlocked{opacity:1;border:1px solid var(--accent);color:var(--text)}
+.badge-icon{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;border:2px solid currentColor;font-weight:bold;font-size:14px;margin-bottom:8px}
+.badge.unlocked .badge-icon{background:var(--accent);border-color:var(--accent);color:#111}
+.badge strong{display:block}
+.badge span{display:block;font-size:12px;margin-top:2px}
+.modal{position:fixed;inset:0;z-index:2000;background:rgba(8,10,25,.85);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.active{display:flex}
+.modal-content{width:min(740px,100%);max-height:90vh;overflow-y:auto;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:32px;position:relative}
+.close{position:absolute;top:10px;right:14px;border:none;background:transparent;color:var(--muted);font-size:28px;cursor:pointer;padding:4px 10px}
+.modal-content h2{font-size:30px;margin-bottom:10px;padding-right:30px}
+.lesson-intro{color:var(--muted);margin-bottom:20px}
+.lesson-box{border-top:1px solid var(--line);padding:16px 0}
+.lesson-box h4{color:var(--accent);margin-bottom:6px;font-size:18px}
+.lesson-box p{color:var(--muted)}
+.example{margin-top:10px;padding:8px 12px;border-left:3px solid var(--teal);background:rgba(90,169,255,.08);font-size:14px}
+.example.bad{border-color:var(--bad);background:rgba(229,115,115,.08)}
+.quiz-meta{color:var(--accent);font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-top:24px;font-weight:bold}
+.quiz-q{margin:10px 0 12px}
+.answer{display:block;width:100%;text-align:left;padding:12px;margin:8px 0;background:var(--panel);border:1px solid var(--line);border-radius:6px;cursor:pointer;font-size:15px}
+.answer:hover:not(:disabled){border-color:var(--accent)}
+.answer.correct{border-color:var(--teal);background:rgba(90,169,255,.15)}
+.answer.wrong{border-color:var(--bad);background:rgba(229,115,115,.15)}
+.result{margin-top:16px;padding:14px;border-radius:6px;background:var(--panel);border:1px solid var(--line)}
+.chk{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line);color:var(--muted);cursor:pointer}
+.chk input{width:20px;height:20px;accent-color:var(--teal)}
+.gframe{aspect-ratio:16/9;min-height:320px;background:#000;border-radius:6px;border:1px solid var(--line);overflow:hidden}
 .gframe iframe{width:100%;height:100%;border:0}
-.gph{height:100%;min-height:340px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;background:radial-gradient(circle at center,rgba(98,217,255,.15),transparent 60%)}
-.gph .big{font-size:64px;margin-bottom:12px}
+.gph{height:100%;min-height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;background:var(--panel)}
 .gbtns{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
-.glist{margin:12px 0 0 20px;color:var(--muted);line-height:1.9}
+.glist{margin:10px 0 0 20px;color:var(--muted)}
+.example+.example{margin-top:8px}
+.sources ul{margin:12px 0 0 20px;color:var(--muted);line-height:1.9}
+footer{border-top:1px solid var(--line);padding:36px 7%;color:var(--muted);text-align:center;font-size:14px}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--panel);border:1px solid var(--accent);padding:14px 18px;border-radius:6px;z-index:3000;transform:translateY(150px);transition:transform .25s;max-width:320px}
+.toast.show{transform:none}
+.toast strong{color:var(--accent)}
 @media(max-width:900px){
 .menu-btn{display:block}
-.nav-links{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;background:#070c1f;border-bottom:1px solid var(--border)}
+.nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line)}
 .nav-links.open{display:flex}
-.nav-links a{display:block;padding:16px 5%;border-top:1px solid var(--border)}
-.grid2,.dash,.mission-level-grid,.grid3,.eq{grid-template-columns:1fr}
+.nav-links a{display:block;padding:15px 5%;border-top:1px solid var(--line)}
+.grid2,.dash,.grid3,.eq,.rules{grid-template-columns:1fr}
 .span2{grid-column:span 1}
-.grid4{grid-template-columns:repeat(2,1fr)}
-.orbit,.planet{opacity:.2}
 }
 @media(max-width:600px){
-section{padding:75px 5%}
-.hero{padding-left:5%;padding-right:5%}
-.grid4{grid-template-columns:1fr}
+section{padding:60px 5%}
+.hero{padding:120px 5% 60px}
+.hero-art{display:none}
 .badges{grid-template-columns:repeat(2,1fr)}
 .player-mini{display:none}
-.modal-content{padding:24px 18px}
+.modal-content{padding:22px 16px}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
 <nav class="navbar" aria-label="Main">
-  <button class="logo" onclick="scrollToSection('home')" aria-label="Project Aurora home">
-    <span class="logo-icon" aria-hidden="true">✦</span>
-    <span><strong>PROJECT AURORA</strong><span>AI SPACE PROGRAM</span></span>
-  </button>
+  <button class="logo" onclick="scrollToSection('home')" aria-label="Project Aurora home"><strong>Project Aurora</strong><span>AI learning portal</span></button>
   <ul class="nav-links" id="navLinks">
     <li><a href="#guide">ETHICAL AI GUIDE</a></li>
     <li><a href="#academy">AI TRAINING</a></li>
@@ -178,42 +151,48 @@ section{padding:75px 5%}
 <main id="main">
 <header class="hero" id="home">
   <div class="hero-content">
-    <div class="status"><span class="status-dot"></span>AURORA PROGRAM ONLINE</div>
-    <h1>USE AI<br><span>THE RIGHT WAY.</span></h1>
-    <p>AI is a powerful tool for learning, but only when you use it honestly, safely, and thoughtfully. Learn the rules of ethical AI use, test your knowledge, then put it to work in the Project Aurora game.</p>
+    <h1>Using AI well<br>is a <span>skill.</span></h1>
+    <p>Learn how to use AI for school without cheating yourself: what's fine, what isn't, and how to tell the difference. Then take it to an alien world in our space game, where the ship's AI is your only help.</p>
     <div class="hero-buttons">
-      <button class="btn btn-primary" onclick="scrollToSection('academy')">BEGIN AI TRAINING</button>
-      <button class="btn btn-secondary" onclick="scrollToSection('guide')">READ THE GUIDE</button>
+      <button class="btn btn-primary" onclick="scrollToSection('academy')">Start the modules</button>
+      <button class="btn btn-secondary" onclick="scrollToSection('guide')">Read the guide first</button>
     </div>
   </div>
-  <div class="orbit" aria-hidden="true"></div>
-  <div class="planet" aria-hidden="true"></div>
+  <svg class="hero-art" viewBox="0 0 320 320" aria-hidden="true">
+    <g fill="#e9e8f5"><circle cx="30" cy="40" r="2"/><circle cx="90" cy="20" r="1.5"/><circle cx="300" cy="150" r="2"/><circle cx="20" cy="250" r="1.5"/><circle cx="280" cy="280" r="2"/><circle cx="200" cy="15" r="1.5"/><circle cx="60" cy="130" r="1.5"/></g>
+    <g transform="rotate(-18 150 180)">
+      <ellipse cx="150" cy="180" rx="115" ry="28" fill="none" stroke="#9b8cff" stroke-width="6"/>
+      <circle cx="150" cy="180" r="84" fill="#3a3f8f"/>
+      <circle cx="120" cy="150" r="14" fill="#30357a"/><circle cx="175" cy="205" r="10" fill="#30357a"/><circle cx="185" cy="140" r="7" fill="#30357a"/>
+      <path d="M35 180 A115 28 0 0 0 265 180" fill="none" stroke="#9b8cff" stroke-width="6"/>
+    </g>
+    <g transform="rotate(-12 250 70)"><ellipse cx="250" cy="72" rx="34" ry="10" fill="#5aa9ff"/><path d="M233 68 A17 16 0 0 1 267 68 Z" fill="#a3a9d0"/><circle cx="236" cy="75" r="2" fill="#12162e"/><circle cx="250" cy="77" r="2" fill="#12162e"/><circle cx="264" cy="75" r="2" fill="#12162e"/></g>
+  </svg>
 </header>
 
 <section id="guide">
   <div class="section-heading">
-    <div class="section-label">01 / THE ETHICAL AI GUIDE</div>
-    <h2>Six rules for using AI well.</h2>
-    <p>Whether you are writing, studying, or coding, these habits keep you honest, safe, and actually learning. Always follow your own school's AI policy, which may be stricter.</p>
+    <h2>Six habits that keep you out of trouble.</h2>
+    <p>Writing, studying, coding, it applies to all of it. One catch: your school's AI policy comes first, and it might be stricter than anything here.</p>
   </div>
-  <div class="grid3">
-    <div class="card"><div class="tech-icon" aria-hidden="true">🤝</div><h3>1. Be Honest</h3><p>Say when you used AI and how, if your teacher asks for it. Submitting AI work as your own is cheating, even if no one catches it.</p></div>
-    <div class="card"><div class="tech-icon" aria-hidden="true">🧠</div><h3>2. Think First</h3><p>Try the problem yourself before asking AI. Use it to explain, quiz, or give feedback, so you build your own skills and don't skip them.</p></div>
-    <div class="card"><div class="tech-icon" aria-hidden="true">🔍</div><h3>3. Verify Everything</h3><p>AI can state wrong facts confidently and invent sources. Check important claims in textbooks or trusted websites before you rely on them.</p></div>
-    <div class="card"><div class="tech-icon" aria-hidden="true">🔒</div><h3>4. Protect Privacy</h3><p>Never enter passwords, addresses, or other people's personal information. Treat anything you type as something that could be stored.</p></div>
-    <div class="card"><div class="tech-icon" aria-hidden="true">⚖️</div><h3>5. Watch for Bias</h3><p>AI learns from human data and can repeat stereotypes or leave people out. Ask whether an answer is fair, and whose view is missing.</p></div>
-    <div class="card"><div class="tech-icon" aria-hidden="true">📜</div><h3>6. Follow the Rules</h3><p>Rules differ by class and school. If you are unsure whether AI is allowed for an assignment, ask your teacher first.</p></div>
-  </div>
+  <ol class="rules">
+    <li><h3>Be honest</h3><p>Say when you used AI and how, if your teacher asks. Handing in AI work as your own is cheating, even if nobody catches it.</p></li>
+    <li><h3>Think first</h3><p>Try the problem yourself before you ask. Use AI to explain, quiz, or give feedback so you build skills instead of skipping them.</p></li>
+    <li><h3>Check everything</h3><p>AI can state wrong facts with total confidence and make up sources. Verify anything important in a textbook or trusted site.</p></li>
+    <li><h3>Guard your privacy</h3><p>Don't type in passwords, addresses, or other people's personal info. Assume anything you enter could be stored.</p></li>
+    <li><h3>Watch for bias</h3><p>AI learns from human data and can repeat stereotypes or leave people out. Ask whether an answer is fair and whose view is missing.</p></li>
+    <li><h3>Follow the rules</h3><p>Rules change from class to class. Not sure if AI is allowed on an assignment? Ask your teacher first.</p></li>
+  </ol>
   <div class="eq" style="margin-top:25px">
     <div class="card">
-      <h3>✅ Responsible uses</h3>
+      <h3>What's fine</h3>
       <div class="example">Asking AI to explain a concept in simpler words, then summarizing it yourself.</div>
       <div class="example">Having AI quiz you before a test.</div>
       <div class="example">Asking for feedback on your own draft, then revising it yourself.</div>
       <div class="example">Brainstorming topic ideas, then researching your pick.</div>
     </div>
     <div class="card">
-      <h3>🚫 Irresponsible uses</h3>
+      <h3>What's not</h3>
       <div class="example bad">Submitting AI-written work as your own.</div>
       <div class="example bad">Using AI during a test or quiz when it is not allowed.</div>
       <div class="example bad">Citing sources the AI gave you without checking they exist.</div>
@@ -221,7 +200,7 @@ section{padding:75px 5%}
     </div>
   </div>
   <div class="card" style="margin-top:25px">
-    <h3>Before you hand it in: a quick checklist</h3>
+    <h3>Before you hand it in</h3>
     <label class="chk"><input type="checkbox"> Is AI allowed for this assignment?</label>
     <label class="chk"><input type="checkbox"> Is the final work mostly my own thinking and writing?</label>
     <label class="chk"><input type="checkbox"> Did I check every fact and source?</label>
@@ -232,8 +211,7 @@ section{padding:75px 5%}
 
 <section id="academy">
   <div class="section-heading">
-    <div class="section-label">04 / AI ACADEMY</div>
-    <h2>Train for the future.</h2>
+    <h2>Five short modules.</h2>
     <p>Complete each module, then pass its 3-question knowledge check (2 correct to pass) to earn XP, unlock badges, and raise your rank. Modules unlock in order.</p>
   </div>
   <div class="grid3" id="moduleGrid"></div>
@@ -241,9 +219,8 @@ section{padding:75px 5%}
 
 <section id="dashboard">
   <div class="section-heading">
-    <div class="section-label">05 / MISSION CONTROL</div>
-    <h2>Your Mission Dashboard.</h2>
-    <p>Track your training progress and mission clearance. Progress is saved in this browser.</p>
+    <h2>Your progress.</h2>
+    <p>Your XP, badges, and rank. It all saves in this browser.</p>
   </div>
   <div class="dash">
     <div class="card span2">
@@ -255,9 +232,9 @@ section{padding:75px 5%}
       <div class="level-info"><span id="currentXP">0 XP</span><span id="nextXP">250 XP</span></div>
     </div>
     <div class="card">
-      <h3>Mission Readiness</h3>
+      <h3>Overall progress</h3>
       <div style="font-size:55px;margin:20px 0;color:var(--primary)" id="readiness">0%</div>
-      <p>Complete all five modules to reach 100% readiness.</p>
+      <p>Finish all five modules to hit 100%.</p>
     </div>
     <div class="card">
       <h3>Training Statistics</h3>
@@ -271,36 +248,35 @@ section{padding:75px 5%}
     <div class="card span2">
       <h3>Achievement Badges</h3>
       <div class="badges" id="badgeGrid"></div>
-      <div style="margin-top:20px"><button class="btn btn-secondary" onclick="resetProgress()">RESET PROGRESS</button></div>
+      <div style="margin-top:20px"><button class="btn btn-secondary" onclick="resetProgress()">Reset progress</button></div>
     </div>
   </div>
 </section>
 
 <section id="game">
   <div class="section-heading">
-    <div class="section-label">06 / THE PROJECT AURORA GAME</div>
-    <h2>Practice it in the game.</h2>
-    <p>Our Unity game puts these ethical AI choices into action. Pass a training quiz here to unlock the matching game level.</p>
+    <h2>Now try it on an alien world.</h2>
+    <p>In our space game you land on a planet nobody has mapped, with the ship's AI as your only help. Aliens, odd signals, and tricky calls will test the habits from the guide. Pass a quiz here to unlock the matching level.</p>
   </div>
   <div class="grid2">
     <div class="card">
       <div class="gframe" id="gameFrame">
-        <div class="gph"><div class="big" aria-hidden="true">🎮</div><h3>PROJECT AURORA: THE GAME</h3><p>Coming soon. The Unity game is still in development and will play right here.</p></div>
+        <div class="gph"><h3>Project Aurora: the game</h3><p>Coming soon. Our alien-world space game is still being built and will play right here.</p></div>
       </div>
       <div class="gbtns">
-        <button class="btn btn-primary" onclick="loadGame()">PLAY GAME</button>
-        <button class="btn btn-secondary" onclick="fullscreenGame()">FULLSCREEN</button>
+        <button class="btn btn-primary" onclick="loadGame()">Play game</button>
+        <button class="btn btn-secondary" onclick="fullscreenGame()">Fullscreen</button>
       </div>
     </div>
     <div class="card">
       <h3>About the game</h3>
-      <p>You are a cadet aboard Aurora One, working with the ship's AI through five missions. Each mission tests a habit from the guide.</p>
+      <p>You play a cadet on the spacecraft Aurora One. Earth is far away, the aliens don't speak any language you know, and the ship's AI is helpful but not always right. Each of the five levels tests one habit.</p>
       <ul class="glist">
-        <li>Know what AI can and can't do</li>
-        <li>Verify before you trust</li>
-        <li>Write clear prompts</li>
-        <li>Choose honesty and fairness</li>
-        <li>Protect privacy and spot fakes</li>
+        <li><b>Launch:</b> know what the AI can't do</li>
+        <li><b>Lunar Base:</b> verify before you trust</li>
+        <li><b>Deep Space:</b> write clear prompts when you're out of contact</li>
+        <li><b>Alien Frontier:</b> make fair, honest choices with strangers</li>
+        <li><b>Aurora Prime:</b> protect private data, spot fake signals</li>
       </ul>
     </div>
   </div>
@@ -308,18 +284,16 @@ section{padding:75px 5%}
 
 <section>
   <div class="card" style="text-align:center;padding:60px 25px">
-    <div class="section-label">FINAL CLEARANCE</div>
     <h2 style="font-size:clamp(30px,5vw,45px);margin-bottom:15px">Ready to use AI the right way?</h2>
     <p style="max-width:650px;margin:0 auto 25px">Complete all five trainings, earn your badges, and unlock every mission in the game.</p>
-    <button class="btn btn-primary" onclick="scrollToSection('dashboard')">VIEW MY CLEARANCE</button>
+    <button class="btn btn-primary" onclick="scrollToSection('dashboard')">Check my progress</button>
   </div>
 </section>
 
 <section id="sources" class="sources">
   <div class="card">
-    <div class="section-label">SOURCES &amp; CREDITS</div>
     <h3>Where this content comes from</h3>
-    <p>Lesson text and quiz questions were written for this portal. The Aurora story and missions are fictional. Icons are standard Unicode emoji and the site uses system fonts, with no third-party images or code libraries. Further reading:</p>
+    <p>Lesson text and quiz questions were written for this portal. The Aurora story and missions are fictional. The site uses system fonts and no third-party images or code libraries. Further reading:</p>
     <ul>
       <li>AI4K12 Initiative, "Five Big Ideas in AI" (ai4k12.org)</li>
       <li>UNESCO, "Guidance for generative AI in education and research" (2023)</li>
@@ -342,8 +316,8 @@ section{padding:75px 5%}
 </div>
 
 <footer>
-  <p><strong>PROJECT AURORA</strong> — AI Space Program</p>
-  <p style="margin-top:8px;font-size:12px">A fictional educational space exploration program.</p>
+  <p><strong>Project Aurora</strong>, an AI learning portal for high school students</p>
+  <p style="margin-top:8px;font-size:12px">The Aurora story and its aliens are fiction.</p>
 </footer>
 
 <script>
@@ -457,8 +431,7 @@ function buildUI(){
   for (let i=1;i<=5;i++){
     const mod = modules[i];
     m += `<button class="card module-card" id="mod${i}" onclick="openModule(${i})">
-      <div class="module-number" aria-hidden="true">0${i}</div>
-      <div class="module-icon" aria-hidden="true">${mod.icon}</div>
+      <div class="module-number">Module ${i}</div>
       <h3>${mod.title}</h3>
       <p>${mod.intro}</p>
       <div class="bar"><span id="progress${i}"></span></div>
@@ -468,7 +441,7 @@ function buildUI(){
   $("moduleGrid").innerHTML = m;
 
   $("badgeGrid").innerHTML = badgeInfo.map(b =>
-    `<div class="badge" id="badge${b[0]}"><div class="badge-icon" aria-hidden="true">${b[1]}</div><strong>${b[2]}</strong><span>${b[3]}</span></div>`).join("");
+    `<div class="badge" id="badge${b[0]}"><div class="badge-icon" aria-hidden="true">${b[0]}</div><strong>${b[2]}</strong><span>${b[3]}</span></div>`).join("");
 }
 
 /* ---------- UPDATE UI ---------- */
@@ -532,8 +505,8 @@ function openModule(id){
   }
   lastFocus = document.activeElement;
   const mod = modules[id];
-  let html = `<div class="section-label">AURORA TRAINING / MODULE ${id}</div>
-    <h2 id="modalTitle">${mod.icon} ${mod.title}</h2>
+  let html = `<div class="section-label">Module ${id}</div>
+    <h2 id="modalTitle">${mod.title}</h2>
     <p class="lesson-intro">${mod.intro}</p>`;
   mod.lessons.forEach(l => {
     html += `<div class="lesson-box"><h4>${l.t}</h4><p>${l.x}</p>`;
