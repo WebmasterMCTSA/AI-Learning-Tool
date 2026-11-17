@@ -148,10 +148,10 @@ footer{max-width:1400px;margin:auto;border-top:1px solid var(--line);padding:42p
 .toast strong{color:var(--accent)}
 
 /* ZIBBLE */
-.zibble-widget{position:fixed;right:22px;bottom:22px;z-index:2500;display:none;align-items:flex-end;gap:10px;max-width:min(390px,calc(100vw - 32px))}
+.zibble-widget{position:fixed;right:22px;bottom:22px;z-index:2500;display:flex;align-items:flex-end;gap:10px;max-width:min(390px,calc(100vw - 32px))}
 .zibble-widget.unlocked{display:flex}
 .zibble-avatar{width:104px;height:104px;flex:none;border:1px solid rgba(99,235,255,.55);border-radius:50%;background:radial-gradient(circle at 50% 55%,rgba(43,207,255,.24),rgba(68,55,160,.2) 58%,rgba(17,22,57,.96) 76%);box-shadow:0 0 28px rgba(49,204,255,.28),0 10px 28px rgba(0,0,0,.38);cursor:pointer;display:grid;place-items:center;padding:10px;animation:zibbleFloat 3s ease-in-out infinite}
-.zibble-avatar svg{width:100%;height:100%}
+.zibble-avatar svg{width:100%;height:100%;overflow:visible}
 .zibble-bubble{position:relative;background:#f1efff;color:#202344;border:2px solid var(--accent);border-radius:17px;padding:13px 15px;box-shadow:0 14px 35px rgba(0,0,0,.4);max-width:285px;font-size:14px}
 .zibble-bubble:after{content:"";position:absolute;right:-9px;bottom:18px;width:14px;height:14px;background:#f1efff;border-right:2px solid var(--accent);border-top:2px solid var(--accent);transform:rotate(45deg)}
 .zibble-bubble strong{display:block;color:#5146a2;font-size:16px;margin-bottom:3px}
@@ -161,7 +161,27 @@ footer{max-width:1400px;margin:auto;border-top:1px solid var(--line);padding:42p
 .zibble-actions button:hover{background:#e4e0ff}
 .zibble-widget.minimized .zibble-bubble{display:none}
 .zibble-widget.minimized{gap:0}
+.zibble-eye{transform-box:fill-box;transform-origin:center;animation:zibbleBlink 4.5s infinite}
+.zibble-avatar:hover svg{animation:zibbleWiggle .5s}
+@keyframes zibbleBlink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+@keyframes zibbleWiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg)}75%{transform:rotate(12deg)}}
 @keyframes zibbleFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
+
+/* ZIBBLE: futuristic skin */
+.zibble-avatar{border:1px solid rgba(98,217,232,.7);background:radial-gradient(circle at 50% 50%,rgba(98,217,232,.18),rgba(20,18,70,.85) 62%,rgba(6,10,28,.97) 78%);box-shadow:0 0 0 4px rgba(98,217,232,.08),0 0 34px rgba(98,217,232,.45),0 0 70px rgba(122,96,255,.25),inset 0 0 18px rgba(98,217,232,.2);padding:4px}
+.zibble-ring{transform-box:fill-box;transform-origin:center;animation:zibbleSpin 14s linear infinite}
+.zibble-ring.rev{animation-duration:9s;animation-direction:reverse}
+@keyframes zibbleSpin{to{transform:rotate(360deg)}}
+.zibble-avatar:hover svg{animation:none;filter:drop-shadow(0 0 6px #62d9e8)}
+.zibble-bubble{background:rgba(9,16,38,.92);backdrop-filter:blur(10px);color:#dff7ff;border:1px solid rgba(98,217,232,.75);border-radius:14px;box-shadow:0 0 22px rgba(98,217,232,.25),0 14px 35px rgba(0,0,0,.5);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px}
+.zibble-bubble:after{background:#0a1228;border-right:1px solid rgba(98,217,232,.75);border-top:1px solid rgba(98,217,232,.75)}
+.zibble-bubble strong{color:#62d9e8;letter-spacing:.04em;font-size:14px}
+.zibble-bubble p{color:#c3d4ef}
+.zibble-actions button{background:rgba(98,217,232,.08);color:#9fefff;border:1px solid rgba(98,217,232,.6);border-radius:6px}
+.zibble-actions button:hover{background:rgba(98,217,232,.22)}
+.zibble-bubble p#zibbleMessage:after{content:"\2588";margin-left:3px;color:#62d9e8;animation:zibbleCursor 1s steps(1) infinite}
+@keyframes zibbleCursor{50%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.zibble-ring,.zibble-bubble p#zibbleMessage:after{animation:none}}
 
 /* RESPONSIVE */
 @media(max-width:900px){.nav-links a{font-size:10px}}
@@ -362,21 +382,30 @@ body{padding-top:64px}.navbar{height:64px}.nav-links{top:64px}
 
 <div class="zibble-widget" id="zibbleWidget" aria-label="Zibble assistant">
   <div class="zibble-bubble" id="zibbleBubble" role="status" aria-live="polite">
-    <strong>Hi, I'm Zibble!</strong>
-    <p id="zibbleMessage">You earned me by completing AI Fundamentals. I'm here if you need a hand!</p>
+    <strong>ZIBBLE // AI ONLINE</strong>
+    <p id="zibbleMessage">It looks like you're learning about AI. Would you like a tip?</p>
     <div class="zibble-actions">
       <button type="button" onclick="zibbleTip()">Give me a tip</button>
       <button type="button" onclick="toggleZibble()">Minimize</button>
     </div>
   </div>
   <button class="zibble-avatar" type="button" onclick="toggleZibble()" aria-label="Open Zibble alien chatbot" title="Talk to Zibble">
-    <svg viewBox="0 0 64 64" role="img" aria-label="A friendly animated paperclip-shaped space helper">
-      <path d="M39 13c-8-8-21-3-21 8v24c0 15 23 17 23 1V20c0-7-11-8-11 0v24" fill="none" stroke="#b8adff" stroke-width="7" stroke-linecap="round"/>
-      <path d="M39 13c-8-8-21-3-21 8v24c0 15 23 17 23 1V20c0-7-11-8-11 0v24" fill="none" stroke="#7468d8" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="25" cy="29" r="2.8" fill="#171c3c"/><circle cx="37" cy="29" r="2.8" fill="#171c3c"/>
-      <path d="M27 37q4 5 8 0" fill="none" stroke="#171c3c" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="19" cy="35" r="2.2" fill="#f3a9d5" opacity=".9"/><circle cx="43" cy="35" r="2.2" fill="#f3a9d5" opacity=".9"/>
-      <path d="M47 10l2 4 4 2-4 2-2 4-2-4-4-2 4-2z" fill="#5aa9ff"/>
+    <svg viewBox="0 0 64 64" role="img" aria-label="Zibble, a futuristic AI core">
+      <defs>
+        <radialGradient id="zibCore" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#7ff3ff"/><stop offset=".55" stop-color="#4a6bff"/><stop offset="1" stop-color="#1a1650"/></radialGradient>
+        <radialGradient id="zibGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#62d9e8" stop-opacity=".55"/><stop offset="1" stop-color="#62d9e8" stop-opacity="0"/></radialGradient>
+      </defs>
+      <circle cx="32" cy="32" r="30" fill="url(#zibGlow)"/>
+      <circle class="zibble-ring" cx="32" cy="32" r="27" fill="none" stroke="#62d9e8" stroke-width="1.6" stroke-dasharray="14 6 3 6" stroke-linecap="round"/>
+      <circle class="zibble-ring rev" cx="32" cy="32" r="22" fill="none" stroke="#a99bff" stroke-width="1.6" stroke-dasharray="26 10" stroke-linecap="round"/>
+      <path d="M32 5v6M32 53v6M5 32h6M53 32h6" stroke="#62d9e8" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>
+      <circle cx="32" cy="5" r="1.6" fill="#62d9e8"/><circle cx="59" cy="32" r="1.6" fill="#a99bff"/><circle cx="5" cy="32" r="1.6" fill="#a99bff"/><circle cx="32" cy="59" r="1.6" fill="#62d9e8"/>
+      <circle cx="32" cy="32" r="15.5" fill="url(#zibCore)" stroke="#9fefff" stroke-width="1.4"/>
+      <path d="M20 29h5l2 3h4M44 29h-5l-2 3h-4M23 40h6l2-3M41 40h-6l-2-3" fill="none" stroke="#bff6ff" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round" opacity=".6"/>
+      <ellipse class="zibble-eye" cx="32" cy="31" rx="8" ry="4.6" fill="#07102e" stroke="#7ff3ff" stroke-width="1.2"/>
+      <circle class="zibble-eye" cx="32" cy="31" r="2.6" fill="#7ff3ff"/>
+      <circle cx="33" cy="30" r=".9" fill="#fff"/>
+      <path d="M26.5 38q5.5 3 11 0" fill="none" stroke="#bff6ff" stroke-width="1.3" stroke-linecap="round" opacity=".85"/>
     </svg>
   </button>
 </div>
@@ -389,6 +418,22 @@ body{padding-top:64px}.navbar{height:64px}.nav-links{top:64px}
 /* PASTE YOUR ORIGINAL <script> CONTENTS HERE, UNCHANGED.
    (Everything between <script> and </script> from your current file:
    the modules data, badgeInfo, ranks, storage, quiz and Zibble functions, etc.) */
+</script>
+<script>
+/* Zibble helper: works even without the main script; defers to it if present */
+(function(){
+  var tips=["Try the question yourself first. Then ask AI to explain anything that was confusing.","AI can sound confident and still be wrong. Check important facts with a reliable source.","A clear prompt includes your goal, useful context, and the format you want.","Keep passwords, addresses, and other private information out of AI prompts.","Use AI as a study partner, not as a replacement for your own thinking."];
+  var i=0,w=document.getElementById("zibbleWidget");
+  if(typeof window.toggleZibble!=="function") window.toggleZibble=function(){
+    w.classList.toggle("minimized");
+    w.querySelector(".zibble-avatar").setAttribute("aria-label",w.classList.contains("minimized")?"Open Zibble alien chatbot":"Minimize Zibble alien chatbot");
+  };
+  if(typeof window.zibbleTip!=="function") window.zibbleTip=function(){
+    document.getElementById("zibbleMessage").textContent=tips[i++%tips.length];
+    w.classList.remove("minimized");
+  };
+  w.classList.add("unlocked");
+})();
 </script>
 </body>
 </html>
