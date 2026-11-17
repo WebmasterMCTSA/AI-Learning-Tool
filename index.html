@@ -122,6 +122,25 @@ footer{border-top:1px solid var(--line);padding:36px 7%;color:var(--muted);text-
 .dot.done{background:var(--teal)}
 .dot.now{background:var(--accent)}
 .jump{margin-bottom:12px;min-height:38px;padding:8px 14px}
+
+/* ---------- ZIBBLE COMPANION ---------- */
+.zibble-widget{position:fixed;right:22px;bottom:22px;z-index:2500;display:none;align-items:flex-end;gap:10px;max-width:min(390px,calc(100vw - 32px))}
+.zibble-widget.unlocked{display:flex}
+.zibble-avatar{width:104px;height:104px;flex:none;border:1px solid rgba(99,235,255,.55);border-radius:50%;background:radial-gradient(circle at 50% 55%,rgba(43,207,255,.24),rgba(68,55,160,.2) 58%,rgba(17,22,57,.96) 76%);box-shadow:0 0 0 5px rgba(98,220,255,.07),0 0 28px rgba(49,204,255,.28),0 10px 28px rgba(0,0,0,.38);cursor:pointer;display:grid;place-items:center;overflow:visible;animation:zibbleFloat 3s ease-in-out infinite;padding:0}
+.zibble-avatar:hover{transform:scale(1.06);box-shadow:0 0 0 6px rgba(98,220,255,.12),0 0 36px rgba(49,204,255,.42),0 10px 28px rgba(0,0,0,.38)}
+.zibble-avatar img{width:126%;height:126%;object-fit:contain;max-width:none;pointer-events:none;filter:drop-shadow(0 0 8px rgba(63,221,255,.28))}
+.zibble-bubble{position:relative;background:#f1efff;color:#202344;border:2px solid var(--accent);border-radius:14px;padding:13px 15px;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:285px;font-size:14px}
+.zibble-bubble:after{content:"";position:absolute;right:-9px;bottom:18px;width:14px;height:14px;background:#f1efff;border-right:2px solid var(--accent);border-top:2px solid var(--accent);transform:rotate(45deg)}
+.zibble-bubble strong{display:block;color:#5146a2;font-size:16px;margin-bottom:3px}
+.zibble-bubble p{color:#34365c}
+.zibble-actions{display:flex;gap:8px;margin-top:9px}
+.zibble-actions button{border:1px solid #aaa3e8;background:#fff;color:#302b65;border-radius:5px;padding:5px 9px;font-size:12px;font-weight:bold;cursor:pointer}
+.zibble-actions button:hover{background:#e4e0ff}
+.zibble-widget.minimized .zibble-bubble{display:none}
+.zibble-widget.minimized{gap:0}
+@keyframes zibbleFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
+@media(max-width:600px){.zibble-widget{right:12px;bottom:12px}.zibble-avatar{width:88px;height:88px}.zibble-bubble{max-width:230px}}
+
 @media(max-width:900px){
 .menu-btn{display:block}
 .nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line)}
@@ -139,6 +158,102 @@ section{padding:60px 5%}
 .modal-content{padding:22px 16px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* ---------- UX POLISH ---------- */
+:root{--content-width:1240px}
+body{padding-top:64px}
+.navbar{backdrop-filter:blur(14px);background:rgba(18,22,46,.94)}
+main{width:100%}
+section,.hero{max-width:1600px;margin-left:auto;margin-right:auto}
+.hero{min-height:520px}
+.hero-meta{display:flex;gap:10px 22px;flex-wrap:wrap;margin-top:24px;color:var(--muted);font-size:13px}
+.hero-meta span{display:inline-flex;align-items:center;gap:5px}
+.hero-meta strong{color:var(--accent)}
+.section-heading{margin-bottom:30px}
+.section-heading p{font-size:16px;line-height:1.75}
+.card{border-radius:14px;box-shadow:0 10px 28px rgba(0,0,0,.12);transition:transform .2s,border-color .2s,box-shadow .2s}
+.grid3 .card:hover,.dash .card:hover{border-color:#555f9c;box-shadow:0 14px 34px rgba(0,0,0,.2)}
+.module-card{min-height:220px;position:relative;padding:26px}
+.module-card:hover{transform:translateY(-3px)}
+.module-card:focus-visible,.btn:focus-visible,.answer:focus-visible,.nav-links a:focus-visible{outline-offset:4px}
+.module-card.locked{opacity:.78}
+.module-card.locked .module-cta{color:#c0c4df}
+.btn{border-radius:9px;transition:transform .16s,background .16s,border-color .16s}
+.btn:hover:not(:disabled){transform:translateY(-1px)}
+.btn:active:not(:disabled){transform:translateY(0)}
+.btn-secondary{background:rgba(255,255,255,.025)}
+.answer{min-height:52px;border-radius:9px;line-height:1.45;transition:border-color .15s,background .15s}
+.answer:disabled{cursor:default;opacity:1}
+.xp-bar{height:16px}
+.xp-fill{border-radius:8px}
+.stat{background:rgba(255,255,255,.025)}
+.badge{border-radius:10px}
+.modal{backdrop-filter:blur(5px)}
+.modal-content{border-radius:16px;box-shadow:0 24px 80px rgba(0,0,0,.45)}
+.close{width:44px;height:44px;border-radius:8px}
+.close:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.quiz-progress{height:7px;background:var(--line);border-radius:99px;overflow:hidden;margin:12px 0}
+.quiz-progress div{height:100%;background:var(--teal);border-radius:99px;transition:width .25s}
+.result{border-radius:10px;line-height:1.6}
+.gframe{border-radius:12px}
+footer{max-width:1600px;margin:auto}
+.totop{box-shadow:0 8px 22px rgba(0,0,0,.25)}
+#readiness{font-family:Georgia,serif;font-weight:700}
+.nav-links a{padding:8px 0;transition:color .15s}
+.nav-links a.active{font-weight:700}
+.menu-btn{min-width:44px;min-height:44px}
+.skip{border-radius:8px}
+:target{scroll-margin-top:88px}
+@media(min-width:1200px){
+  .hero{padding-left:max(7%,calc((100% - 1240px)/2));padding-right:max(7%,calc((100% - 1240px)/2))}
+  section{padding-left:max(7%,calc((100% - 1240px)/2));padding-right:max(7%,calc((100% - 1240px)/2))}
+}
+@media(max-width:900px){
+  body{padding-top:64px}
+  .navbar{padding:0 5%}
+  .nav-links{box-shadow:0 14px 24px rgba(0,0,0,.24);padding:8px 0}
+  .nav-links a{padding:14px 5%;font-size:14px}
+  .player-mini{display:flex;margin-left:auto;margin-right:12px;font-size:12px}
+  .rank-mini{display:none}
+  .hero{min-height:0;gap:20px}
+}
+@media(max-width:600px){
+  .hero{padding-top:76px;padding-bottom:54px}
+  .hero h1{font-size:clamp(38px,12vw,56px);margin-bottom:18px}
+  .hero p{font-size:16px;line-height:1.65}
+  .hero-buttons{display:grid;grid-template-columns:1fr}
+  .hero-buttons .btn{width:100%}
+  .hero-meta{gap:8px 14px;font-size:12px}
+  section{padding-top:52px;padding-bottom:52px}
+  .section-heading{margin-bottom:24px}
+  .section-heading h2{font-size:30px}
+  .card{padding:19px}
+  .module-card{min-height:0;padding:21px}
+  .dash{gap:14px}
+  .badges{gap:9px}
+  .badge{padding:11px}
+  .modal{padding:10px}
+  .modal-content{max-height:94dvh;padding:22px 16px 18px}
+  .modal-content h2{font-size:25px}
+  .gframe,.gph{min-height:220px}
+  .gbtns{display:grid;grid-template-columns:1fr}
+  .gbtns .btn{width:100%}
+  .zibble-widget{max-width:calc(100vw - 24px)}
+  .zibble-bubble{font-size:13px}
+  .totop{left:12px;bottom:12px}
+}
+@media(max-width:380px){
+  .player-mini{font-size:11px;margin-right:8px}
+  .logo strong{font-size:16px}
+  .logo span{font-size:10px}
+  .zibble-avatar{width:56px;height:56px}
+  .zibble-avatar svg{width:43px;height:43px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .zibble-avatar{animation:none}
+}
+
 </style>
 </head>
 <body>
@@ -158,7 +273,7 @@ section{padding:60px 5%}
   </div>
   <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">☰</button>
 </nav>
-<button class="totop" id="toTop" aria-label="Back to top" onclick="scrollToSection('home')">↑</button>
+<button class="totop" id="toTop" aria-label="Back to top" title="Back to top" onclick="scrollToSection('home')">↑</button>
 
 <main id="main">
 <header class="hero" id="home">
@@ -168,6 +283,11 @@ section{padding:60px 5%}
     <div class="hero-buttons">
       <button class="btn btn-primary" id="heroStart" onclick="startNext()">Start Module 1</button>
       <button class="btn btn-secondary" onclick="scrollToSection('guide')">Read the guide first</button>
+    </div>
+    <div class="hero-meta" aria-label="Course overview">
+      <span><strong>5</strong> short modules</span>
+      <span><strong>3</strong> questions per quiz</span>
+      <span><strong>2/3</strong> to pass</span>
     </div>
   </div>
   <svg class="hero-art" viewBox="0 0 320 320" aria-hidden="true">
@@ -182,9 +302,9 @@ section{padding:60px 5%}
   </svg>
 </header>
 
-<section id="guide">
+<section id="guide" aria-labelledby="guideTitle">
   <div class="section-heading">
-    <h2>Six habits that keep you out of trouble.</h2>
+    <h2 id="guideTitle">Six habits that keep you out of trouble.</h2>
     <p>Writing, studying, coding, it applies to all of it. One catch: your school's AI policy comes first, and it might be stricter than anything here.</p>
   </div>
   <ol class="rules">
@@ -213,17 +333,17 @@ section{padding:60px 5%}
   </div>
 </section>
 
-<section id="academy">
+<section id="academy" aria-labelledby="academyTitle">
   <div class="section-heading">
-    <h2>Five short modules.</h2>
+    <h2 id="academyTitle">Five short modules.</h2>
     <p>Complete each module, then pass its 3-question knowledge check (2 correct to pass) to earn XP, unlock badges, and raise your rank. Modules unlock in order.</p>
   </div>
   <div class="grid3" id="moduleGrid"></div>
 </section>
 
-<section id="dashboard">
+<section id="dashboard" aria-labelledby="dashboardTitle">
   <div class="section-heading">
-    <h2>Your progress.</h2>
+    <h2 id="dashboardTitle">Your progress.</h2>
     <p>Your XP, badges, and rank. It all saves in this browser.</p>
   </div>
   <div class="dash">
@@ -237,7 +357,7 @@ section{padding:60px 5%}
     </div>
     <div class="card">
       <h3>Overall progress</h3>
-      <div style="font-size:55px;margin:20px 0;color:var(--primary)" id="readiness">0%</div>
+      <div style="font-size:55px;margin:20px 0;color:var(--accent)" id="readiness">0%</div>
       <p>Finish all five modules to hit 100%.</p>
     </div>
     <div class="card">
@@ -257,9 +377,9 @@ section{padding:60px 5%}
   </div>
 </section>
 
-<section id="game">
+<section id="game" aria-labelledby="gameTitle">
   <div class="section-heading">
-    <h2>Now try it on an alien world.</h2>
+    <h2 id="gameTitle">Now try it on an alien world.</h2>
     <p>In our space game you land on a planet nobody has mapped, with the ship's AI as your only help. Aliens, odd signals, and tricky calls will test the habits from the guide. Pass a quiz here to unlock the matching level.</p>
   </div>
   <div class="grid2">
@@ -306,6 +426,28 @@ section{padding:60px 5%}
 <div class="toast" id="toast" role="status" aria-live="polite">
   <strong id="toastTitle"></strong>
   <div id="toastMessage"></div>
+</div>
+
+
+<div class="zibble-widget" id="zibbleWidget" aria-label="Zibble assistant">
+  <div class="zibble-bubble" id="zibbleBubble" role="status" aria-live="polite">
+    <strong>Hi, I'm Zibble!</strong>
+    <p id="zibbleMessage">You earned me by completing AI Fundamentals. I'm here if you need a hand!</p>
+    <div class="zibble-actions">
+      <button type="button" onclick="zibbleTip()">Give me a tip</button>
+      <button type="button" onclick="toggleZibble()">Minimize</button>
+    </div>
+  </div>
+  <button class="zibble-avatar" type="button" onclick="toggleZibble()" aria-label="Open Zibble alien chatbot" title="Talk to Zibble">
+    <svg viewBox="0 0 64 64" role="img" aria-label="A friendly animated paperclip-shaped space helper">
+      <path d="M39 13c-8-8-21-3-21 8v24c0 15 23 17 23 1V20c0-7-11-8-11 0v24" fill="none" stroke="#b8adff" stroke-width="7" stroke-linecap="round"/>
+      <path d="M39 13c-8-8-21-3-21 8v24c0 15 23 17 23 1V20c0-7-11-8-11 0v24" fill="none" stroke="#7468d8" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="25" cy="29" r="2.8" fill="#171c3c"/><circle cx="37" cy="29" r="2.8" fill="#171c3c"/>
+      <path d="M27 37q4 5 8 0" fill="none" stroke="#171c3c" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="19" cy="35" r="2.2" fill="#f3a9d5" opacity=".9"/><circle cx="43" cy="35" r="2.2" fill="#f3a9d5" opacity=".9"/>
+      <path d="M47 10l2 4 4 2-4 2-2 4-2-4-4-2 4-2z" fill="#5aa9ff"/>
+    </svg>
+  </button>
 </div>
 
 <footer>
@@ -500,6 +642,10 @@ function unlockBadge(id, title){
   if (!player.badges.includes(id)){
     player.badges.push(id);
     savePlayer(); updateUI();
+    if (id === 1) {
+      showZibble();
+      $("zibbleMessage").textContent = "You earned me! I'm Zibble, your little AI-learning sidekick. Click me whenever you need a tip.";
+    }
     setTimeout(() => showToast("BADGE UNLOCKED", title), 600);
   }
 }
@@ -520,7 +666,7 @@ function openModule(id){
   const mod = modules[id];
   let html = `<div class="section-label">Module ${id}</div>
     <h2 id="modalTitle">${mod.title}</h2>
-    <p class="lesson-intro">${mod.intro}</p>
+    <p class="lesson-intro" id="modalDescription">${mod.intro}</p>
     <button class="btn btn-secondary jump" onclick="document.getElementById('quizArea').scrollIntoView({behavior:'smooth'})">Skip to the quiz ↓</button>`;
   mod.lessons.forEach(l => {
     html += `<div class="lesson-box"><h4>${l.t}</h4><p>${l.x}</p>`;
@@ -541,7 +687,8 @@ function renderQuestion(){
   const mod = modules[quiz.id], q = mod.quiz[quiz.index];
   const answers = shuffle(q.a.map((text,i) => ({text, ok:i===0})));
   let html = `<div class="quiz-meta">KNOWLEDGE CHECK: QUESTION ${quiz.index+1} OF ${mod.quiz.length} · PRESS 1-4 TO ANSWER</div>
-    <div class="dots">${mod.quiz.map((_,k) => '<span class="dot ' + (k < quiz.index ? "done" : k === quiz.index ? "now" : "") + '"></span>').join("")}</div>
+    <div class="quiz-progress" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="${mod.quiz.length}" aria-valuenow="${quiz.index+1}"><div style="width:${(quiz.index+1)/mod.quiz.length*100}%"></div></div>
+    <div class="dots" aria-hidden="true">${mod.quiz.map((_,k) => '<span class="dot ' + (k < quiz.index ? "done" : k === quiz.index ? "now" : "") + '"></span>').join("")}</div>
     <h4 class="quiz-q">${q.q}</h4><div id="answerList">`;
   answers.forEach((a,i) => html += `<button class="answer" data-ok="${a.ok}" onclick="pickAnswer(this)">${a.text}</button>`);
   html += `</div><div id="quizFeedback" aria-live="polite"></div>`;
@@ -607,6 +754,31 @@ document.addEventListener("keydown", e => {
   }
 });
 
+
+/* ---------- ZIBBLE COMPANION ---------- */
+const zibbleTips = [
+  "Try the question yourself first. Then ask AI to explain anything that was confusing.",
+  "AI can sound confident and still be wrong. Check important facts with a reliable source.",
+  "A clear prompt includes your goal, useful context, and the format you want.",
+  "Keep passwords, addresses, and other private information out of AI prompts.",
+  "Use AI as a study partner, not as a replacement for your own thinking."
+];
+let zibbleTipIndex = 0;
+function showZibble(){
+  if (player.badges.includes(1)) $("zibbleWidget").classList.add("unlocked");
+}
+function toggleZibble(){
+  const widget = $("zibbleWidget");
+  widget.classList.toggle("minimized");
+  const button = widget.querySelector(".zibble-avatar");
+  button.setAttribute("aria-label", widget.classList.contains("minimized") ? "Open Zibble alien chatbot" : "Minimize Zibble alien chatbot");
+}
+function zibbleTip(){
+  $("zibbleMessage").textContent = zibbleTips[zibbleTipIndex % zibbleTips.length];
+  zibbleTipIndex++;
+  $("zibbleWidget").classList.remove("minimized");
+}
+
 /* ---------- TOAST ---------- */
 let toastTimer;
 function showToast(title, message){
@@ -653,8 +825,8 @@ function goNext(n){ $("lessonModal").classList.remove("active"); openModule(n); 
 function onScroll(){
   const h = document.documentElement, y = h.scrollTop;
   $("toTop").style.display = y > 600 ? "block" : "none";
-  let cur = "";
-  ["guide","academy","dashboard","game"].forEach(id => { if ($(id).getBoundingClientRect().top <= 120) cur = id; });
+  let cur = y < 260 ? "home" : "";
+  ["guide","academy","dashboard","game"].forEach(id => { if ($(id).getBoundingClientRect().top <= 150) cur = id; });
   document.querySelectorAll(".nav-links a").forEach(a => {
     const on = a.getAttribute("href") === "#" + cur;
     a.classList.toggle("active", on);
@@ -668,6 +840,7 @@ buildUI();
 updateUI();
 onScroll();
 checkBadges();
+showZibble();
 </script>
 </body>
 </html>
