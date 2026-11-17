@@ -183,6 +183,23 @@ footer{max-width:1400px;margin:auto;border-top:1px solid var(--line);padding:42p
 @keyframes zibbleCursor{50%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.zibble-ring,.zibble-bubble p#zibbleMessage:after{animation:none}}
 
+
+/* NEURAL STACK: browser mini-game */
+.neural-game{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:18px;align-items:start}
+.neural-board-wrap{background:#070c1b;border:1px solid #34486c;border-radius:14px;padding:12px;display:flex;justify-content:center}
+#neuralBoard{display:block;width:min(100%,300px);height:auto;aspect-ratio:1/2;background:#0b1428;border:1px solid #293d61;border-radius:7px;touch-action:manipulation}
+.neural-side{display:grid;gap:12px}
+.neural-stat{padding:12px;border:1px solid #2b3c5c;border-radius:10px;background:rgba(255,255,255,.035)}
+.neural-stat span{display:block;color:var(--muted);font-size:12px}
+.neural-stat strong{font-size:25px;color:var(--teal)}
+.neural-next{display:block;width:100%;max-width:120px;margin:8px auto 0;background:#0b1428;border-radius:8px}
+.neural-controls{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.neural-controls button{min-height:42px;border:1px solid #405071;border-radius:8px;background:#172642;cursor:pointer;font-weight:bold}
+.neural-controls button:hover{border-color:var(--teal);background:#203354}
+.neural-message{color:var(--muted);font-size:13px;min-height:40px}
+.neural-touch{display:none}
+@media(max-width:600px){.neural-game{grid-template-columns:1fr}.neural-side{grid-template-columns:repeat(2,minmax(0,1fr))}.neural-side .neural-full{grid-column:1/-1}.neural-touch{display:grid}}
+
 /* RESPONSIVE */
 @media(max-width:900px){.nav-links a{font-size:10px}}
 @media(max-width:760px){
@@ -337,13 +354,28 @@ body{padding-top:64px}.navbar{height:64px}.nav-links{top:64px}
   </div>
   <div class="grid2">
     <div class="card">
-      <div class="gframe" id="gameFrame">
-        <div class="gph"><h3>Project Aurora: the game</h3><p>Coming soon. Our alien-world space game is still being built and will play right here.</p></div>
+      <div class="neural-game" id="gameFrame">
+        <div class="neural-board-wrap">
+          <canvas id="neuralBoard" width="300" height="600" aria-label="Neural Stack game board"></canvas>
+        </div>
+        <div class="neural-side">
+          <div class="neural-stat"><span>SCORE</span><strong id="neuralScore">0</strong></div>
+          <div class="neural-stat"><span>LINES CLEARED</span><strong id="neuralLines">0</strong></div>
+          <div class="neural-stat"><span>LEVEL</span><strong id="neuralLevel">1</strong></div>
+          <div class="neural-stat"><span>NEXT DATA BLOCK</span><canvas class="neural-next" id="neuralNext" width="120" height="100"></canvas></div>
+          <div class="neural-full"><p class="neural-message" id="neuralMessage" aria-live="polite">Stack the data blocks, complete rows, and keep the AI core from overflowing.</p></div>
+          <div class="neural-controls neural-touch neural-full" aria-label="Touch game controls">
+            <button type="button" data-move="left" aria-label="Move left">←</button>
+            <button type="button" data-move="rotate" aria-label="Rotate">↻</button>
+            <button type="button" data-move="right" aria-label="Move right">→</button>
+            <button type="button" data-move="down" aria-label="Move down">↓</button>
+            <button type="button" data-move="drop" aria-label="Drop block">DROP</button>
+            <button type="button" data-move="pause" aria-label="Pause or resume">Ⅱ</button>
+          </div>
+          <div class="neural-full"><button class="btn btn-primary" id="neuralStart" type="button">Start game</button> <button class="btn btn-secondary" id="neuralPause" type="button">Pause</button></div>
+        </div>
       </div>
-      <div class="gbtns">
-        <button class="btn btn-primary" onclick="loadGame()">Play game</button>
-        <button class="btn btn-secondary" onclick="fullscreenGame()">Fullscreen</button>
-      </div>
+      <p style="margin-top:14px;color:var(--muted);font-size:13px">Keyboard: ← → move · ↑ rotate · ↓ soft drop · Space hard drop · P pause</p>
     </div>
     <div class="card">
       <h3>About the game</h3>
@@ -419,6 +451,117 @@ body{padding-top:64px}.navbar{height:64px}.nav-links{top:64px}
    (Everything between <script> and </script> from your current file:
    the modules data, badgeInfo, ranks, storage, quiz and Zibble functions, etc.) */
 </script>
+
+<script>
+/* Neural Stack: an original falling-block puzzle mini-game */
+(function(){
+  const canvas=document.getElementById('neuralBoard');
+  if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const nextCanvas=document.getElementById('neuralNext');
+  const nctx=nextCanvas.getContext('2d');
+  const COLS=10, ROWS=20, CELL=30;
+  const colors={I:'#62d9e8',O:'#ffd166',T:'#b49bff',S:'#69e6a6',Z:'#ff858d',J:'#68a7ff',L:'#ffad70'};
+  const shapes={
+    I:[[1,1,1,1]], O:[[1,1],[1,1]], T:[[0,1,0],[1,1,1]],
+    S:[[0,1,1],[1,1,0]], Z:[[1,1,0],[0,1,1]],
+    J:[[1,0,0],[1,1,1]], L:[[0,0,1],[1,1,1]]
+  };
+  let board, piece, next, score, lines, level, running=false, paused=false, over=false, timer=null, last=0, dropInterval=750;
+  const $=id=>document.getElementById(id);
+  function freshBoard(){return Array.from({length:ROWS},()=>Array(COLS).fill(0));}
+  function randomPiece(){
+    const keys=Object.keys(shapes), key=keys[Math.floor(Math.random()*keys.length)];
+    return {key,shape:shapes[key].map(r=>r.slice()),x:Math.floor((COLS-shapes[key][0].length)/2),y:0};
+  }
+  function collision(p,dx=0,dy=0,shape=p.shape){
+    for(let y=0;y<shape.length;y++) for(let x=0;x<shape[y].length;x++) if(shape[y][x]){
+      const nx=p.x+x+dx, ny=p.y+y+dy;
+      if(nx<0||nx>=COLS||ny>=ROWS||(ny>=0&&board[ny][nx])) return true;
+    }
+    return false;
+  }
+  function drawCell(context,x,y,color,size= CELL){
+    context.fillStyle=color; context.fillRect(x*size+1,y*size+1,size-2,size-2);
+    context.fillStyle='rgba(255,255,255,.19)';context.fillRect(x*size+3,y*size+3,size-6,3);
+    context.strokeStyle='rgba(5,12,29,.65)';context.strokeRect(x*size+1.5,y*size+1.5,size-3,size-3);
+  }
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle='#0b1428';ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.strokeStyle='rgba(98,217,232,.08)';ctx.lineWidth=1;
+    for(let x=0;x<=COLS;x++){ctx.beginPath();ctx.moveTo(x*CELL,0);ctx.lineTo(x*CELL,600);ctx.stroke();}
+    for(let y=0;y<=ROWS;y++){ctx.beginPath();ctx.moveTo(0,y*CELL);ctx.lineTo(300,y*CELL);ctx.stroke();}
+    board.forEach((row,y)=>row.forEach((v,x)=>{if(v)drawCell(ctx,x,y,colors[v]);}));
+    if(piece){
+      piece.shape.forEach((row,y)=>row.forEach((v,x)=>{if(v&&piece.y+y>=0)drawCell(ctx,piece.x+x,piece.y+y,colors[piece.key]);}));
+    }
+    if(!running){
+      ctx.fillStyle='rgba(5,10,25,.68)';ctx.fillRect(0,0,300,600);
+      ctx.textAlign='center';ctx.fillStyle='#f4f6ff';ctx.font='bold 21px system-ui';
+      ctx.fillText(over?'CORE OVERLOADED':'NEURAL STACK',150,275);
+      ctx.fillStyle='#aab7d0';ctx.font='13px system-ui';
+      ctx.fillText(over?'Press Start to try again':'Press Start to begin',150,302);
+    } else if(paused){
+      ctx.fillStyle='rgba(5,10,25,.68)';ctx.fillRect(0,0,300,600);
+      ctx.textAlign='center';ctx.fillStyle='#f4f6ff';ctx.font='bold 25px system-ui';ctx.fillText('PAUSED',150,300);
+    }
+  }
+  function drawNext(){
+    nctx.clearRect(0,0,120,100);nctx.fillStyle='#0b1428';nctx.fillRect(0,0,120,100);
+    if(!next)return;
+    const s=20, w=next.shape[0].length, h=next.shape.length, ox=(120-w*s)/2, oy=(100-h*s)/2;
+    next.shape.forEach((row,y)=>row.forEach((v,x)=>{if(v){nctx.fillStyle=colors[next.key];nctx.fillRect(ox+x*s+1,oy+y*s+1,s-2,s-2);}}));
+  }
+  function updateStats(){
+    $('neuralScore').textContent=score.toLocaleString();
+    $('neuralLines').textContent=lines;
+    $('neuralLevel').textContent=level;
+  }
+  function spawn(){
+    piece=next||randomPiece();next=randomPiece();drawNext();
+    if(collision(piece)){running=false;over=true;$('neuralMessage').textContent='The data stack reached the top. Start a new run and try again.';draw();}
+  }
+  function lock(){
+    piece.shape.forEach((row,y)=>row.forEach((v,x)=>{if(v&&piece.y+y>=0)board[piece.y+y][piece.x+x]=piece.key;}));
+    let cleared=0;
+    for(let y=ROWS-1;y>=0;y--) if(board[y].every(Boolean)){board.splice(y,1);board.unshift(Array(COLS).fill(0));cleared++;y++;}
+    if(cleared){lines+=cleared;score+=[0,100,300,500,800][cleared]*level;level=1+Math.floor(lines/10);dropInterval=Math.max(100,750-(level-1)*65);$('neuralMessage').textContent=`Great work! ${cleared} row${cleared>1?'s':''} cleared. The AI core is learning.`;}
+    updateStats();spawn();
+  }
+  function tick(){if(!running||paused)return;if(!collision(piece,0,1))piece.y++;else lock();draw();}
+  function move(dx,dy=0){if(!running||paused)return;if(!collision(piece,dx,dy)){piece.x+=dx;piece.y+=dy;draw();}else if(dy===1)lock();}
+  function rotate(){
+    if(!running||paused)return;
+    const rotated=piece.shape[0].map((_,i)=>piece.shape.map(row=>row[i]).reverse());
+    if(!collision(piece,0,0,rotated))piece.shape=rotated;
+    else if(!collision(piece,-1,0,rotated)){piece.x--;piece.shape=rotated;}
+    else if(!collision(piece,1,0,rotated)){piece.x++;piece.shape=rotated;}
+    draw();
+  }
+  function hardDrop(){if(!running||paused)return;while(!collision(piece,0,1))piece.y++;lock();score+=2;updateStats();draw();}
+  function start(){
+    clearInterval(timer);board=freshBoard();piece=null;next=randomPiece();score=0;lines=0;level=1;dropInterval=750;running=true;paused=false;over=false;
+    $('neuralMessage').textContent='Mission active. Complete rows to clear corrupted data and earn points.';
+    updateStats();spawn();draw();timer=setInterval(tick,dropInterval);
+  }
+  function togglePause(){if(!running)return;paused=!paused;$('neuralPause').textContent=paused?'Resume':'Pause';$('neuralMessage').textContent=paused?'Game paused.':'Back online — keep clearing rows.';draw();}
+  function action(a){if(a==='left')move(-1,0);if(a==='right')move(1,0);if(a==='down')move(0,1);if(a==='rotate')rotate();if(a==='drop')hardDrop();if(a==='pause')togglePause();}
+  document.addEventListener('keydown',e=>{
+    if(['ArrowLeft','ArrowRight','ArrowDown','ArrowUp',' '].includes(e.key)&&document.activeElement.tagName!=='INPUT')e.preventDefault();
+    if(e.key==='ArrowLeft')action('left');else if(e.key==='ArrowRight')action('right');else if(e.key==='ArrowDown')action('down');
+    else if(e.key==='ArrowUp')action('rotate');else if(e.key===' ')action('drop');else if(e.key.toLowerCase()==='p')action('pause');
+  });
+  document.querySelectorAll('[data-move]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.move)));
+  $('neuralStart').addEventListener('click',start);
+  $('neuralPause').addEventListener('click',togglePause);
+  // Restart the gravity timer when the level changes.
+  const originalUpdate=updateStats;
+  updateStats=function(){originalUpdate();if(timer&&running){clearInterval(timer);timer=setInterval(tick,dropInterval);}};
+  board=freshBoard();next=randomPiece();drawNext();draw();updateStats();
+})();
+</script>
+
 <script>
 /* Zibble helper: works even without the main script; defers to it if present */
 (function(){
