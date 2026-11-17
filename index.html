@@ -255,31 +255,136 @@ footer{max-width:1600px;margin:auto}
 }
 
 
-/* ACCESSIBILITY + INTERACTION REFINEMENTS */
-:root{color-scheme:dark}
-html{scroll-padding-top:88px}
-button,a{touch-action:manipulation}
-button:focus-visible,a:focus-visible{outline:3px solid #b8adff;outline-offset:4px}
-.navbar{gap:14px}.logo{flex:none}.nav-links{align-items:center}.hero-content{min-width:0}
-.module-card{display:flex;flex-direction:column;align-items:stretch;text-align:left}
-.module-card h3{line-height:1.25}.module-card p{flex:1}.module-card .bar{margin-top:auto}
-.module-card.locked{background:linear-gradient(135deg,rgba(255,255,255,.025),transparent),var(--panel)}
-.module-status{min-height:22px}.modal-content{overscroll-behavior:contain}
-.lesson-box{scroll-margin-top:16px}.quiz-meta{line-height:1.5}.answer{color:var(--text)}
-.answer.correct,.answer.wrong{border-width:2px}#quizFeedback:empty{display:none}
-#quizFeedback .result{margin-top:14px}.gph{gap:10px}.gph p{max-width:440px}
-.gbtns .btn:disabled{opacity:.55}.zibble-widget{pointer-events:none}
-.zibble-widget>*{pointer-events:auto}.zibble-avatar{width:88px;height:88px}
-.zibble-avatar svg{width:62px;height:62px}.zibble-bubble{max-width:300px}
-.toast{padding:15px 18px;box-shadow:0 12px 36px rgba(0,0,0,.35)}
-@media(max-width:900px){.nav-links{align-items:stretch}.nav-links a{padding:14px 5%;width:100%}.player-mini{white-space:nowrap}}
+/* ---------- VISUAL UX REDESIGN ---------- */
+:root{
+  --bg:#080d1d;--panel:#111a31;--line:#263653;--text:#f4f6ff;
+  --muted:#aab7d0;--accent:#a99bff;--teal:#62d9e8;--bad:#ff858d;
+  --content-width:1180px;
+}
+html{scroll-padding-top:92px}
+body{
+  background:
+    radial-gradient(ellipse at 12% 7%,rgba(105,91,220,.18),transparent 34rem),
+    radial-gradient(ellipse at 88% 35%,rgba(41,166,196,.09),transparent 32rem),
+    var(--bg);
+  color:var(--text);line-height:1.68;
+}
+.navbar{
+  height:72px;padding:0 max(5%,calc((100% - 1180px)/2));
+  background:rgba(8,13,29,.88);border-bottom:1px solid rgba(169,155,255,.18);
+  box-shadow:0 8px 30px rgba(0,0,0,.18);backdrop-filter:blur(18px);
+}
+body{padding-top:72px}
+.logo strong{font-family:inherit;font-size:17px;letter-spacing:.035em}
+.logo span{display:block;margin-top:2px;letter-spacing:.08em;text-transform:uppercase;font-size:10px}
+.nav-links{gap:clamp(12px,2vw,26px)}
+.nav-links a{font-size:11px;font-weight:800;letter-spacing:.09em}
+.nav-links a.active{color:#fff;border-bottom:2px solid var(--teal)}
+.player-mini{gap:9px;font-size:12px}
+.rank-mini,.xp-mini{padding:6px 10px;border-radius:99px;background:rgba(255,255,255,.055);border:1px solid var(--line)}
+.hero{
+  position:relative;isolation:isolate;min-height:590px;
+  padding:118px max(7%,calc((100% - 1180px)/2)) 90px;
+  border:0;gap:clamp(28px,5vw,76px);
+}
+.hero:before{
+  content:"";position:absolute;z-index:-1;right:4%;top:13%;width:min(40vw,480px);aspect-ratio:1;
+  border-radius:50%;background:radial-gradient(circle,rgba(106,93,231,.19),rgba(63,197,213,.06) 48%,transparent 70%);
+  filter:blur(8px);pointer-events:none;
+}
+.hero-content{max-width:680px}
+.hero h1{font-family:inherit;font-size:clamp(46px,6.4vw,82px);font-weight:850;letter-spacing:-.055em;line-height:.99;margin-bottom:25px}
+.hero h1 span{color:#b4a8ff;font-style:normal}
+.hero p{font-size:clamp(16px,1.5vw,19px);line-height:1.75;color:#b8c4dc;max-width:590px}
+.hero-art{width:min(370px,36%);filter:drop-shadow(0 22px 55px rgba(101,91,235,.2))}
+.hero-meta{gap:10px 12px}
+.hero-meta span{padding:7px 11px;border:1px solid rgba(169,155,255,.2);background:rgba(255,255,255,.035);border-radius:99px}
+.hero-meta strong{color:var(--teal)}
+.btn{border-radius:11px;padding:13px 21px;font-size:13px;letter-spacing:.015em;box-shadow:0 8px 24px rgba(113,99,225,.14)}
+.btn-primary{background:linear-gradient(135deg,#b6aaff,#8f7cf2);border-color:transparent;color:#11152b}
+.btn-secondary{border:1px solid #405071;background:rgba(255,255,255,.035);color:#e8edff}
+.btn-secondary:hover:not(:disabled){background:rgba(169,155,255,.1);border-color:var(--accent)}
+section{
+  max-width:1320px;padding:88px max(7%,calc((100% - 1180px)/2));
+  scroll-margin-top:82px;
+}
+section:nth-of-type(even){background:linear-gradient(90deg,rgba(255,255,255,.018),rgba(255,255,255,.008));}
+.section-label{color:var(--teal);font-size:10px;letter-spacing:.16em}
+.section-heading{max-width:720px;margin-bottom:38px}
+.section-heading h2{font-family:inherit;font-size:clamp(30px,4vw,44px);letter-spacing:-.035em;line-height:1.12}
+.section-heading p{color:#aebbd4;font-size:16px}
+.card{
+  background:linear-gradient(145deg,rgba(23,35,62,.96),rgba(14,23,43,.98));
+  border:1px solid #2a3b5c;border-radius:17px;padding:26px;
+  box-shadow:0 14px 40px rgba(0,0,0,.18);
+}
+.card h3{font-family:inherit;font-size:19px;letter-spacing:-.02em}
+.card p{color:#b2bfd7}
+.grid2,.grid3,.eq,.dash{gap:20px}
+.rules{gap:36px 56px}
+.rules li{padding-left:60px}
+.rules li:before{font-family:inherit;font-weight:850;font-size:39px;color:var(--teal)}
+.rules h3{font-family:inherit;font-size:18px}
+.module-card{
+  min-height:245px;padding:25px;display:flex;flex-direction:column;
+  background:linear-gradient(155deg,#172542,#101a31);
+  border-color:#2b3d60;border-radius:16px;
+}
+.module-card:hover{border-color:#9f91ff;box-shadow:0 18px 42px rgba(0,0,0,.25);transform:translateY(-4px)}
+.module-card.locked{opacity:.72}
+.module-number{color:var(--teal);font-size:10px;letter-spacing:.15em}
+.module-card h3{font-family:inherit;font-size:20px;line-height:1.25;margin-bottom:9px}
+.module-card p{font-size:14px;line-height:1.65;color:#b4c0d7;flex:1}
+.module-cta{padding-top:13px;border-top:1px solid rgba(169,155,255,.14);font-size:12px;letter-spacing:.03em}
+.bar{height:7px;background:#273754;border-radius:99px}
+.bar span{background:linear-gradient(90deg,#62d9e8,#a99bff)}
+.stat{background:rgba(255,255,255,.035);border:1px solid #2b3c5c;border-radius:12px}
+.stat strong{font-family:inherit;color:var(--teal);font-size:28px}
+.badge{border-radius:12px;background:rgba(255,255,255,.025)}
+.badge.unlocked{background:rgba(169,155,255,.08);border-color:var(--accent)}
+.xp-bar{height:12px;background:#263754}
+.xp-fill{background:linear-gradient(90deg,#62d9e8,#a99bff)}
+.modal{background:rgba(3,7,18,.82);backdrop-filter:blur(10px)}
+.modal-content{background:#0e1830;border:1px solid #3a4b70;border-radius:20px;padding:34px;box-shadow:0 28px 90px rgba(0,0,0,.55)}
+.modal-content h2{font-family:inherit;letter-spacing:-.03em}
+.lesson-box{border-color:#293b5b}
+.lesson-box h4{font-family:inherit;color:var(--teal)}
+.answer{background:#15223d;border-color:#304365;border-radius:10px;padding:14px 16px}
+.answer:hover:not(:disabled){background:#1c2b4b;border-color:var(--accent)}
+.answer.correct{background:rgba(44,190,167,.13);border-color:#42d5bc}
+.answer.wrong{background:rgba(255,133,141,.12);border-color:var(--bad)}
+.result{background:#172642;border-color:#35496d;border-radius:12px}
+.gframe{border-radius:16px;border-color:#34486c}
+footer{border-color:#263653;color:#9eacc7;padding:42px 7%}
+.totop{background:#172642;border-color:#405477;box-shadow:0 10px 28px rgba(0,0,0,.35)}
+.zibble-bubble{box-shadow:0 14px 35px rgba(0,0,0,.4);border-radius:17px}
+:focus-visible{outline:3px solid #62d9e8;outline-offset:4px}
+@media(max-width:900px){
+  .navbar{padding:0 5%}
+  .nav-links{top:72px;background:#0c1428;border-bottom:1px solid #344665}
+  .nav-links a{padding:15px 5%;font-size:12px}
+  .hero{min-height:0;padding-top:95px;padding-bottom:65px}
+  section{padding:68px 5%}
+}
 @media(max-width:600px){
-.navbar{gap:8px}.player-mini{display:flex;font-size:11px;margin:0 4px 0 auto}.rank-mini{display:none}
-.hero{gap:12px}.hero-meta{display:grid;grid-template-columns:1fr 1fr}.module-card{gap:2px}
-.zibble-widget{bottom:12px;right:12px}.zibble-avatar{width:68px;height:68px}
-.zibble-avatar svg{width:50px;height:50px}.zibble-bubble{max-width:min(235px,calc(100vw - 100px));padding:11px}
-.totop{bottom:90px}}
-@media(max-width:380px){.player-mini{font-size:10px}.zibble-bubble{max-width:205px}}
+  body{padding-top:64px}
+  .navbar{height:64px}
+  .nav-links{top:64px}
+  .hero{padding:66px 5% 52px}
+  .hero h1{font-size:clamp(43px,12vw,59px);line-height:1.02}
+  .hero p{font-size:16px}
+  .hero-buttons{display:flex;flex-direction:column;align-items:stretch}
+  .hero-buttons .btn{width:100%}
+  section{padding:54px 5%}
+  .section-heading h2{font-size:31px}
+  .card{padding:20px}
+  .module-card{min-height:0;padding:22px}
+  .modal-content{padding:25px 17px 18px}
+  .player-mini{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .module-card:hover,.btn:hover:not(:disabled){transform:none}
+}
 
 </style>
 </head>
@@ -459,13 +564,13 @@ button:focus-visible,a:focus-visible{outline:3px solid #b8adff;outline-offset:4p
 <div class="zibble-widget" id="zibbleWidget" aria-label="Zibble assistant">
   <div class="zibble-bubble" id="zibbleBubble" role="status" aria-live="polite">
     <strong>Hi, I'm Zibble!</strong>
-    <p id="zibbleMessage">You unlocked me by completing AI Fundamentals. I can share quick study tips!</p>
+    <p id="zibbleMessage">You earned me by completing AI Fundamentals. I'm here if you need a hand!</p>
     <div class="zibble-actions">
       <button type="button" onclick="zibbleTip()">Give me a tip</button>
       <button type="button" onclick="toggleZibble()">Minimize</button>
     </div>
   </div>
-  <button class="zibble-avatar" type="button" onclick="toggleZibble()" aria-label="Open Zibble tips" title="Get a tip from Zibble">
+  <button class="zibble-avatar" type="button" onclick="toggleZibble()" aria-label="Open Zibble alien chatbot" title="Talk to Zibble">
     <svg viewBox="0 0 64 64" role="img" aria-label="A friendly animated paperclip-shaped space helper">
       <path d="M39 13c-8-8-21-3-21 8v24c0 15 23 17 23 1V20c0-7-11-8-11 0v24" fill="none" stroke="#b8adff" stroke-width="7" stroke-linecap="round"/>
       <path d="M39 13c-8-8-21-3-21 8v24c0 15 23 17 23 1V20c0-7-11-8-11 0v24" fill="none" stroke="#7468d8" stroke-width="2" stroke-linecap="round"/>
@@ -798,7 +903,7 @@ function toggleZibble(){
   const widget = $("zibbleWidget");
   widget.classList.toggle("minimized");
   const button = widget.querySelector(".zibble-avatar");
-  button.setAttribute("aria-label", widget.classList.contains("minimized") ? "Open Zibble tips" : "Minimize Zibble tips");
+  button.setAttribute("aria-label", widget.classList.contains("minimized") ? "Open Zibble alien chatbot" : "Minimize Zibble alien chatbot");
 }
 function zibbleTip(){
   $("zibbleMessage").textContent = zibbleTips[zibbleTipIndex % zibbleTips.length];
@@ -861,75 +966,6 @@ function onScroll(){
   });
 }
 window.addEventListener("scroll", onScroll, {passive:true});
-
-
-/* UX SAFETY NETS */
-const originalOpenModule = openModule;
-openModule = function(id){
-  originalOpenModule(id);
-  const panel=$("lessonModal").querySelector(".modal-content");
-  if(panel) panel.scrollTop=0;
-};
-const originalCloseModal=closeModal;
-closeModal=function(){originalCloseModal();quiz=null;};
-const originalRenderQuestion=renderQuestion;
-renderQuestion=function(){
-  originalRenderQuestion();
-  const heading=$("quizArea").querySelector(".quiz-q");
-  if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}
-};
-const originalPickAnswer=pickAnswer;
-pickAnswer=function(el){
-  originalPickAnswer(el);
-  const feedback=$("quizFeedback");
-  if(feedback){
-    feedback.setAttribute("role","status");
-    feedback.setAttribute("aria-live","polite");
-    const next=feedback.querySelector("button");
-    if(next) next.focus({preventScroll:true});
-  }
-};
-// Clearly label the game as in development until its Unity build is configured.
-if(!UNITY_BUILD_URL){
-  const gameButtons=document.querySelectorAll("#game .gbtns .btn");
-  if(gameButtons[0]){
-    gameButtons[0].textContent="Game in development";
-    gameButtons[0].disabled=true;
-    gameButtons[0].setAttribute("aria-describedby","gameComingSoon");
-  }
-  if(gameButtons[1]){
-    gameButtons[1].disabled=true;
-    gameButtons[1].title="Available when the game build is added";
-  }
-  const placeholder=$("gameFrame").querySelector(".gph");
-  if(placeholder){placeholder.setAttribute("aria-label","Game preview: in development");placeholder.id="gameComingSoon";}
-}
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape" && $("navLinks").classList.contains("open")){
-    $("navLinks").classList.remove("open");
-    $("menuBtn").setAttribute("aria-expanded","false");
-    $("menuBtn").textContent="☰";
-    $("menuBtn").focus();
-  }
-});
-const readiness=$("readiness");
-if(readiness){
-  readiness.setAttribute("role","progressbar");
-  readiness.setAttribute("aria-label","Course completion");
-  readiness.setAttribute("aria-valuemin","0");
-  readiness.setAttribute("aria-valuemax","100");
-}
-const originalUpdateUI=updateUI;
-updateUI=function(){
-  originalUpdateUI();
-  const value=Math.round(player.completed.length/5*100);
-  if(readiness) readiness.setAttribute("aria-valuenow",String(value));
-  for(let i=1;i<=5;i++){
-    const card=$("mod"+i);
-    if(card) card.setAttribute("aria-label","Module "+i+": "+modules[i].title+". "+
-      (player.completed.includes(i)?"Completed. Review module.":isAvailable(i)?"Available. Start module.":"Locked. Complete the previous module first."));
-  }
-};
 
 /* ---------- INIT ---------- */
 buildUI();
