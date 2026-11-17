@@ -75,9 +75,11 @@ section{padding:80px 7%;scroll-margin-top:64px}
 .badges{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
 .badge{padding:14px;border:1px dashed var(--line);border-radius:6px;color:var(--muted);opacity:.55}
 .badge.unlocked{opacity:1;border:1px solid var(--accent);color:var(--text)}
-.badge-icon{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;border:2px solid currentColor;font-weight:bold;font-size:14px;margin-bottom:8px}
-.badge.unlocked .badge-icon{background:var(--accent);border-color:var(--accent);color:#111}
+.badge-icon{display:block;width:46px;height:46px;margin-bottom:8px}
+.badge-icon svg{width:100%;height:100%}
+.badge:not(.unlocked) .badge-icon{filter:grayscale(1)}
 .badge strong{display:block}
+.alien-name{display:block;font-family:Georgia,serif;font-style:italic;color:var(--accent);font-size:16px;margin-bottom:2px}
 .badge span{display:block;font-size:12px;margin-top:2px}
 .modal{position:fixed;inset:0;z-index:2000;background:rgba(8,10,25,.85);display:none;align-items:center;justify-content:center;padding:20px}
 .modal.active{display:flex}
@@ -358,12 +360,12 @@ const modules = {
 };
 
 const badgeInfo = [
- [1,"🧠","AI Initiate","Complete AI Fundamentals"],
- [2,"🛠️","Tool Specialist","Complete AI Tools & Techniques"],
- [3,"💬","Prompt Pilot","Complete Prompt Engineering"],
- [4,"⚖️","Ethics Officer","Complete Ethical AI"],
- [5,"🛡️","Privacy Guardian","Complete Privacy, Safety & Deepfakes"],
- [6,"🌌","AURORA Specialist","Complete all five trainings"]
+ [1,"🧠","AI Initiate","Complete AI Fundamentals","Zibble"],
+ [2,"🛠️","Tool Specialist","Complete AI Tools & Techniques","Oculon"],
+ [3,"💬","Prompt Pilot","Complete Prompt Engineering","Gorvax"],
+ [4,"⚖️","Ethics Officer","Complete Ethical AI","Nebulyn"],
+ [5,"🛡️","Privacy Guardian","Complete Privacy, Safety & Deepfakes","Starzak"],
+ [6,"🌌","AURORA Specialist","Complete all five trainings","Xylara"]
 ];
 
 /* Max total XP is 1800, so the top rank is reachable. */
@@ -402,6 +404,23 @@ function shuffle(arr){ const a = arr.slice(); for (let i=a.length-1;i>0;i--){ co
 function scrollToSection(id){ $(id).scrollIntoView({behavior:"smooth"}); }
 
 /* ---------- BUILD STATIC UI ---------- */
+/* ---------- ALIEN BADGE ICONS ---------- */
+function alienSVG(n){
+  const cols = {1:"#9b8cff",2:"#5aa9ff",3:"#7be495",4:"#f07ad0",5:"#ffd166",6:"#4fd8e6"};
+  const c = cols[n], d = "#12162e";
+  const eye = (x,y,r) => '<ellipse cx="'+x+'" cy="'+y+'" rx="'+r+'" ry="'+(r*1.45)+'" fill="'+d+'" transform="rotate('+(x<24?-20:20)+' '+x+' '+y+')"/>';
+  const two = eye(17,27,4.5) + eye(31,27,4.5);
+  let top = "", head = '<ellipse cx="24" cy="28" rx="15" ry="16" fill="'+c+'"/>', face = two;
+  if (n===1) top = '<path d="M17 14 L13 5 M31 14 L35 5" stroke="'+c+'" stroke-width="2" fill="none"/><circle cx="13" cy="5" r="3" fill="'+c+'"/><circle cx="35" cy="5" r="3" fill="'+c+'"/>';
+  if (n===2) face = '<circle cx="24" cy="26" r="8" fill="#fff"/><circle cx="24" cy="26" r="4.5" fill="'+d+'"/>';
+  if (n===3) top = '<path d="M12 18 L9 6 L19 13 Z M36 18 L39 6 L29 13 Z" fill="'+c+'"/>';
+  if (n===4) top = '<ellipse cx="7" cy="28" rx="4" ry="7" fill="'+c+'"/><ellipse cx="41" cy="28" rx="4" ry="7" fill="'+c+'"/>';
+  if (n===5){ head = '<ellipse cx="24" cy="26" rx="13" ry="19" fill="'+c+'"/>'; top = '<path d="M24 8 L24 2" stroke="'+c+'" stroke-width="2"/><path d="M24 -1 L25.5 2 L29 2.5 L26.5 5 L27 8 L24 6.5 L21 8 L21.5 5 L19 2.5 L22.5 2 Z" fill="'+c+'" transform="translate(0 2)"/>'; face = eye(18,24,4)+eye(30,24,4); }
+  if (n===6){ top = '<path d="M12 15 L15 6 L20 12 L24 4 L28 12 L33 6 L36 15 Z" fill="#ffd166"/>'; face = eye(15,29,3.5)+eye(33,29,3.5)+'<circle cx="24" cy="26" r="3.5" fill="'+d+'"/>'; }
+  const mouth = '<path d="M19 39 Q24 43 29 39" stroke="'+d+'" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  return '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">' + top + head + face + mouth + '</svg>';
+}
+
 function buildUI(){
   let m = "";
   for (let i=1;i<=5;i++){
@@ -417,7 +436,7 @@ function buildUI(){
   $("moduleGrid").innerHTML = m;
 
   $("badgeGrid").innerHTML = badgeInfo.map(b =>
-    `<div class="badge" id="badge${b[0]}"><div class="badge-icon" aria-hidden="true">${b[0]}</div><strong>${b[2]}</strong><span>${b[3]}</span></div>`).join("");
+    `<div class="badge" id="badge${b[0]}"><div class="badge-icon" aria-hidden="true">${alienSVG(b[0])}</div><em class="alien-name">${b[4]}</em><strong>${b[2]}</strong><span>${b[3]}</span></div>`).join("");
 }
 
 /* ---------- UPDATE UI ---------- */
@@ -467,8 +486,8 @@ function unlockBadge(id, title){
   }
 }
 function checkBadges(){
-  for (let i=1;i<=5;i++) if (player.completed.includes(i)) unlockBadge(i, badgeInfo[i-1][2]);
-  if (player.completed.length >= 5) unlockBadge(6, "AURORA Specialist");
+  for (let i=1;i<=5;i++) if (player.completed.includes(i)) unlockBadge(i, badgeInfo[i-1][4] + " joined your crew: " + badgeInfo[i-1][2]);
+  if (player.completed.length >= 5) unlockBadge(6, badgeInfo[5][4] + " joined your crew: " + badgeInfo[5][2]);
 }
 
 /* ---------- MODAL / QUIZ ---------- */
