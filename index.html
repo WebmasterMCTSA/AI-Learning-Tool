@@ -111,7 +111,6 @@ footer{border-top:1px solid var(--line);padding:36px 7%;color:var(--muted);text-
 .toast strong{color:var(--accent)}
 .btn{min-height:44px}
 .nav-links a.active{color:var(--text);border-bottom:2px solid var(--accent);padding-bottom:4px}
-#progressBar{position:fixed;top:64px;left:0;height:3px;width:0;background:var(--accent);z-index:999}
 .totop{display:none;position:fixed;left:20px;bottom:20px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--panel);font-size:20px;cursor:pointer;z-index:900}
 .totop:hover{border-color:var(--accent)}
 .module-card{transition:border-color .2s}
@@ -158,7 +157,6 @@ section{padding:60px 5%}
   </div>
   <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">☰</button>
 </nav>
-<div id="progressBar" aria-hidden="true"></div>
 <button class="totop" id="toTop" aria-label="Back to top" onclick="scrollToSection('home')">↑</button>
 
 <main id="main">
@@ -653,7 +651,6 @@ function startNext(){ const n = nextModule(); if (n) openModule(n); else scrollT
 function goNext(n){ $("lessonModal").classList.remove("active"); openModule(n); $("lessonModal").querySelector(".modal-content").scrollTop = 0; }
 function onScroll(){
   const h = document.documentElement, y = h.scrollTop;
-  $("progressBar").style.width = (y / Math.max(1, h.scrollHeight - h.clientHeight) * 100) + "%";
   $("toTop").style.display = y > 600 ? "block" : "none";
   let cur = "";
   ["guide","academy","dashboard","game"].forEach(id => { if ($(id).getBoundingClientRect().top <= 120) cur = id; });
