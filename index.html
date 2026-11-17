@@ -254,6 +254,33 @@ footer{max-width:1600px;margin:auto}
   .zibble-avatar{animation:none}
 }
 
+
+/* ACCESSIBILITY + INTERACTION REFINEMENTS */
+:root{color-scheme:dark}
+html{scroll-padding-top:88px}
+button,a{touch-action:manipulation}
+button:focus-visible,a:focus-visible{outline:3px solid #b8adff;outline-offset:4px}
+.navbar{gap:14px}.logo{flex:none}.nav-links{align-items:center}.hero-content{min-width:0}
+.module-card{display:flex;flex-direction:column;align-items:stretch;text-align:left}
+.module-card h3{line-height:1.25}.module-card p{flex:1}.module-card .bar{margin-top:auto}
+.module-card.locked{background:linear-gradient(135deg,rgba(255,255,255,.025),transparent),var(--panel)}
+.module-status{min-height:22px}.modal-content{overscroll-behavior:contain}
+.lesson-box{scroll-margin-top:16px}.quiz-meta{line-height:1.5}.answer{color:var(--text)}
+.answer.correct,.answer.wrong{border-width:2px}#quizFeedback:empty{display:none}
+#quizFeedback .result{margin-top:14px}.gph{gap:10px}.gph p{max-width:440px}
+.gbtns .btn:disabled{opacity:.55}.zibble-widget{pointer-events:none}
+.zibble-widget>*{pointer-events:auto}.zibble-avatar{width:88px;height:88px}
+.zibble-avatar svg{width:62px;height:62px}.zibble-bubble{max-width:300px}
+.toast{padding:15px 18px;box-shadow:0 12px 36px rgba(0,0,0,.35)}
+@media(max-width:900px){.nav-links{align-items:stretch}.nav-links a{padding:14px 5%;width:100%}.player-mini{white-space:nowrap}}
+@media(max-width:600px){
+.navbar{gap:8px}.player-mini{display:flex;font-size:11px;margin:0 4px 0 auto}.rank-mini{display:none}
+.hero{gap:12px}.hero-meta{display:grid;grid-template-columns:1fr 1fr}.module-card{gap:2px}
+.zibble-widget{bottom:12px;right:12px}.zibble-avatar{width:68px;height:68px}
+.zibble-avatar svg{width:50px;height:50px}.zibble-bubble{max-width:min(235px,calc(100vw - 100px));padding:11px}
+.totop{bottom:90px}}
+@media(max-width:380px){.player-mini{font-size:10px}.zibble-bubble{max-width:205px}}
+
 </style>
 </head>
 <body>
@@ -432,13 +459,13 @@ footer{max-width:1600px;margin:auto}
 <div class="zibble-widget" id="zibbleWidget" aria-label="Zibble assistant">
   <div class="zibble-bubble" id="zibbleBubble" role="status" aria-live="polite">
     <strong>Hi, I'm Zibble!</strong>
-    <p id="zibbleMessage">You earned me by completing AI Fundamentals. I'm here if you need a hand!</p>
+    <p id="zibbleMessage">You unlocked me by completing AI Fundamentals. I can share quick study tips!</p>
     <div class="zibble-actions">
       <button type="button" onclick="zibbleTip()">Give me a tip</button>
       <button type="button" onclick="toggleZibble()">Minimize</button>
     </div>
   </div>
-  <button class="zibble-avatar" type="button" onclick="toggleZibble()" aria-label="Open Zibble alien chatbot" title="Talk to Zibble">
+  <button class="zibble-avatar" type="button" onclick="toggleZibble()" aria-label="Open Zibble tips" title="Get a tip from Zibble">
     <svg viewBox="0 0 64 64" role="img" aria-label="A friendly animated paperclip-shaped space helper">
       <path d="M39 13c-8-8-21-3-21 8v24c0 15 23 17 23 1V20c0-7-11-8-11 0v24" fill="none" stroke="#b8adff" stroke-width="7" stroke-linecap="round"/>
       <path d="M39 13c-8-8-21-3-21 8v24c0 15 23 17 23 1V20c0-7-11-8-11 0v24" fill="none" stroke="#7468d8" stroke-width="2" stroke-linecap="round"/>
@@ -771,7 +798,7 @@ function toggleZibble(){
   const widget = $("zibbleWidget");
   widget.classList.toggle("minimized");
   const button = widget.querySelector(".zibble-avatar");
-  button.setAttribute("aria-label", widget.classList.contains("minimized") ? "Open Zibble alien chatbot" : "Minimize Zibble alien chatbot");
+  button.setAttribute("aria-label", widget.classList.contains("minimized") ? "Open Zibble tips" : "Minimize Zibble tips");
 }
 function zibbleTip(){
   $("zibbleMessage").textContent = zibbleTips[zibbleTipIndex % zibbleTips.length];
@@ -834,6 +861,75 @@ function onScroll(){
   });
 }
 window.addEventListener("scroll", onScroll, {passive:true});
+
+
+/* UX SAFETY NETS */
+const originalOpenModule = openModule;
+openModule = function(id){
+  originalOpenModule(id);
+  const panel=$("lessonModal").querySelector(".modal-content");
+  if(panel) panel.scrollTop=0;
+};
+const originalCloseModal=closeModal;
+closeModal=function(){originalCloseModal();quiz=null;};
+const originalRenderQuestion=renderQuestion;
+renderQuestion=function(){
+  originalRenderQuestion();
+  const heading=$("quizArea").querySelector(".quiz-q");
+  if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}
+};
+const originalPickAnswer=pickAnswer;
+pickAnswer=function(el){
+  originalPickAnswer(el);
+  const feedback=$("quizFeedback");
+  if(feedback){
+    feedback.setAttribute("role","status");
+    feedback.setAttribute("aria-live","polite");
+    const next=feedback.querySelector("button");
+    if(next) next.focus({preventScroll:true});
+  }
+};
+// Clearly label the game as in development until its Unity build is configured.
+if(!UNITY_BUILD_URL){
+  const gameButtons=document.querySelectorAll("#game .gbtns .btn");
+  if(gameButtons[0]){
+    gameButtons[0].textContent="Game in development";
+    gameButtons[0].disabled=true;
+    gameButtons[0].setAttribute("aria-describedby","gameComingSoon");
+  }
+  if(gameButtons[1]){
+    gameButtons[1].disabled=true;
+    gameButtons[1].title="Available when the game build is added";
+  }
+  const placeholder=$("gameFrame").querySelector(".gph");
+  if(placeholder){placeholder.setAttribute("aria-label","Game preview: in development");placeholder.id="gameComingSoon";}
+}
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape" && $("navLinks").classList.contains("open")){
+    $("navLinks").classList.remove("open");
+    $("menuBtn").setAttribute("aria-expanded","false");
+    $("menuBtn").textContent="☰";
+    $("menuBtn").focus();
+  }
+});
+const readiness=$("readiness");
+if(readiness){
+  readiness.setAttribute("role","progressbar");
+  readiness.setAttribute("aria-label","Course completion");
+  readiness.setAttribute("aria-valuemin","0");
+  readiness.setAttribute("aria-valuemax","100");
+}
+const originalUpdateUI=updateUI;
+updateUI=function(){
+  originalUpdateUI();
+  const value=Math.round(player.completed.length/5*100);
+  if(readiness) readiness.setAttribute("aria-valuenow",String(value));
+  for(let i=1;i<=5;i++){
+    const card=$("mod"+i);
+    if(card) card.setAttribute("aria-label","Module "+i+": "+modules[i].title+". "+
+      (player.completed.includes(i)?"Completed. Review module.":isAvailable(i)?"Available. Start module.":"Locked. Complete the previous module first."));
+  }
+};
 
 /* ---------- INIT ---------- */
 buildUI();
