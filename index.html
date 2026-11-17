@@ -168,7 +168,14 @@ footer{max-width:1400px;margin:auto;border-top:3px solid var(--line);padding:32p
 /* NEURAL STACK */
 .neural-game{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:20px;align-items:start}
 .neural-board-wrap{background:var(--soft);border:2px solid var(--line);padding:12px;display:flex;justify-content:center}
-#neuralBoard{display:block;width:min(100%,300px);height:auto;aspect-ratio:1/2;background:#070b1f;border:1px solid var(--line);touch-action:manipulation}
+#hopBoard{display:block;width:min(100%,360px);height:auto;aspect-ratio:3/4;background:#070b1f;border:1px solid var(--line);touch-action:manipulation}
+.neural-board-wrap{position:relative}
+.fq{display:none;position:absolute;inset:12px;background:var(--bg);border:2px solid var(--line);padding:16px;overflow-y:auto}
+.fq.active{display:block}
+.fq h4{font-size:19px;line-height:1.2;margin:8px 0 10px}
+.fq .answer{min-height:44px;padding:10px 12px;font-size:14px;margin:6px 0}
+.fq .result{font-size:13px;margin-top:10px;padding:10px}
+.fq .btn{margin-top:12px}
 .neural-side{display:grid;gap:12px}
 .neural-stat{padding:8px 0;border-top:3px solid var(--line)}
 .neural-stat span{display:block;color:var(--mut);font-size:11px;letter-spacing:.1em}
@@ -348,26 +355,25 @@ section{padding-top:56px;padding-bottom:56px}
     <div class="card">
       <div class="neural-game" id="gameFrame">
         <div class="neural-board-wrap">
-          <canvas id="neuralBoard" width="300" height="600" aria-label="Orbital Stack game board"></canvas>
+          <canvas id="hopBoard" width="360" height="480" aria-label="Astro Hopper game board"></canvas>
+          <div class="fq" id="hopQuiz" role="dialog" aria-label="Checkpoint questions"></div>
         </div>
         <div class="neural-side">
-          <div class="neural-stat"><span>SCORE</span><strong id="neuralScore">0</strong></div>
-          <div class="neural-stat"><span>LINES CLEARED</span><strong id="neuralLines">0</strong></div>
-          <div class="neural-stat"><span>LEVEL</span><strong id="neuralLevel">1</strong></div>
-          <div class="neural-stat"><span>NEXT DATA BLOCK</span><canvas class="neural-next" id="neuralNext" width="120" height="100"></canvas></div>
-          <div class="neural-full"><p class="neural-message" id="neuralMessage" aria-live="polite">Stack the data blocks, complete rows, and keep the AI core from overflowing.</p></div>
+          <div class="neural-stat"><span>SCORE</span><strong id="hopScore">0</strong></div>
+          <div class="neural-stat"><span>LIVES</span><strong id="hopLives">3</strong></div>
+          <div class="neural-stat"><span>CHECKPOINTS</span><strong id="hopCp">0/2</strong></div>
+          <div class="neural-full"><p class="neural-message" id="hopMsg" aria-live="polite">Hop across the asteroid lanes. At each checkpoint, answer 5 questions to unlock the way forward.</p></div>
           <div class="neural-controls neural-touch neural-full" aria-label="Touch game controls">
             <button type="button" data-move="left" aria-label="Move left">←</button>
-            <button type="button" data-move="rotate" aria-label="Rotate">↻</button>
+            <button type="button" data-move="up" aria-label="Move up">↑</button>
             <button type="button" data-move="right" aria-label="Move right">→</button>
             <button type="button" data-move="down" aria-label="Move down">↓</button>
-            <button type="button" data-move="drop" aria-label="Drop block">DROP</button>
             <button type="button" data-move="pause" aria-label="Pause or resume">Ⅱ</button>
           </div>
-          <div class="neural-full"><button class="btn btn-primary" id="neuralStart" type="button">Start game</button> <button class="btn btn-secondary" id="neuralPause" type="button">Pause</button></div>
+          <div class="neural-full"><button class="btn btn-primary" id="hopStart" type="button">Start game</button> <button class="btn btn-secondary" id="hopPause" type="button">Pause</button></div>
         </div>
       </div>
-      <p style="margin-top:14px;color:var(--mut);font-size:13px">Keyboard: ← → move · ↑ rotate · ↓ soft drop · Space hard drop · P pause</p>
+      <p style="margin-top:14px;color:var(--mut);font-size:13px">Keyboard: arrows or WASD to hop · P pause. Reach a checkpoint, get 3 of 5 questions right, then keep going.</p>
     </div>
     <div class="card">
       <h3>About the game</h3>
@@ -437,89 +443,141 @@ section{padding-top:56px;padding-bottom:56px}
 </script>
 
 <script>
-/* Neural Stack: an original falling-block puzzle mini-game (Swiss palette) */
+/* Astro Hopper: space Frogger with checkpoint quizzes */
 (function(){
-  const canvas=document.getElementById('neuralBoard');
-  if(!canvas) return;
-  const ctx=canvas.getContext('2d');
-  const nctx=document.getElementById('neuralNext').getContext('2d');
-  const COLS=10, ROWS=20, CELL=30;
-  const colors={I:'#6ee7ff',O:'#eef1ff',T:'#8b7cff',S:'#4f5d9c',Z:'#eef1ff',J:'#8b7cff',L:'#6ee7ff'};
-  const shapes={I:[[1,1,1,1]],O:[[1,1],[1,1]],T:[[0,1,0],[1,1,1]],S:[[0,1,1],[1,1,0]],Z:[[1,1,0],[0,1,1]],J:[[1,0,0],[1,1,1]],L:[[0,0,1],[1,1,1]]};
-  let board,piece,next,score,lines,level,running=false,paused=false,over=false,timer=null,dropInterval=750;
-  const $=id=>document.getElementById(id);
-  const freshBoard=()=>Array.from({length:ROWS},()=>Array(COLS).fill(0));
-  function randomPiece(){const k=Object.keys(shapes),key=k[Math.floor(Math.random()*k.length)];return{key,shape:shapes[key].map(r=>r.slice()),x:Math.floor((COLS-shapes[key][0].length)/2),y:0};}
-  function collision(p,dx=0,dy=0,shape=p.shape){
-    for(let y=0;y<shape.length;y++)for(let x=0;x<shape[y].length;x++)if(shape[y][x]){
-      const nx=p.x+x+dx,ny=p.y+y+dy;
-      if(nx<0||nx>=COLS||ny>=ROWS||(ny>=0&&board[ny][nx]))return true;
-    }
-    return false;
+  const cv=document.getElementById('hopBoard');
+  if(!cv) return;
+  const ctx=cv.getContext('2d'), $=id=>document.getElementById(id);
+  const C=9,R=12,S=40,MONO='11px ui-monospace,Menlo,Consolas,monospace';
+  const P={bg:'#070b1f',cy:'#6ee7ff',vi:'#8b7cff',wh:'#eef1ff',sl:'#4f5d9c',mut:'#9aa6c9'};
+  const lanes=[{r:10,d:1,s:1.8,w:1.5,n:3},{r:9,d:-1,s:1.3,w:1,n:4},{r:8,d:1,s:2.4,w:2,n:2},
+    {r:6,d:-1,s:1.6,w:1,n:4},{r:5,d:1,s:2.2,w:2,n:2},{r:4,d:-1,s:1.4,w:1.5,n:3},
+    {r:2,d:1,s:2.6,w:1,n:3},{r:1,d:-1,s:2,w:2,n:2}];
+  const Q=[
+    ["You used AI to help with homework. Your teacher asks about it. What is the honest move?",["Say you did it all alone","Tell them how you used it","Delete the chat","Blame a friend"],1,"Honesty means saying when and how you used AI."],
+    ["AI gives you a statistic for your report. Best next step?",["Copy it in","Verify it in a trusted source","Ask the AI to promise it is right","Round it up"],1,"AI can state wrong facts with total confidence."],
+    ["Which use of AI is fine?",["Submitting its essay as yours","Using it during a no-AI test","Having it quiz you before a test","Faking a classmate’s message"],2,"Quizzing yourself builds skills instead of skipping them."],
+    ["AI cites a book for your essay. What should you do?",["Cite it as is","Check the book really exists","Change the title slightly","Skip citing"],1,"AI can make up sources that sound real."],
+    ["Which is safe to type into an AI chat?",["Your password","Your home address","A friend’s phone number","A general question about photosynthesis"],3,"Assume anything you enter could be stored."],
+    ["Why might AI repeat stereotypes?",["It learns from human-made data","It wants to be unfair","Aliens programmed it","It never does"],0,"Human data carries human bias. Ask whose view is missing."],
+    ["You are not sure if AI is allowed on an assignment. What now?",["Use it and hope","Ask your teacher first","Ask a classmate","Never tell anyone"],1,"Rules change from class to class."],
+    ["Before asking AI to solve a problem, you should...",["Try it yourself first","Skip reading it","Ask for the answer only","Wait until the deadline"],0,"Think first so you build the skill."],
+    ["Is it okay to make a fake image of a real classmate?",["Yes, if it’s a joke","Only if they never find out","No, it can really hurt them","Yes, if posted privately"],2,"Fake images or messages about real people are not okay."],
+    ["The AI sounds very sure of its answer. That means...",["It must be right","It can still be wrong","It checked a textbook","It is never wrong"],1,"Confidence is not accuracy. Check important things."],
+    ["Which prompt is clearest?",["Help me","Do my homework","Explain photosynthesis in 5 sentences for a 9th grader, then give me 3 quiz questions","Science stuff"],2,"A clear prompt has a goal, context, and the format you want."],
+    ["Your school’s AI policy is stricter than the tips in this guide. Follow...",["The guide","The school’s policy","Whichever is easier","Neither"],1,"Your school’s AI policy comes first."]
+  ];
+  let mode='idle',lives=3,score=0,cp=0,px=4,py=11,best=11,haz=[],last=0,used=[],qs=[],qi=0,qok=0,pend=0;
+  const home=()=>cp===0?11:cp===1?7:3;
+  const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+  function build(){haz=[];lanes.forEach(l=>{const span=C+l.w+2;for(let i=0;i<l.n;i++)haz.push({r:l.r,x:-l.w-1+(span/l.n)*i+(l.r%3)*.6,w:l.w,d:l.d,s:l.s,span,c:l.r%2?P.sl:P.vi});});}
+  function stats(){$('hopScore').textContent=score;$('hopLives').textContent=lives;$('hopCp').textContent=cp+'/2';}
+  const say=t=>{$('hopMsg').textContent=t;};
+  function start(){build();lives=3;score=0;cp=0;px=4;py=11;best=11;used=[];mode='play';$('hopPause').textContent='Pause';$('hopQuiz').classList.remove('active');say('Hop across the asteroid lanes. Avoid everything that moves.');stats();}
+  function die(){
+    lives--;stats();
+    if(lives<=0){mode='over';say('Lost in space. Press Start to try again.');return;}
+    px=4;py=home();best=Math.min(best,py);say('Hit! Back to your last safe spot. '+lives+' '+(lives===1?'life':'lives')+' left.');
   }
-  function drawCell(c,x,y,color,s=CELL){c.fillStyle=color;c.fillRect(x*s+1,y*s+1,s-2,s-2);}
-  function draw(){
-    ctx.fillStyle='#070b1f';ctx.fillRect(0,0,300,600);
-    ctx.strokeStyle='rgba(238,241,255,.09)';ctx.lineWidth=1;
-    for(let x=0;x<=COLS;x++){ctx.beginPath();ctx.moveTo(x*CELL,0);ctx.lineTo(x*CELL,600);ctx.stroke();}
-    for(let y=0;y<=ROWS;y++){ctx.beginPath();ctx.moveTo(0,y*CELL);ctx.lineTo(300,y*CELL);ctx.stroke();}
-    board.forEach((row,y)=>row.forEach((v,x)=>{if(v)drawCell(ctx,x,y,colors[v]);}));
-    if(piece)piece.shape.forEach((row,y)=>row.forEach((v,x)=>{if(v&&piece.y+y>=0)drawCell(ctx,piece.x+x,piece.y+y,colors[piece.key]);}));
-    if(!running||paused){
-      ctx.fillStyle='rgba(7,11,31,.88)';ctx.fillRect(0,0,300,600);
-      ctx.textAlign='center';ctx.fillStyle='#eef1ff';ctx.font='bold 22px Helvetica,Arial,sans-serif';
-      ctx.fillText(!running?(over?'CORE OVERLOADED':'ORBITAL STACK'):'PAUSED',150,290);
-      if(!running){ctx.fillStyle='#9aa6c9';ctx.font='13px Helvetica,Arial,sans-serif';ctx.fillText(over?'Press Start to try again':'Press Start to begin',150,316);}
-    }
+  function hit(){return haz.some(h=>h.r===py&&px+.15<h.x+h.w&&px+.85>h.x);}
+  function move(dx,dy){
+    if(mode!=='play')return;
+    const nx=Math.max(0,Math.min(C-1,px+dx)),ny=Math.max(0,Math.min(R-1,py+dy));
+    px=nx;py=ny;
+    if(dy<0&&py<best){best=py;score+=10;stats();}
+    if(hit()){die();return;}
+    if(py===7&&cp<1)quiz(1);else if(py===3&&cp<2)quiz(2);
+    else if(py===0){mode='win';score+=500;stats();say('You reached Aurora Prime. Mission complete!');}
   }
-  function drawNext(){
-    nctx.fillStyle='#070b1f';nctx.fillRect(0,0,120,100);
-    if(!next)return;
-    const s=20,w=next.shape[0].length,h=next.shape.length,ox=(120-w*s)/2,oy=(100-h*s)/2;
-    next.shape.forEach((row,y)=>row.forEach((v,x)=>{if(v){nctx.fillStyle=colors[next.key];nctx.fillRect(ox+x*s+1,oy+y*s+1,s-2,s-2);}}));
+  function quiz(n){
+    pend=n;mode='quiz';
+    let pool=Q.map((_,i)=>i).filter(i=>!used.includes(i));
+    if(pool.length<5){used=[];pool=Q.map((_,i)=>i);}
+    qs=shuffle(pool).slice(0,5);qs.forEach(i=>used.push(i));qi=0;qok=0;showQ();
   }
-  function updateStats(){
-    $('neuralScore').textContent=score.toLocaleString();$('neuralLines').textContent=lines;$('neuralLevel').textContent=level;
-    if(timer&&running){clearInterval(timer);timer=setInterval(tick,dropInterval);}
+  function box(){const b=$('hopQuiz');b.textContent='';b.classList.add('active');return b;}
+  function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;}
+  function showQ(){
+    const b=box(),q=Q[qs[qi]];
+    b.appendChild(el('div','quiz-meta','Checkpoint '+(pend===1?'A':'B')+' · Question '+(qi+1)+' of 5'));
+    b.appendChild(el('h4','',q[0]));
+    const opts=shuffle(q[1].map((t,i)=>({t,ok:i===q[2]})));
+    const btns=opts.map(o=>{const a=el('button','answer',o.t);a.type='button';b.appendChild(a);return{a,o};});
+    btns.forEach(({a,o})=>a.addEventListener('click',()=>{
+      btns.forEach(x=>{x.a.disabled=true;if(x.o.ok)x.a.classList.add('correct');});
+      if(o.ok)qok++;else a.classList.add('wrong');
+      b.appendChild(el('div','result',(o.ok?'Correct. ':'Not quite. ')+q[3]));
+      const nx=el('button','btn btn-primary',qi<4?'Next question':'See result');nx.type='button';
+      nx.addEventListener('click',()=>{qi++;qi<5?showQ():finish();});b.appendChild(nx);nx.focus();
+    }));
   }
-  function spawn(){
-    piece=next||randomPiece();next=randomPiece();drawNext();
-    if(collision(piece)){running=false;over=true;$('neuralMessage').textContent='The data stack reached the top. Start a new run and try again.';draw();}
+  function finish(){
+    const b=box(),pass=qok>=3;
+    b.appendChild(el('div','quiz-meta','Checkpoint '+(pend===1?'A':'B')));
+    b.appendChild(el('h4','',qok+' of 5 correct'));
+    b.appendChild(el('div','result',pass?'Checkpoint unlocked. Safe to continue.':'You need 3 of 5 to continue. Try a fresh set of questions.'));
+    const go=el('button','btn btn-primary',pass?'Continue':'Try new questions');go.type='button';
+    go.addEventListener('click',()=>{
+      if(pass){cp=pend;score+=qok*100;stats();b.classList.remove('active');mode='play';say('Checkpoint saved. If you get hit, you restart here.');}
+      else quiz(pend);
+    });
+    b.appendChild(go);go.focus();
   }
-  function lock(){
-    piece.shape.forEach((row,y)=>row.forEach((v,x)=>{if(v&&piece.y+y>=0)board[piece.y+y][piece.x+x]=piece.key;}));
-    let cleared=0;
-    for(let y=ROWS-1;y>=0;y--)if(board[y].every(Boolean)){board.splice(y,1);board.unshift(Array(COLS).fill(0));cleared++;y++;}
-    if(cleared){lines+=cleared;score+=[0,100,300,500,800][cleared]*level;level=1+Math.floor(lines/10);dropInterval=Math.max(100,750-(level-1)*65);$('neuralMessage').textContent=`Great work! ${cleared} row${cleared>1?'s':''} cleared. The AI core is learning.`;}
-    updateStats();spawn();
+  function togglePause(){
+    if(mode==='play'){mode='paused';$('hopPause').textContent='Resume';say('Game paused.');}
+    else if(mode==='paused'){mode='play';$('hopPause').textContent='Pause';say('Back online.');}
   }
-  function tick(){if(!running||paused)return;if(!collision(piece,0,1))piece.y++;else lock();draw();}
-  function move(dx,dy=0){if(!running||paused)return;if(!collision(piece,dx,dy)){piece.x+=dx;piece.y+=dy;draw();}else if(dy===1)lock();}
-  function rotate(){
-    if(!running||paused)return;
-    const r=piece.shape[0].map((_,i)=>piece.shape.map(row=>row[i]).reverse());
-    if(!collision(piece,0,0,r))piece.shape=r;
-    else if(!collision(piece,-1,0,r)){piece.x--;piece.shape=r;}
-    else if(!collision(piece,1,0,r)){piece.x++;piece.shape=r;}
-    draw();
+  function action(a){
+    if(a==='left')move(-1,0);else if(a==='right')move(1,0);else if(a==='up')move(0,-1);else if(a==='down')move(0,1);else if(a==='pause')togglePause();
   }
-  function hardDrop(){if(!running||paused)return;while(!collision(piece,0,1))piece.y++;lock();score+=2;updateStats();draw();}
-  function start(){
-    clearInterval(timer);board=freshBoard();piece=null;next=randomPiece();score=0;lines=0;level=1;dropInterval=750;running=true;paused=false;over=false;
-    $('neuralMessage').textContent='Mission active. Complete rows to clear corrupted data and earn points.';
-    spawn();updateStats();draw();timer=setInterval(tick,dropInterval);
-  }
-  function togglePause(){if(!running)return;paused=!paused;$('neuralPause').textContent=paused?'Resume':'Pause';$('neuralMessage').textContent=paused?'Game paused.':'Back online. Keep clearing rows.';draw();}
-  function action(a){if(a==='left')move(-1);if(a==='right')move(1);if(a==='down')move(0,1);if(a==='rotate')rotate();if(a==='drop')hardDrop();if(a==='pause')togglePause();}
+  const keys={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down',a:'left',d:'right',w:'up',s:'down',p:'pause'};
   document.addEventListener('keydown',e=>{
-    if(['ArrowLeft','ArrowRight','ArrowDown','ArrowUp',' '].includes(e.key)&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='BUTTON')e.preventDefault();
-    if(e.key==='ArrowLeft')action('left');else if(e.key==='ArrowRight')action('right');else if(e.key==='ArrowDown')action('down');
-    else if(e.key==='ArrowUp')action('rotate');else if(e.key===' ')action('drop');else if(e.key.toLowerCase()==='p')action('pause');
+    const k=keys[e.key]||keys[(e.key||'').toLowerCase()];
+    if(!k||e.ctrlKey||e.metaKey||e.altKey)return;
+    const t=document.activeElement.tagName;
+    if(t==='INPUT'||t==='TEXTAREA')return;
+    if(mode==='play'||mode==='paused'){e.preventDefault();action(k);}
   });
   document.querySelectorAll('[data-move]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.move)));
-  $('neuralStart').addEventListener('click',start);
-  $('neuralPause').addEventListener('click',togglePause);
-  board=freshBoard();next=randomPiece();score=0;lines=0;level=1;drawNext();draw();updateStats();
+  $('hopStart').addEventListener('click',start);
+  $('hopPause').addEventListener('click',togglePause);
+
+  function band(r,color,label){ctx.fillStyle=color;ctx.fillRect(0,r*S,C*S,S);if(label){ctx.fillStyle=P.mut;ctx.font=MONO;ctx.textAlign='left';ctx.fillText(label,8,r*S+24);}}
+  function draw(){
+    ctx.fillStyle=P.bg;ctx.fillRect(0,0,C*S,R*S);
+    for(let r=0;r<R;r++){ctx.strokeStyle='rgba(238,241,255,.07)';ctx.beginPath();ctx.moveTo(0,r*S);ctx.lineTo(C*S,r*S);ctx.stroke();}
+    band(0,'rgba(139,124,255,.28)','AURORA PRIME');
+    band(3,'rgba(110,231,255,'+(cp>=2?'.28':'.14')+')','CHECKPOINT B'+(cp>=2?' ✓':''));
+    band(7,'rgba(110,231,255,'+(cp>=1?'.28':'.14')+')','CHECKPOINT A'+(cp>=1?' ✓':''));
+    band(11,'rgba(238,241,255,.07)','LAUNCH PAD');
+    haz.forEach(h=>{
+      const x=h.x*S,y=h.r*S+6,w=h.w*S,hh=S-12;
+      ctx.fillStyle=h.c;ctx.beginPath();
+      if(ctx.roundRect)ctx.roundRect(x,y,w,hh,hh/2);else ctx.rect(x,y,w,hh);
+      ctx.fill();ctx.fillStyle='rgba(7,11,31,.35)';
+      ctx.beginPath();ctx.arc(x+w*.3,y+hh*.4,3,0,7);ctx.arc(x+w*.65,y+hh*.62,2.5,0,7);ctx.fill();
+    });
+    const cx=px*S+S/2,cy=py*S+S/2;
+    ctx.fillStyle=P.cy;ctx.beginPath();ctx.arc(cx,cy,13,0,7);ctx.fill();
+    ctx.fillStyle=P.wh;ctx.beginPath();ctx.arc(cx-6,cy-7,4.5,0,7);ctx.arc(cx+6,cy-7,4.5,0,7);ctx.fill();
+    ctx.fillStyle=P.bg;ctx.beginPath();ctx.arc(cx-6,cy-7,2,0,7);ctx.arc(cx+6,cy-7,2,0,7);ctx.fill();
+    if(mode==='idle'||mode==='over'||mode==='win'||mode==='paused'){
+      ctx.fillStyle='rgba(7,11,31,.88)';ctx.fillRect(0,0,C*S,R*S);
+      ctx.textAlign='center';ctx.fillStyle=P.wh;ctx.font='bold 24px Helvetica,Arial,sans-serif';
+      ctx.fillText(mode==='over'?'LOST IN SPACE':mode==='win'?'AURORA PRIME REACHED':mode==='paused'?'PAUSED':'ASTRO HOPPER',C*S/2,R*S/2-6);
+      ctx.fillStyle=P.mut;ctx.font='13px Helvetica,Arial,sans-serif';
+      if(mode!=='paused')ctx.fillText(mode==='idle'?'Press Start to begin':'Press Start to play again',C*S/2,R*S/2+20);
+    }
+  }
+  function loop(t){
+    const dt=Math.min(.05,(t-last)/1000||0);last=t;
+    if(mode==='play'){
+      haz.forEach(h=>{h.x+=h.d*h.s*dt;if(h.d>0&&h.x>C+1)h.x-=h.span;if(h.d<0&&h.x<-h.w-1)h.x+=h.span;});
+      if(hit())die();
+    }
+    draw();requestAnimationFrame(loop);
+  }
+  build();stats();requestAnimationFrame(loop);
 })();
 </script>
 
