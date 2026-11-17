@@ -109,6 +109,19 @@ footer{border-top:1px solid var(--line);padding:36px 7%;color:var(--muted);text-
 .toast{position:fixed;right:20px;bottom:20px;background:var(--panel);border:1px solid var(--accent);padding:14px 18px;border-radius:6px;z-index:3000;transform:translateY(150px);transition:transform .25s;max-width:320px}
 .toast.show{transform:none}
 .toast strong{color:var(--accent)}
+.btn{min-height:44px}
+.nav-links a.active{color:var(--text);border-bottom:2px solid var(--accent);padding-bottom:4px}
+#progressBar{position:fixed;top:64px;left:0;height:3px;width:0;background:var(--accent);z-index:999}
+.totop{display:none;position:fixed;left:20px;bottom:20px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--panel);font-size:20px;cursor:pointer;z-index:900}
+.totop:hover{border-color:var(--accent)}
+.module-card{transition:border-color .2s}
+.module-cta{margin-top:12px;font-size:14px;font-weight:bold;color:var(--accent)}
+.module-card.locked .module-cta{color:var(--muted);font-weight:normal}
+.dots{display:flex;gap:6px;margin-top:10px}
+.dot{height:6px;flex:1;border-radius:3px;background:var(--line)}
+.dot.done{background:var(--teal)}
+.dot.now{background:var(--accent)}
+.jump{margin-bottom:12px;min-height:38px;padding:8px 14px}
 @media(max-width:900px){
 .menu-btn{display:block}
 .nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line)}
@@ -145,6 +158,8 @@ section{padding:60px 5%}
   </div>
   <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">☰</button>
 </nav>
+<div id="progressBar" aria-hidden="true"></div>
+<button class="totop" id="toTop" aria-label="Back to top" onclick="scrollToSection('home')">↑</button>
 
 <main id="main">
 <header class="hero" id="home">
@@ -152,7 +167,7 @@ section{padding:60px 5%}
     <h1>Using AI well<br>is a <span>skill.</span></h1>
     <p>Learn how to use AI for school without cheating yourself: what's fine, what isn't, and how to tell the difference. Then take it to an alien world in our space game, where the ship's AI is your only help.</p>
     <div class="hero-buttons">
-      <button class="btn btn-primary" onclick="scrollToSection('academy')">Start the modules</button>
+      <button class="btn btn-primary" id="heroStart" onclick="startNext()">Start Module 1</button>
       <button class="btn btn-secondary" onclick="scrollToSection('guide')">Read the guide first</button>
     </div>
   </div>
@@ -431,6 +446,7 @@ function buildUI(){
       <p>${mod.intro}</p>
       <div class="bar"><span id="progress${i}"></span></div>
       <div class="module-status" id="status${i}"></div>
+      <div class="module-cta" id="cta${i}"></div>
     </button>`;
   }
   $("moduleGrid").innerHTML = m;
@@ -459,8 +475,11 @@ function updateUI(){
     $("progress"+i).style.width = done ? "100%" : "0%";
     $("status"+i).textContent = done ? "✓ MODULE COMPLETE" : avail ? "AVAILABLE: BEGIN TRAINING" : "🔒 LOCKED: FINISH THE PREVIOUS MODULE";
     $("mod"+i).classList.toggle("locked", !avail && !done);
+    $("cta"+i).textContent = done ? "Review again ↻" : avail ? "Start module →" : "Locked";
   }
 
+  const nx = nextModule(), hs = $("heroStart");
+  hs.textContent = !nx ? "All done: go to the game" : player.completed.length ? "Continue: Module " + nx : "Start Module 1";
   $("completedCount").textContent = player.completed.length;
   $("badgeCount").textContent = player.badges.length;
   $("gameLevelCount").textContent = player.completed.length;
@@ -502,7 +521,8 @@ function openModule(id){
   const mod = modules[id];
   let html = `<div class="section-label">Module ${id}</div>
     <h2 id="modalTitle">${mod.title}</h2>
-    <p class="lesson-intro">${mod.intro}</p>`;
+    <p class="lesson-intro">${mod.intro}</p>
+    <button class="btn btn-secondary jump" onclick="document.getElementById('quizArea').scrollIntoView({behavior:'smooth'})">Skip to the quiz ↓</button>`;
   mod.lessons.forEach(l => {
     html += `<div class="lesson-box"><h4>${l.t}</h4><p>${l.x}</p>`;
     if (l.ex) html += `<div class="example">${l.ex}</div>`;
@@ -512,6 +532,7 @@ function openModule(id){
   html += `<div id="quizArea"></div>`;
   $("lessonContent").innerHTML = html;
   $("lessonModal").classList.add("active");
+  document.body.style.overflow = "hidden";
   quiz = {id, index:0, score:0};
   renderQuestion();
   $("lessonModal").querySelector(".close").focus();
@@ -520,7 +541,8 @@ function openModule(id){
 function renderQuestion(){
   const mod = modules[quiz.id], q = mod.quiz[quiz.index];
   const answers = shuffle(q.a.map((text,i) => ({text, ok:i===0})));
-  let html = `<div class="quiz-meta">KNOWLEDGE CHECK: QUESTION ${quiz.index+1} OF ${mod.quiz.length}</div>
+  let html = `<div class="quiz-meta">KNOWLEDGE CHECK: QUESTION ${quiz.index+1} OF ${mod.quiz.length} · PRESS 1-4 TO ANSWER</div>
+    <div class="dots">${mod.quiz.map((_,k) => '<span class="dot ' + (k < quiz.index ? "done" : k === quiz.index ? "now" : "") + '"></span>').join("")}</div>
     <h4 class="quiz-q">${q.q}</h4><div id="answerList">`;
   answers.forEach((a,i) => html += `<button class="answer" data-ok="${a.ok}" onclick="pickAnswer(this)">${a.text}</button>`);
   html += `</div><div id="quizFeedback" aria-live="polite"></div>`;
@@ -550,7 +572,7 @@ function finishQuiz(){
   } else {
     msg += `You need ${PASS_MARK} correct to pass. Review the lessons above and try again.`;
   }
-  msg += `</div><div style="margin-top:14px"><button class="btn ${passed?"btn-secondary":"btn-primary"}" onclick="retryQuiz()">${passed?"RETAKE QUIZ":"TRY AGAIN"}</button> <button class="btn btn-secondary" onclick="closeModal()">CLOSE</button></div>`;
+  msg += `</div><div style="margin-top:14px">${passed && id < 5 ? '<button class="btn btn-primary" onclick="goNext(' + (id+1) + ')">Next module →</button> ' : ""}<button class="btn ${passed?"btn-secondary":"btn-primary"}" onclick="retryQuiz()">${passed?"RETAKE QUIZ":"TRY AGAIN"}</button> <button class="btn btn-secondary" onclick="closeModal()">CLOSE</button></div>`;
   $("quizArea").innerHTML = msg;
   if (passed && !player.completed.includes(id)){
     player.completed.push(id);
@@ -564,6 +586,7 @@ function retryQuiz(){ quiz.index = 0; quiz.score = 0; renderQuestion(); }
 
 function closeModal(){
   $("lessonModal").classList.remove("active");
+  document.body.style.overflow = "";
   if (lastFocus) lastFocus.focus();
 }
 
@@ -572,6 +595,10 @@ $("lessonModal").addEventListener("click", e => { if (e.target === $("lessonModa
 document.addEventListener("keydown", e => {
   if (!$("lessonModal").classList.contains("active")) return;
   if (e.key === "Escape") { closeModal(); return; }
+  if ("1234".includes(e.key) && $("answerList")){
+    const t = $("answerList").querySelectorAll(".answer:not(:disabled)")[+e.key - 1];
+    if (t) t.click();
+  }
   if (e.key === "Tab"){
     const f = $("lessonModal").querySelectorAll("button:not(:disabled)");
     if (!f.length) return;
@@ -620,9 +647,28 @@ function fullscreenGame(){
   if (f.requestFullscreen) f.requestFullscreen();
 }
 
+/* ---------- NAVIGATION HELPERS ---------- */
+function nextModule(){ for (let i=1;i<=5;i++) if (!player.completed.includes(i)) return i; return 0; }
+function startNext(){ const n = nextModule(); if (n) openModule(n); else scrollToSection("game"); }
+function goNext(n){ $("lessonModal").classList.remove("active"); openModule(n); $("lessonModal").querySelector(".modal-content").scrollTop = 0; }
+function onScroll(){
+  const h = document.documentElement, y = h.scrollTop;
+  $("progressBar").style.width = (y / Math.max(1, h.scrollHeight - h.clientHeight) * 100) + "%";
+  $("toTop").style.display = y > 600 ? "block" : "none";
+  let cur = "";
+  ["guide","academy","dashboard","game"].forEach(id => { if ($(id).getBoundingClientRect().top <= 120) cur = id; });
+  document.querySelectorAll(".nav-links a").forEach(a => {
+    const on = a.getAttribute("href") === "#" + cur;
+    a.classList.toggle("active", on);
+    if (on) a.setAttribute("aria-current","true"); else a.removeAttribute("aria-current");
+  });
+}
+window.addEventListener("scroll", onScroll, {passive:true});
+
 /* ---------- INIT ---------- */
 buildUI();
 updateUI();
+onScroll();
 checkBadges();
 </script>
 </body>
