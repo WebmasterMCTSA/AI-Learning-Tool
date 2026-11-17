@@ -1,8 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROJECT AURORA | AI Space Academy</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2312162e'/%3E%3Ccircle cx='32' cy='32' r='16' fill='%233a3f8f'/%3E%3Cellipse cx='32' cy='32' rx='27' ry='9' transform='rotate(-18 32 32)' fill='none' stroke='%239b8cff' stroke-width='5'/%3E%3C/svg%3E">
+<style>
 :root{--bg:#080d1d;--panel:#111a31;--line:#263653;--text:#f4f6ff;--muted:#aab7d0;--accent:#a99bff;--teal:#62d9e8;--bad:#ff858d;--pad:clamp(16px,5vw,64px)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:92px}
-body{font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--text);line-height:1.65;overflow-x:hidden;padding-top:72px;
-background:radial-gradient(ellipse at 12% 7%,rgba(105,91,220,.18),transparent 34rem),radial-gradient(ellipse at 88% 35%,rgba(41,166,196,.09),transparent 32rem),var(--bg)}
+body{font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--text);line-height:1.65;overflow-x:hidden;padding-top:72px;background:radial-gradient(ellipse at 12% 7%,rgba(105,91,220,.18),transparent 34rem),radial-gradient(ellipse at 88% 35%,rgba(41,166,196,.09),transparent 32rem),var(--bg)}
 h1,h2,h3,h4{font-weight:700;letter-spacing:-.02em}
 button{font-family:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--teal);outline-offset:4px}
@@ -24,13 +31,12 @@ button{font-family:inherit;color:inherit}
 .menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:6px;font-size:20px;padding:4px 12px;cursor:pointer;min-width:44px;min-height:44px}
 .totop{display:none;position:fixed;left:20px;bottom:20px;width:44px;height:44px;border-radius:50%;border:1px solid #405477;background:#172642;font-size:20px;cursor:pointer;z-index:900;box-shadow:0 10px 28px rgba(0,0,0,.35)}
 
-/* LAYOUT SHELL */
+/* SHELL */
 section,.hero{width:100%;max-width:1400px;margin-inline:auto;padding-left:var(--pad);padding-right:var(--pad)}
 section{padding-top:80px;padding-bottom:80px;scroll-margin-top:82px}
 .section-heading{max-width:760px;margin-bottom:34px}
 .section-heading h2{font-size:clamp(30px,4vw,44px);line-height:1.12;margin-bottom:12px}
 .section-heading p{color:#aebbd4;font-size:16px}
-.section-label{color:var(--teal);font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px;font-weight:bold}
 
 /* HERO */
 .hero{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:clamp(24px,5vw,80px);min-height:560px;padding-top:70px;padding-bottom:80px}
@@ -56,13 +62,11 @@ section{padding-top:80px;padding-bottom:80px;scroll-margin-top:82px}
 .card{min-width:0;background:linear-gradient(145deg,rgba(23,35,62,.96),rgba(14,23,43,.98));border:1px solid #2a3b5c;border-radius:17px;padding:26px;box-shadow:0 14px 40px rgba(0,0,0,.18)}
 .card h3{font-size:19px;margin-bottom:10px}
 .card p{color:#b2bfd7}
-
 .rules{list-style:none;counter-reset:r;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:32px 40px}
 .rules li{counter-increment:r;padding-left:60px;position:relative}
 .rules li::before{content:counter(r);position:absolute;left:0;top:-6px;font-size:39px;font-weight:850;color:var(--teal);line-height:1}
 .rules h3{font-size:18px;margin-bottom:6px}
 .rules p{color:var(--muted)}
-
 .eq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start;margin-top:28px}
 .example{margin-top:10px;padding:8px 12px;border-left:3px solid var(--teal);background:rgba(90,169,255,.08);font-size:14px;border-radius:0 8px 8px 0}
 .example.bad{border-color:var(--bad);background:rgba(229,115,115,.08)}
@@ -109,7 +113,6 @@ section{padding-top:80px;padding-bottom:80px;scroll-margin-top:82px}
 .gph{height:100%;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;background:var(--panel)}
 .gbtns{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
 .glist{margin:10px 0 0 20px;color:var(--muted)}
-
 footer{max-width:1400px;margin:auto;border-top:1px solid var(--line);padding:42px var(--pad);color:#9eacc7;text-align:center;font-size:14px}
 
 /* MODAL / QUIZ */
@@ -119,6 +122,7 @@ footer{max-width:1400px;margin:auto;border-top:1px solid var(--line);padding:42p
 .close{position:absolute;top:10px;right:14px;width:44px;height:44px;border:none;border-radius:8px;background:transparent;color:var(--muted);font-size:28px;cursor:pointer}
 .close:hover{background:rgba(255,255,255,.08);color:var(--text)}
 .modal-content h2{font-size:30px;margin-bottom:10px;padding-right:30px}
+.section-label{color:var(--teal);font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px;font-weight:bold}
 .lesson-intro{color:var(--muted);margin-bottom:20px}
 .lesson-box{border-top:1px solid #293b5b;padding:16px 0}
 .lesson-box h4{color:var(--teal);margin-bottom:6px;font-size:18px}
@@ -159,43 +163,232 @@ footer{max-width:1400px;margin:auto;border-top:1px solid var(--line);padding:42p
 .zibble-widget.minimized{gap:0}
 @keyframes zibbleFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
 
-/* RESPONSIVE: stack only when truly necessary */
-@media(max-width:900px){
-  .nav-links a{font-size:10px}
-}
+/* RESPONSIVE */
+@media(max-width:900px){.nav-links a{font-size:10px}}
 @media(max-width:760px){
-  .menu-btn{display:block}
-  .nav-links{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;background:#0c1428;border-bottom:1px solid #344665;padding:8px 0;box-shadow:0 14px 24px rgba(0,0,0,.24)}
-  .nav-links.open{display:flex}
-  .nav-links a{display:block;padding:15px 5%;border-top:1px solid var(--line);font-size:12px}
-  .player-mini{margin-left:auto}
-  .rank-mini{display:none}
-  .hero{min-height:0;padding-top:50px;padding-bottom:60px}
-  .hero-art{max-width:260px}
-  section{padding-top:60px;padding-bottom:60px}
-  .grid2{grid-template-columns:minmax(0,1fr)}
+.menu-btn{display:block}
+.nav-links{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;background:#0c1428;border-bottom:1px solid #344665;padding:8px 0;box-shadow:0 14px 24px rgba(0,0,0,.24)}
+.nav-links.open{display:flex}
+.nav-links a{display:block;padding:15px 5%;border-top:1px solid var(--line);font-size:12px}
+.player-mini{margin-left:auto}.rank-mini{display:none}
+.hero{min-height:0;padding-top:50px;padding-bottom:60px}
+.hero-art{max-width:260px}
+section{padding-top:60px;padding-bottom:60px}
+.grid2{grid-template-columns:minmax(0,1fr)}
 }
 @media(max-width:600px){
-  body{padding-top:64px}
-  .navbar{height:64px}
-  .nav-links{top:64px}
-  .hero-buttons{flex-direction:column;align-items:stretch}
-  .hero-buttons .btn{width:100%}
-  .card{padding:18px}
-  .eq .card{padding:16px}
-  .modal-content{padding:24px 16px 18px;max-height:94dvh}
-  .modal-content h2{font-size:25px}
-  .gbtns{display:grid;grid-template-columns:1fr}
-  .zibble-widget{right:12px;bottom:12px}
-  .zibble-avatar{width:80px;height:80px}
-  .zibble-bubble{max-width:230px;font-size:13px}
-  .totop{left:12px;bottom:12px}
+body{padding-top:64px}.navbar{height:64px}.nav-links{top:64px}
+.hero-buttons{flex-direction:column;align-items:stretch}.hero-buttons .btn{width:100%}
+.card{padding:18px}.eq .card{padding:16px}
+.modal-content{padding:24px 16px 18px;max-height:94dvh}.modal-content h2{font-size:25px}
+.gbtns{display:grid;grid-template-columns:1fr}
+.zibble-widget{right:12px;bottom:12px}.zibble-avatar{width:80px;height:80px}
+.zibble-bubble{max-width:230px;font-size:13px}.totop{left:12px;bottom:12px}
 }
-@media(max-width:480px){
-  .dash,.eq{grid-template-columns:minmax(0,1fr)}
-  .player-mini{display:none}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
-  .module-card:hover,.btn:hover:not(:disabled){transform:none}
-}
+@media(max-width:480px){.dash,.eq{grid-template-columns:minmax(0,1fr)}.player-mini{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.module-card:hover,.btn:hover:not(:disabled){transform:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="navbar" aria-label="Main">
+  <button class="logo" onclick="scrollToSection('home')" aria-label="Project Aurora home"><strong>Project Aurora</strong><span>AI learning portal</span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#guide">ETHICAL AI GUIDE</a></li>
+    <li><a href="#academy">AI TRAINING</a></li>
+    <li><a href="#dashboard">PROGRESS</a></li>
+    <li><a href="#game">THE GAME</a></li>
+  </ul>
+  <div class="player-mini">
+    <div class="rank-mini" id="navRank">CADET</div>
+    <div class="xp-mini" id="navXP">0 XP</div>
+  </div>
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+</nav>
+<button class="totop" id="toTop" aria-label="Back to top" title="Back to top" onclick="scrollToSection('home')">↑</button>
+
+<main id="main">
+<header class="hero" id="home">
+  <div class="hero-content">
+    <h1>Using AI well<br>is a <span>skill.</span></h1>
+    <p>Learn how to use AI for school without cheating yourself: what's fine, what isn't, and how to tell the difference. Then take it to an alien world in our space game, where the ship's AI is your only help.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary" id="heroStart" onclick="startNext()">Start Module 1</button>
+      <button class="btn btn-secondary" onclick="scrollToSection('guide')">Read the guide first</button>
+    </div>
+    <div class="hero-meta" aria-label="Course overview">
+      <span><strong>5</strong> short modules</span>
+      <span><strong>3</strong> questions per quiz</span>
+      <span><strong>2/3</strong> to pass</span>
+    </div>
+  </div>
+  <svg class="hero-art" viewBox="0 0 320 320" aria-hidden="true">
+    <g fill="#e9e8f5"><circle cx="30" cy="40" r="2"/><circle cx="90" cy="20" r="1.5"/><circle cx="300" cy="150" r="2"/><circle cx="20" cy="250" r="1.5"/><circle cx="280" cy="280" r="2"/><circle cx="200" cy="15" r="1.5"/><circle cx="60" cy="130" r="1.5"/></g>
+    <g transform="rotate(-18 150 180)">
+      <ellipse cx="150" cy="180" rx="115" ry="28" fill="none" stroke="#9b8cff" stroke-width="6"/>
+      <circle cx="150" cy="180" r="84" fill="#3a3f8f"/>
+      <circle cx="120" cy="150" r="14" fill="#30357a"/><circle cx="175" cy="205" r="10" fill="#30357a"/><circle cx="185" cy="140" r="7" fill="#30357a"/>
+      <path d="M35 180 A115 28 0 0 0 265 180" fill="none" stroke="#9b8cff" stroke-width="6"/>
+    </g>
+    <g transform="rotate(-12 250 70)"><ellipse cx="250" cy="72" rx="34" ry="10" fill="#5aa9ff"/><path d="M233 68 A17 16 0 0 1 267 68 Z" fill="#a3a9d0"/><circle cx="236" cy="75" r="2" fill="#12162e"/><circle cx="250" cy="77" r="2" fill="#12162e"/><circle cx="264" cy="75" r="2" fill="#12162e"/></g>
+  </svg>
+</header>
+
+<section id="guide" aria-labelledby="guideTitle">
+  <div class="section-heading">
+    <h2 id="guideTitle">Six habits that keep you out of trouble.</h2>
+    <p>Writing, studying, coding, it applies to all of it. One catch: your school's AI policy comes first, and it might be stricter than anything here.</p>
+  </div>
+  <ol class="rules">
+    <li><h3>Be honest</h3><p>Say when you used AI and how, if your teacher asks. Handing in AI work as your own is cheating, even if nobody catches it.</p></li>
+    <li><h3>Think first</h3><p>Try the problem yourself before you ask. Use AI to explain, quiz, or give feedback so you build skills instead of skipping them.</p></li>
+    <li><h3>Check everything</h3><p>AI can state wrong facts with total confidence and make up sources. Verify anything important in a textbook or trusted site.</p></li>
+    <li><h3>Guard your privacy</h3><p>Don't type in passwords, addresses, or other people's personal info. Assume anything you enter could be stored.</p></li>
+    <li><h3>Watch for bias</h3><p>AI learns from human data and can repeat stereotypes or leave people out. Ask whether an answer is fair and whose view is missing.</p></li>
+    <li><h3>Follow the rules</h3><p>Rules change from class to class. Not sure if AI is allowed on an assignment? Ask your teacher first.</p></li>
+  </ol>
+  <div class="eq">
+    <div class="card">
+      <h3>What's fine</h3>
+      <div class="example">Asking AI to explain a concept in simpler words, then summarizing it yourself.</div>
+      <div class="example">Having AI quiz you before a test.</div>
+      <div class="example">Asking for feedback on your own draft, then revising it yourself.</div>
+      <div class="example">Brainstorming topic ideas, then researching your pick.</div>
+    </div>
+    <div class="card">
+      <h3>What's not</h3>
+      <div class="example bad">Submitting AI-written work as your own.</div>
+      <div class="example bad">Using AI during a test or quiz when it is not allowed.</div>
+      <div class="example bad">Citing sources the AI gave you without checking they exist.</div>
+      <div class="example bad">Making fake images or messages about real people.</div>
+    </div>
+  </div>
+</section>
+
+<section id="academy" aria-labelledby="academyTitle">
+  <div class="section-heading">
+    <h2 id="academyTitle">Five short modules.</h2>
+    <p>Complete each module, then pass its 3-question knowledge check (2 correct to pass) to earn XP, unlock badges, and raise your rank. Modules unlock in order.</p>
+  </div>
+  <div id="moduleGrid"></div>
+</section>
+
+<section id="dashboard" aria-labelledby="dashboardTitle">
+  <div class="section-heading">
+    <h2 id="dashboardTitle">Your progress.</h2>
+    <p>Your XP, badges, and rank. It all saves in this browser.</p>
+  </div>
+  <div class="dash">
+    <div class="card span2">
+      <div class="xp-top">
+        <div><h3 id="rankTitle">CADET</h3><p id="levelText">Level 1</p></div>
+        <strong id="xpText">0 XP</strong>
+      </div>
+      <div class="xp-bar" role="progressbar" aria-label="XP to next level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="xpBarWrap"><div class="xp-fill" id="xpFill"></div></div>
+      <div class="level-info"><span id="currentXP">0 XP</span><span id="nextXP">250 XP</span></div>
+    </div>
+    <div class="card">
+      <h3>Overall progress</h3>
+      <div id="readiness">0%</div>
+      <p>Finish all five modules to hit 100%.</p>
+    </div>
+    <div class="card">
+      <h3>Training Statistics</h3>
+      <div class="stats">
+        <div class="stat"><strong id="completedCount">0</strong><span>Modules Complete</span></div>
+        <div class="stat"><strong id="badgeCount">0</strong><span>Badges Earned</span></div>
+        <div class="stat"><strong id="gameLevelCount">0</strong><span>Game Levels Unlocked</span></div>
+        <div class="stat"><strong id="levelNumber">1</strong><span>Current Level</span></div>
+      </div>
+    </div>
+    <div class="card span2">
+      <h3>Achievement Badges</h3>
+      <div class="badges" id="badgeGrid"></div>
+      <div style="margin-top:20px"><button class="btn btn-secondary" onclick="resetProgress()">Reset progress</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="game" aria-labelledby="gameTitle">
+  <div class="section-heading">
+    <h2 id="gameTitle">Now try it on an alien world.</h2>
+    <p>In our space game you land on a planet nobody has mapped, with the ship's AI as your only help. Aliens, odd signals, and tricky calls will test the habits from the guide. Pass a quiz here to unlock the matching level.</p>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="gframe" id="gameFrame">
+        <div class="gph"><h3>Project Aurora: the game</h3><p>Coming soon. Our alien-world space game is still being built and will play right here.</p></div>
+      </div>
+      <div class="gbtns">
+        <button class="btn btn-primary" onclick="loadGame()">Play game</button>
+        <button class="btn btn-secondary" onclick="fullscreenGame()">Fullscreen</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>About the game</h3>
+      <p>You play a cadet on the spacecraft Aurora One. Earth is far away, the aliens don't speak any language you know, and the ship's AI is helpful but not always right. Each of the five levels tests one habit.</p>
+      <ul class="glist">
+        <li><b>Launch:</b> know what the AI can't do</li>
+        <li><b>Lunar Base:</b> verify before you trust</li>
+        <li><b>Deep Space:</b> write clear prompts when you're out of contact</li>
+        <li><b>Alien Frontier:</b> make fair, honest choices with strangers</li>
+        <li><b>Aurora Prime:</b> protect private data, spot fake signals</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="card" style="text-align:center;padding:60px 25px">
+    <h2 style="font-size:clamp(30px,5vw,45px);margin-bottom:15px">Ready to use AI the right way?</h2>
+    <p style="max-width:650px;margin:0 auto 25px">Complete all five trainings, earn your badges, and unlock every mission in the game.</p>
+    <button class="btn btn-primary" onclick="scrollToSection('dashboard')">Check my progress</button>
+  </div>
+</section>
+</main>
+
+<div class="modal" id="lessonModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-content">
+    <button class="close" onclick="closeModal()" aria-label="Close">×</button>
+    <div id="lessonContent"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <strong id="toastTitle"></strong>
+  <div id="toastMessage"></div>
+</div>
+
+<div class="zibble-widget" id="zibbleWidget" aria-label="Zibble assistant">
+  <div class="zibble-bubble" id="zibbleBubble" role="status" aria-live="polite">
+    <strong>Hi, I'm Zibble!</strong>
+    <p id="zibbleMessage">You earned me by completing AI Fundamentals. I'm here if you need a hand!</p>
+    <div class="zibble-actions">
+      <button type="button" onclick="zibbleTip()">Give me a tip</button>
+      <button type="button" onclick="toggleZibble()">Minimize</button>
+    </div>
+  </div>
+  <button class="zibble-avatar" type="button" onclick="toggleZibble()" aria-label="Open Zibble alien chatbot" title="Talk to Zibble">
+    <svg viewBox="0 0 64 64" role="img" aria-label="A friendly animated paperclip-shaped space helper">
+      <path d="M39 13c-8-8-21-3-21 8v24c0 15 23 17 23 1V20c0-7-11-8-11 0v24" fill="none" stroke="#b8adff" stroke-width="7" stroke-linecap="round"/>
+      <path d="M39 13c-8-8-21-3-21 8v24c0 15 23 17 23 1V20c0-7-11-8-11 0v24" fill="none" stroke="#7468d8" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="25" cy="29" r="2.8" fill="#171c3c"/><circle cx="37" cy="29" r="2.8" fill="#171c3c"/>
+      <path d="M27 37q4 5 8 0" fill="none" stroke="#171c3c" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="19" cy="35" r="2.2" fill="#f3a9d5" opacity=".9"/><circle cx="43" cy="35" r="2.2" fill="#f3a9d5" opacity=".9"/>
+      <path d="M47 10l2 4 4 2-4 2-2 4-2-4-4-2 4-2z" fill="#5aa9ff"/>
+    </svg>
+  </button>
+</div>
+
+<footer>
+  <p><strong>Project Aurora</strong>, an AI learning portal for high school students</p>
+</footer>
+
+<script>
+/* PASTE YOUR ORIGINAL <script> CONTENTS HERE, UNCHANGED.
+   (Everything between <script> and </script> from your current file:
+   the modules data, badgeInfo, ranks, storage, quiz and Zibble functions, etc.) */
+</script>
+</body>
+</html>
