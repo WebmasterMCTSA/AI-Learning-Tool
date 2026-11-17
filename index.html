@@ -6,8 +6,8 @@
 <title>PROJECT AURORA | AI Space Academy</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b1f'/%3E%3Ccircle cx='32' cy='32' r='20' fill='%238b7cff'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#070b1f;--fg:#eef1ff;--mut:#9aa6c9;--line:#c9d2ff;--soft:#111838;--red:#6ee7ff;--violet:#8b7cff;--bad:#ff7a9c;--ok:#5eead4;--pad:clamp(16px,4vw,56px)}
-@media(prefers-color-scheme:light){:root{--bg:#f4f6ff;--fg:#0b1030;--mut:#4b5578;--line:#0b1030;--soft:#e4e9ff;--red:#2f4bd8;--violet:#5a3fd6;--bad:#c4204a;--ok:#0a7a5c}}
+:root{--bg:#070b1f;--gold:#ffc94a;--fg:#eef1ff;--mut:#9aa6c9;--line:#c9d2ff;--soft:#111838;--red:#6ee7ff;--violet:#8b7cff;--bad:#ff7a9c;--ok:#5eead4;--pad:clamp(16px,4vw,56px)}
+@media(prefers-color-scheme:light){:root{--bg:#f4f6ff;--fg:#0b1030;--mut:#4b5578;--line:#0b1030;--soft:#e4e9ff;--red:#2f4bd8;--gold:#a86b00;--violet:#5a3fd6;--bad:#c4204a;--ok:#0a7a5c}}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5;overflow-x:hidden;padding-top:64px;background-image:radial-gradient(color-mix(in srgb,var(--fg) 24%,transparent) 1px,transparent 1.6px);background-size:48px 48px}
@@ -176,6 +176,8 @@ footer{max-width:1400px;margin:auto;border-top:3px solid var(--line);padding:32p
 .fq .answer{min-height:44px;padding:10px 12px;font-size:14px;margin:6px 0}
 .fq .result{font-size:13px;margin-top:10px;padding:10px}
 .fq .btn{margin-top:12px}
+.shop-item{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding:6px 0;font-size:14px}
+.shop-item .btn{margin:0;padding:6px 12px;min-height:34px}
 .neural-side{display:grid;gap:12px}
 .neural-stat{padding:8px 0;border-top:3px solid var(--line)}
 .neural-stat span{display:block;color:var(--mut);font-size:11px;letter-spacing:.1em}
@@ -240,7 +242,7 @@ section{padding-top:56px;padding-bottom:56px}
   <div class="hero-content">
     <span class="eyebrow">Aurora One / Mission briefing / T+00:00</span>
     <h1>Using AI well<br>is a <span>skill.</span></h1>
-    <p>Learn how to use AI for school without cheating yourself: what’s fine, what isn’t, and how to tell the difference. Then take it to an alien world in our space game, where the ship’s AI is your only help.</p>
+    <p>Learn how to use AI for school without cheating yourself: what’s fine, what isn’t, and how to tell the difference. Then set sail in our AI pirate game, where every checkpoint tests these habits and every win earns gold.</p>
     <div class="hero-buttons">
       <button class="btn btn-primary" id="heroStart" onclick="startNext()">Start Module 1</button>
       <button class="btn btn-secondary" onclick="scrollToSection('guide')">Read the guide first</button>
@@ -347,22 +349,24 @@ section{padding-top:56px;padding-bottom:56px}
 
 <section id="game" aria-labelledby="gameTitle">
   <div class="section-heading">
-    <span class="eyebrow">04 / Surface mission / Alien world</span>
-    <h2 id="gameTitle">Now try it on an alien world.</h2>
-    <p>In our space game you land on a planet nobody has mapped, with the ship’s AI as your only help. Aliens, odd signals, and tricky calls will test the habits from the guide. Pass a quiz here to unlock the matching level.</p>
+    <span class="eyebrow">04 / Pirate mission / AI seas</span>
+    <h2 id="gameTitle">Now set sail on the AI seas.</h2>
+    <p>Play Captain Byte, an AI pirate hunting treasure across four voyages. Dodge enemy ships and cannonballs, answer 5 questions at every checkpoint, then spend your gold and XP on costumes.</p>
   </div>
   <div class="grid2">
     <div class="card">
       <div class="neural-game" id="gameFrame">
         <div class="neural-board-wrap">
-          <canvas id="hopBoard" width="360" height="480" aria-label="Astro Hopper game board"></canvas>
-          <div class="fq" id="hopQuiz" role="dialog" aria-label="Checkpoint questions"></div>
+          <canvas id="hopBoard" width="360" height="480" aria-label="Captain Byte pirate game board"></canvas>
+          <div class="fq" id="hopQuiz" role="dialog" aria-label="Game menu and questions"></div>
         </div>
         <div class="neural-side">
-          <div class="neural-stat"><span>SCORE</span><strong id="hopScore">0</strong></div>
+          <div class="neural-stat"><span>VOYAGE</span><strong id="hopLevel">1</strong></div>
           <div class="neural-stat"><span>LIVES</span><strong id="hopLives">3</strong></div>
           <div class="neural-stat"><span>CHECKPOINTS</span><strong id="hopCp">0/2</strong></div>
-          <div class="neural-full"><p class="neural-message" id="hopMsg" aria-live="polite">Hop across the asteroid lanes. At each checkpoint, answer 5 questions to unlock the way forward.</p></div>
+          <div class="neural-stat"><span>GOLD</span><strong id="hopGold" style="color:var(--gold)">0</strong></div>
+          <div class="neural-stat"><span>RANK</span><strong id="hopRank" style="font-size:16px;letter-spacing:0">Cabin Boy</strong></div>
+          <div class="neural-full"><p class="neural-message" id="hopMsg" aria-live="polite">Press Start to pick a voyage. Answer 5 questions at every checkpoint to sail on.</p></div>
           <div class="neural-controls neural-touch neural-full" aria-label="Touch game controls">
             <button type="button" data-move="left" aria-label="Move left">←</button>
             <button type="button" data-move="up" aria-label="Move up">↑</button>
@@ -370,20 +374,19 @@ section{padding-top:56px;padding-bottom:56px}
             <button type="button" data-move="down" aria-label="Move down">↓</button>
             <button type="button" data-move="pause" aria-label="Pause or resume">Ⅱ</button>
           </div>
-          <div class="neural-full"><button class="btn btn-primary" id="hopStart" type="button">Start game</button> <button class="btn btn-secondary" id="hopPause" type="button">Pause</button></div>
+          <div class="neural-full"><button class="btn btn-primary" id="hopStart" type="button">Start</button> <button class="btn btn-secondary" id="hopShop" type="button">Shop</button> <button class="btn btn-secondary" id="hopPause" type="button">Pause</button></div>
         </div>
       </div>
-      <p style="margin-top:14px;color:var(--mut);font-size:13px">Keyboard: arrows or WASD to hop · P pause. Reach a checkpoint, get 3 of 5 questions right, then keep going.</p>
+      <p style="margin-top:14px;color:var(--mut);font-size:13px">Keyboard: arrows or WASD to hop · P pause. Get enough answers right at each checkpoint to continue.</p>
     </div>
     <div class="card">
       <h3>About the game</h3>
-      <p>You play a cadet on the spacecraft Aurora One. Earth is far away, the aliens don’t speak any language you know, and the ship’s AI is helpful but not always right. Each of the five levels tests one habit.</p>
+      <p>You are Captain Byte, an AI pirate. Hop across lanes of enemy ships, cannonballs and krakens to reach the treasure. Each checkpoint is a port where you answer 5 questions about using AI well. Finish a voyage to earn XP and gold, then buy costumes. Every voyage is faster and the questions get harder.</p>
       <ul class="glist">
-        <li><b>Launch:</b> know what the AI can’t do</li>
-        <li><b>Lunar Base:</b> verify before you trust</li>
-        <li><b>Deep Space:</b> write clear prompts when you’re out of contact</li>
-        <li><b>Alien Frontier:</b> make fair, honest choices with strangers</li>
-        <li><b>Aurora Prime:</b> protect private data, spot fake signals</li>
+        <li><b>Shipwreck Shallows:</b> the basics</li>
+        <li><b>Cannon Cove:</b> real school scenarios</li>
+        <li><b>Kraken Straits:</b> tricky judgment calls</li>
+        <li><b>Black Flag Gauntlet:</b> expert AI habits</li>
       </ul>
     </div>
   </div>
@@ -443,89 +446,215 @@ section{padding-top:56px;padding-bottom:56px}
 </script>
 
 <script>
-/* Astro Hopper: space Frogger with checkpoint quizzes */
+/* Captain Byte: AI pirate Frogger with checkpoint quizzes, levels, XP, gold and costumes */
 (function(){
   const cv=document.getElementById('hopBoard');
   if(!cv) return;
   const ctx=cv.getContext('2d'), $=id=>document.getElementById(id);
-  const C=9,R=12,S=40,MONO='11px ui-monospace,Menlo,Consolas,monospace';
-  const P={bg:'#070b1f',cy:'#6ee7ff',vi:'#8b7cff',wh:'#eef1ff',sl:'#4f5d9c',mut:'#9aa6c9'};
-  const lanes=[{r:10,d:1,s:1.8,w:1.5,n:3},{r:9,d:-1,s:1.3,w:1,n:4},{r:8,d:1,s:2.4,w:2,n:2},
-    {r:6,d:-1,s:1.6,w:1,n:4},{r:5,d:1,s:2.2,w:2,n:2},{r:4,d:-1,s:1.4,w:1.5,n:3},
-    {r:2,d:1,s:2.6,w:1,n:3},{r:1,d:-1,s:2,w:2,n:2}];
-  const Q=[
+  const C=9,R=12,S=40,MONO='11px ui-monospace,Menlo,Consolas,monospace',KEY='auroraPirateSave';
+  const P={bg:'#070b1f',cy:'#6ee7ff',vi:'#8b7cff',wh:'#eef1ff',sl:'#4f5d9c',mut:'#9aa6c9',gd:'#ffc94a'};
+  const LV=[
+    {n:'Shipwreck Shallows',m:.9,t:1,pass:3,gold:60,xp:100,x:0},
+    {n:'Cannon Cove',m:1.15,t:2,pass:3,gold:100,xp:150,x:0},
+    {n:'Kraken Straits',m:1.35,t:3,pass:4,gold:150,xp:220,x:1},
+    {n:'Black Flag Gauntlet',m:1.55,t:4,pass:4,gold:220,xp:300,x:1}];
+  const base=[{r:10,d:1,s:1.8,w:1.5,n:3,k:'ship'},{r:9,d:-1,s:1.3,w:1,n:4,k:'ball'},{r:8,d:1,s:2.4,w:2,n:2,k:'ship'},
+    {r:6,d:-1,s:1.6,w:1,n:4,k:'ball'},{r:5,d:1,s:2.2,w:2,n:2,k:'ship'},{r:4,d:-1,s:1.4,w:1.5,n:3,k:'ship'},
+    {r:2,d:1,s:2.6,w:1,n:3,k:'ball'},{r:1,d:-1,s:2,w:2,n:2,k:'ship'}];
+  const ITEMS=[
+    {id:'bandana',slot:'hat',n:'Red Bandana',p:30},{id:'tricorn',slot:'hat',n:'Tricorn Hat',p:80},{id:'captain',slot:'hat',n:"Captain’s Hat",p:160},
+    {id:'patch',slot:'eye',n:'Eyepatch',p:40},{id:'monocle',slot:'eye',n:'Golden Monocle',p:110},
+    {id:'crimson',slot:'coat',n:'Crimson Coat',p:60},{id:'gold',slot:'coat',n:'Golden Coat',p:200},
+    {id:'parrot',slot:'pet',n:'Parrot',p:120}];
+  const RANKS=[[0,'Cabin Boy'],[200,'Deckhand'],[500,'First Mate'],[1000,'Captain'],[2000,'Pirate Legend']];
+  const T={
+  1:[
     ["You used AI to help with homework. Your teacher asks about it. What is the honest move?",["Say you did it all alone","Tell them how you used it","Delete the chat","Blame a friend"],1,"Honesty means saying when and how you used AI."],
     ["AI gives you a statistic for your report. Best next step?",["Copy it in","Verify it in a trusted source","Ask the AI to promise it is right","Round it up"],1,"AI can state wrong facts with total confidence."],
     ["Which use of AI is fine?",["Submitting its essay as yours","Using it during a no-AI test","Having it quiz you before a test","Faking a classmate’s message"],2,"Quizzing yourself builds skills instead of skipping them."],
     ["AI cites a book for your essay. What should you do?",["Cite it as is","Check the book really exists","Change the title slightly","Skip citing"],1,"AI can make up sources that sound real."],
     ["Which is safe to type into an AI chat?",["Your password","Your home address","A friend’s phone number","A general question about photosynthesis"],3,"Assume anything you enter could be stored."],
-    ["Why might AI repeat stereotypes?",["It learns from human-made data","It wants to be unfair","Aliens programmed it","It never does"],0,"Human data carries human bias. Ask whose view is missing."],
+    ["Why might AI repeat stereotypes?",["It learns from human-made data","It wants to be unfair","Pirates programmed it","It never does"],0,"Human data carries human bias. Ask whose view is missing."],
     ["You are not sure if AI is allowed on an assignment. What now?",["Use it and hope","Ask your teacher first","Ask a classmate","Never tell anyone"],1,"Rules change from class to class."],
     ["Before asking AI to solve a problem, you should...",["Try it yourself first","Skip reading it","Ask for the answer only","Wait until the deadline"],0,"Think first so you build the skill."],
     ["Is it okay to make a fake image of a real classmate?",["Yes, if it’s a joke","Only if they never find out","No, it can really hurt them","Yes, if posted privately"],2,"Fake images or messages about real people are not okay."],
     ["The AI sounds very sure of its answer. That means...",["It must be right","It can still be wrong","It checked a textbook","It is never wrong"],1,"Confidence is not accuracy. Check important things."],
     ["Which prompt is clearest?",["Help me","Do my homework","Explain photosynthesis in 5 sentences for a 9th grader, then give me 3 quiz questions","Science stuff"],2,"A clear prompt has a goal, context, and the format you want."],
-    ["Your school’s AI policy is stricter than the tips in this guide. Follow...",["The guide","The school’s policy","Whichever is easier","Neither"],1,"Your school’s AI policy comes first."]
-  ];
-  let mode='idle',lives=3,score=0,cp=0,px=4,py=11,best=11,haz=[],last=0,used=[],qs=[],qi=0,qok=0,pend=0;
+    ["Your school’s AI policy is stricter than the tips in this guide. Follow...",["The guide","The school’s policy","Whichever is easier","Neither"],1,"Your school’s AI policy comes first."]],
+  2:[
+    ["Your teacher allows AI for brainstorming only. You ask it to write your full paragraph. What happened?",["You followed the rules","You broke the assignment’s rules","Nothing, the AI wrote it","It’s fine if you change one word"],1,"The assignment’s rules decide what is allowed. Changing one word doesn’t make it yours."],
+    ["AI summarizes an article for you. How do you check the summary?",["Trust it because it’s short","Compare it with the original article","Ask the AI if it’s sure","Check its grammar"],1,"Summaries can drop or twist details. Compare with the source."],
+    ["You paste a classmate’s essay into an AI chat to get feedback. What’s the problem?",["Nothing","You shared someone else’s work without asking","It’s too long","AI can’t read essays"],1,"Don’t enter other people’s work or personal info without permission."],
+    ["An image AI shows only men when you ask for “a scientist.” What does this suggest?",["Only men are scientists","The training data may be biased","The AI is broken","Scientists are men"],1,"AI can repeat patterns in its data and leave people out."],
+    ["You can’t find the source the AI gave you anywhere online. What now?",["Cite it anyway","Remove it or find a real source","Change the author’s name","Add a made-up link"],1,"If you can’t verify a source, don’t cite it."],
+    ["Which is the best way to use AI for studying?",["Ask it to write your notes","Explain the topic back to it and ask what you missed","Copy its answers","Skip class"],1,"Explaining it yourself builds understanding."],
+    ["A website’s AI chatbot asks for your full name, address and birthday. You should...",["Share everything","Stop and ask a trusted adult","Share only your birthday","Share your address only"],1,"Guard your privacy and check with an adult."],
+    ["Your teacher never mentioned AI. You want it for an essay outline. Best move?",["Assume it’s fine","Ask your teacher first","Use it secretly","Ask a friend if it’s okay"],1,"When unsure, ask the person who sets the rules."]],
+  3:[
+    ["Three chatbots give the same answer. Does that prove it’s correct?",["Yes, agreement proves it","No, they can share the same mistakes","Yes, if they’re all popular","Only if the words match"],1,"Different tools can repeat the same error. Check a reliable source."],
+    ["You accept every change AI suggests to your draft. What’s the issue?",["None, it’s feedback","You may lose your own voice and not learn","AI feedback is always wrong","You should never get feedback"],1,"Use feedback as suggestions, then revise it yourself."],
+    ["A study cited by AI has an author and year, but you can’t find the journal. Likely explanation?",["It’s too new","The AI may have made up the citation","The search engine broke","The journal is secret"],1,"Fabricated citations look very real."],
+    ["Which statement about AI and privacy is most accurate?",["Chats are deleted instantly","Treat what you type as possibly stored or reviewed","Private mode makes you invisible","AI forgets everything"],1,"Assume anything you enter could be stored."],
+    ["A friend says “everyone uses AI for homework, so it’s fine.” Best response?",["Agree","What others do doesn’t decide what your teacher allows","Use it even more","Hide it"],1,"Your teacher’s and school’s rules decide."],
+    ["An AI detector flags a classmate’s own essay as AI-written. What should you remember?",["Detectors are perfect","Detectors can be wrong, so look at real evidence","Always trust the tool","Ignore it forever"],1,"Detectors make mistakes. Look at evidence and talk first."],
+    ["You ask the same question twice and get different facts. What does that show?",["One is surely right","AI can be inconsistent, so verify with a source","The AI lies on purpose","You can’t repeat questions"],1,"Inconsistent answers are a sign to check."],
+    ["AI wrote class project code that works, but you don’t understand it. Best move?",["Submit it","Learn how it works or ask your teacher about it","Hide that you used AI","Delete your own work"],1,"Using what you can’t explain skips the learning."]],
+  4:[
+    ["Which prompt best reduces bias in an answer about a historical event?",["Tell me what happened","Give several perspectives and tell me where I can verify each","Pick the best side","Be short"],1,"Ask for multiple viewpoints and verify them yourself."],
+    ["AI says a law passed last month. Why is that risky to trust?",["AI always knows current events","Its knowledge can be outdated or incomplete, so check official sources","Laws never change","AI avoids laws"],1,"Check current facts with official sources."],
+    ["A company claims its AI is “unbiased because it’s just math.” Strongest critique?",["Math is biased","The math runs on human data and choices that can be biased","Computers can’t count","Companies always lie"],1,"Data and design choices come from people."],
+    ["You only used AI to brainstorm ideas, then wrote everything yourself. Your policy says to disclose AI use. What do you do?",["Say nothing","Disclose the brainstorming help","Say you used none","Delete the chat"],1,"Disclose AI use when the policy asks, even for brainstorming."],
+    ["Why is a deepfake of a public figure still harmful?",["It isn’t, they’re famous","It can spread false information and damage trust","Only if it’s funny","Only if it’s long"],1,"Fake media about real people spreads false beliefs."],
+    ["Which habit best protects you from AI making things up in research?",["Using one chatbot","Cross-checking key claims in two reliable, independent sources","Asking the AI how confident it is","Asking for longer answers"],1,"Independent sources catch invented claims."],
+    ["An AI tutor shows a worked solution. How do you make sure you learn?",["Copy it","Cover it, redo the steps yourself, then compare","Memorize it","Skip it"],1,"Practice recall instead of copying."],
+    ["Your group wants AI to write the whole report and split the grade. Best response?",["Go along with it","Agree on allowed AI use with your teacher and do real work","Hide it","Blame one member"],1,"Check the rules and do your own thinking."]]
+  };
+  let sv={gold:0,xp:0,owned:[],worn:{},maxLv:1};
+  try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d)sv=Object.assign(sv,d);}catch(e){}
+  const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify(sv));}catch(e){}};
+  const rank=()=>{let r=RANKS[0];RANKS.forEach(x=>{if(sv.xp>=x[0])r=x;});return r;};
+  let mode='idle',lvl=0,lives=3,cp=0,px=4,py=11,best=11,haz=[],last=0,used={},qs=[],qi=0,qok=0,pend=0,gG=0,gX=0,backFn=null,tm=0;
   const home=()=>cp===0?11:cp===1?7:3;
   const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
-  function build(){haz=[];lanes.forEach(l=>{const span=C+l.w+2;for(let i=0;i<l.n;i++)haz.push({r:l.r,x:-l.w-1+(span/l.n)*i+(l.r%3)*.6,w:l.w,d:l.d,s:l.s,span,c:l.r%2?P.sl:P.vi});});}
-  function stats(){$('hopScore').textContent=score;$('hopLives').textContent=lives;$('hopCp').textContent=cp+'/2';}
+  const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;};
   const say=t=>{$('hopMsg').textContent=t;};
-  function start(){build();lives=3;score=0;cp=0;px=4;py=11;best=11;used=[];mode='play';$('hopPause').textContent='Pause';$('hopQuiz').classList.remove('active');say('Hop across the asteroid lanes. Avoid everything that moves.');stats();}
-  function die(){
-    lives--;stats();
-    if(lives<=0){mode='over';say('Lost in space. Press Start to try again.');return;}
-    px=4;py=home();best=Math.min(best,py);say('Hit! Back to your last safe spot. '+lives+' '+(lives===1?'life':'lives')+' left.');
-  }
-  function hit(){return haz.some(h=>h.r===py&&px+.15<h.x+h.w&&px+.85>h.x);}
-  function move(dx,dy){
-    if(mode!=='play')return;
-    const nx=Math.max(0,Math.min(C-1,px+dx)),ny=Math.max(0,Math.min(R-1,py+dy));
-    px=nx;py=ny;
-    if(dy<0&&py<best){best=py;score+=10;stats();}
-    if(hit()){die();return;}
-    if(py===7&&cp<1)quiz(1);else if(py===3&&cp<2)quiz(2);
-    else if(py===0){mode='win';score+=500;stats();say('You reached Aurora Prime. Mission complete!');}
-  }
-  function quiz(n){
-    pend=n;mode='quiz';
-    let pool=Q.map((_,i)=>i).filter(i=>!used.includes(i));
-    if(pool.length<5){used=[];pool=Q.map((_,i)=>i);}
-    qs=shuffle(pool).slice(0,5);qs.forEach(i=>used.push(i));qi=0;qok=0;showQ();
+  const btn=(cls,txt,fn)=>{const b=el('button',cls,txt);b.type='button';b.addEventListener('click',fn);return b;};
+  function stats(){
+    $('hopLevel').textContent=lvl+1;$('hopLives').textContent=lives;$('hopCp').textContent=cp+'/2';
+    $('hopGold').textContent=sv.gold;$('hopRank').textContent=rank()[1]+' · '+sv.xp+' XP';
   }
   function box(){const b=$('hopQuiz');b.textContent='';b.classList.add('active');return b;}
-  function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;}
+  function hide(){$('hopQuiz').classList.remove('active');}
+
+  /* characters and costumes */
+  function drawChar(c,cx,cy,k){
+    const w=sv.worn||{};
+    c.fillStyle=w.coat==='crimson'?'#d94a5c':w.coat==='gold'?P.gd:P.cy;
+    c.beginPath();c.arc(cx,cy,13*k,0,7);c.fill();
+    c.fillStyle=P.wh;c.beginPath();c.arc(cx-6*k,cy-4*k,4.5*k,0,7);c.arc(cx+6*k,cy-4*k,4.5*k,0,7);c.fill();
+    c.fillStyle=P.bg;c.beginPath();c.arc(cx-6*k,cy-4*k,2*k,0,7);c.arc(cx+6*k,cy-4*k,2*k,0,7);c.fill();
+    c.strokeStyle=P.bg;c.lineWidth=1.5*k;c.beginPath();c.arc(cx,cy+3*k,5*k,.2,Math.PI-.2);c.stroke();
+    if(w.eye==='patch'){c.fillStyle='#111';c.beginPath();c.arc(cx-6*k,cy-4*k,5.2*k,0,7);c.fill();c.strokeStyle='#111';c.lineWidth=1.5*k;c.beginPath();c.moveTo(cx-13*k,cy-9*k);c.lineTo(cx+12*k,cy-6*k);c.stroke();}
+    if(w.eye==='monocle'){c.strokeStyle=P.gd;c.lineWidth=2*k;c.beginPath();c.arc(cx+6*k,cy-4*k,6*k,0,7);c.stroke();}
+    if(w.hat==='bandana'){c.fillStyle='#e0455a';c.beginPath();c.arc(cx,cy-3*k,13.5*k,Math.PI*1.08,Math.PI*1.92);c.closePath();c.fill();c.fillRect(cx+10*k,cy-12*k,6*k,3*k);}
+    if(w.hat==='tricorn'){c.fillStyle='#1a1a2e';c.strokeStyle=P.gd;c.lineWidth=1.5*k;c.beginPath();c.moveTo(cx-17*k,cy-9*k);c.lineTo(cx,cy-25*k);c.lineTo(cx+17*k,cy-9*k);c.closePath();c.fill();c.stroke();}
+    if(w.hat==='captain'){c.fillStyle='#1a1a2e';c.beginPath();c.arc(cx,cy-11*k,10*k,Math.PI,0);c.fill();c.fillRect(cx-18*k,cy-11*k,36*k,4*k);c.fillStyle=P.gd;c.fillRect(cx-10*k,cy-14*k,20*k,2*k);c.fillStyle=P.wh;c.beginPath();c.arc(cx,cy-18*k,2*k,0,7);c.fill();}
+    if(w.pet==='parrot'){const x=cx+15*k,y=cy+3*k;c.fillStyle='#4ade80';c.beginPath();c.arc(x,y,5*k,0,7);c.fill();c.fillStyle='#ff6b6b';c.beginPath();c.arc(x+1*k,y-5*k,3.2*k,0,7);c.fill();c.fillStyle=P.gd;c.beginPath();c.moveTo(x+3*k,y-6*k);c.lineTo(x+7*k,y-5*k);c.lineTo(x+3*k,y-4*k);c.fill();}
+  }
+  function drawHazard(h){
+    const x=h.x*S,y=h.r*S+6,w=h.w*S,hh=S-12;
+    if(h.k==='ship'){
+      ctx.fillStyle=h.c;ctx.beginPath();ctx.moveTo(x,y+hh*.55);ctx.lineTo(x+w,y+hh*.55);ctx.lineTo(x+w-hh*.3,y+hh);ctx.lineTo(x+hh*.3,y+hh);ctx.closePath();ctx.fill();
+      ctx.fillStyle=P.wh;ctx.fillRect(x+w/2-1,y,2,hh*.6);
+      ctx.fillStyle='rgba(238,241,255,.9)';ctx.beginPath();ctx.moveTo(x+w/2+2,y+2);ctx.lineTo(x+w/2+2,y+hh*.5);ctx.lineTo(x+w/2+Math.min(w*.35,16),y+hh*.5);ctx.fill();
+      ctx.fillStyle=P.bg;ctx.beginPath();ctx.arc(x+w/2-6,y+3,2,0,7);ctx.fill();
+    }else if(lvl>=2){
+      const cx=x+w/2,cy=y+hh/2;ctx.strokeStyle=P.vi;ctx.lineWidth=3;ctx.lineCap='round';
+      for(let i=-1;i<=1;i++){ctx.beginPath();ctx.moveTo(cx+i*6,cy+4);ctx.quadraticCurveTo(cx+i*10+Math.sin(tm*4+i)*4,cy+12,cx+i*5,cy+hh/2+2);ctx.stroke();}
+      ctx.fillStyle=P.vi;ctx.beginPath();ctx.arc(cx,cy,hh/2-1,0,7);ctx.fill();
+      ctx.fillStyle=P.wh;ctx.beginPath();ctx.arc(cx-4,cy-2,2.5,0,7);ctx.arc(cx+4,cy-2,2.5,0,7);ctx.fill();
+    }else{
+      ctx.fillStyle='#2a3270';ctx.beginPath();ctx.arc(x+w/2,y+hh/2,hh/2-1,0,7);ctx.fill();
+      ctx.fillStyle='rgba(238,241,255,.55)';ctx.beginPath();ctx.arc(x+w/2-4,y+hh/2-4,3,0,7);ctx.fill();
+    }
+  }
+
+  /* game flow */
+  function build(){
+    haz=[];const L=LV[lvl];
+    base.forEach(l=>{const w=l.w,n=l.n+L.x,span=C+w+2;
+      for(let i=0;i<n;i++)haz.push({r:l.r,k:l.k,x:-w-1+(span/n)*i+(l.r%3)*.6,w,d:l.d,s:l.s*L.m,span,c:l.r%2?P.sl:P.vi});});
+  }
+  function begin(i){
+    lvl=i;lives=3;cp=0;px=4;py=11;best=11;used={};gG=0;gX=0;build();mode='play';
+    $('hopPause').textContent='Pause';hide();say('Voyage '+(i+1)+': '+LV[i].n+'. Avoid everything that moves.');stats();
+  }
+  function menu(){
+    mode='menu';const b=box();
+    b.appendChild(el('div','quiz-meta',rank()[1]+' · '+sv.xp+' XP · '+sv.gold+' gold'));
+    b.appendChild(el('h4','','Choose your voyage'));
+    LV.forEach((l,i)=>{const a=btn('answer','Voyage '+(i+1)+' · '+l.n+(i+1>sv.maxLv?' (locked)':''),()=>begin(i));a.disabled=i+1>sv.maxLv;b.appendChild(a);});
+    b.appendChild(btn('btn btn-secondary','Costume shop',()=>shop(menu)));
+    stats();
+  }
+  function die(){
+    lives--;stats();
+    if(lives<=0){mode='over';say('Sunk! You keep the '+gG+' gold and '+gX+' XP earned from answers. Press Start to sail again.');return;}
+    px=4;py=home();best=Math.min(best,py);say('Hit! Back to your last safe spot. '+lives+' '+(lives===1?'life':'lives')+' left.');
+  }
+  const hit=()=>haz.some(h=>h.r===py&&px+.15<h.x+h.w&&px+.85>h.x);
+  function move(dx,dy){
+    if(mode!=='play')return;
+    px=Math.max(0,Math.min(C-1,px+dx));py=Math.max(0,Math.min(R-1,py+dy));
+    if(hit()){die();return;}
+    if(py===7&&cp<1)quiz(1);else if(py===3&&cp<2)quiz(2);else if(py===0)win();
+  }
+  function quiz(n){
+    pend=n;mode='quiz';const t=LV[lvl].t,arr=T[t];
+    used[t]=used[t]||[];
+    let pool=arr.map((_,i)=>i).filter(i=>!used[t].includes(i));
+    if(pool.length<5){used[t]=[];pool=arr.map((_,i)=>i);}
+    qs=shuffle(pool).slice(0,5);qs.forEach(i=>used[t].push(i));qi=0;qok=0;showQ();
+  }
   function showQ(){
-    const b=box(),q=Q[qs[qi]];
-    b.appendChild(el('div','quiz-meta','Checkpoint '+(pend===1?'A':'B')+' · Question '+(qi+1)+' of 5'));
+    const b=box(),q=T[LV[lvl].t][qs[qi]],L=LV[lvl];
+    b.appendChild(el('div','quiz-meta','Checkpoint '+(pend===1?'A':'B')+' · Question '+(qi+1)+' of 5 · Need '+L.pass));
     b.appendChild(el('h4','',q[0]));
-    const opts=shuffle(q[1].map((t,i)=>({t,ok:i===q[2]})));
-    const btns=opts.map(o=>{const a=el('button','answer',o.t);a.type='button';b.appendChild(a);return{a,o};});
-    btns.forEach(({a,o})=>a.addEventListener('click',()=>{
-      btns.forEach(x=>{x.a.disabled=true;if(x.o.ok)x.a.classList.add('correct');});
-      if(o.ok)qok++;else a.classList.add('wrong');
-      b.appendChild(el('div','result',(o.ok?'Correct. ':'Not quite. ')+q[3]));
-      const nx=el('button','btn btn-primary',qi<4?'Next question':'See result');nx.type='button';
-      nx.addEventListener('click',()=>{qi++;qi<5?showQ():finish();});b.appendChild(nx);nx.focus();
-    }));
+    const bs=shuffle(q[1].map((t,i)=>({t,ok:i===q[2]}))).map(o=>{const a=btn('answer',o.t,()=>{
+      bs.forEach(x=>{x.a.disabled=true;if(x.o.ok)x.a.classList.add('correct');});
+      if(o.ok){qok++;sv.gold+=5;sv.xp+=10;gG+=5;gX+=10;persist();stats();}else a.classList.add('wrong');
+      b.appendChild(el('div','result',(o.ok?'Correct! +5 gold, +10 XP. ':'Not quite. ')+q[3]));
+      const nx=btn('btn btn-primary',qi<4?'Next question':'See result',()=>{qi++;qi<5?showQ():finish();});b.appendChild(nx);nx.focus();
+    });b.appendChild(a);return{a,o};});
   }
   function finish(){
-    const b=box(),pass=qok>=3;
+    const b=box(),L=LV[lvl],pass=qok>=L.pass;
     b.appendChild(el('div','quiz-meta','Checkpoint '+(pend===1?'A':'B')));
     b.appendChild(el('h4','',qok+' of 5 correct'));
-    b.appendChild(el('div','result',pass?'Checkpoint unlocked. Safe to continue.':'You need 3 of 5 to continue. Try a fresh set of questions.'));
-    const go=el('button','btn btn-primary',pass?'Continue':'Try new questions');go.type='button';
-    go.addEventListener('click',()=>{
-      if(pass){cp=pend;score+=qok*100;stats();b.classList.remove('active');mode='play';say('Checkpoint saved. If you get hit, you restart here.');}
-      else quiz(pend);
+    b.appendChild(el('div','result',pass?'Checkpoint unlocked. Safe to continue.':'You need '+L.pass+' of 5. Try a fresh set of questions.'));
+    const go=btn('btn btn-primary',pass?'Continue':'Try new questions',()=>{
+      if(pass){cp=pend;stats();hide();mode='play';say('Checkpoint saved. If you get hit, you restart here.');}else quiz(pend);
+    });b.appendChild(go);go.focus();
+  }
+  function win(){
+    mode='win';const L=LV[lvl],g=L.gold+20*lives,x=L.xp+25*lives;
+    sv.gold+=g;sv.xp+=x;sv.maxLv=Math.max(sv.maxLv,Math.min(LV.length,lvl+2));persist();stats();
+    const b=box();
+    b.appendChild(el('div','quiz-meta','Voyage '+(lvl+1)+' complete'));
+    b.appendChild(el('h4','','Treasure found!'));
+    b.appendChild(el('div','result','Voyage reward: +'+L.gold+' gold, +'+L.xp+' XP\nLives left bonus: +'+(20*lives)+' gold, +'+(25*lives)+' XP\nFrom answers: +'+gG+' gold, +'+gX+' XP\nTotal this voyage: +'+(g+gG)+' gold, +'+(x+gX)+' XP'));
+    $('hopQuiz').lastChild.style.whiteSpace='pre-line';
+    if(lvl<LV.length-1)b.appendChild(btn('btn btn-primary','Next voyage',()=>begin(lvl+1)));
+    else b.appendChild(el('div','result','You have conquered every voyage, Captain!'));
+    b.appendChild(el('span','',' '));
+    b.appendChild(btn('btn btn-secondary','Costume shop',()=>shop(menu)));
+    b.appendChild(el('span','',' '));
+    b.appendChild(btn('btn btn-secondary','Voyage menu',menu));
+    say('Voyage complete! Spend your gold in the shop or sail on.');
+  }
+  function shop(back){mode='shop';backFn=back;renderShop(0);}
+  function renderShop(sc){
+    const b=box();
+    b.appendChild(el('div','quiz-meta','Costume shop · '+sv.gold+' gold'));
+    const pv=document.createElement('canvas');pv.width=pv.height=96;pv.style.cssText='display:block;margin:8px 0;border:1px solid var(--line)';b.appendChild(pv);
+    const pc=pv.getContext('2d');pc.fillStyle=P.bg;pc.fillRect(0,0,96,96);drawChar(pc,48,54,2);
+    ITEMS.forEach(it=>{
+      const row=el('div','shop-item'),own=sv.owned.includes(it.id),on=sv.worn[it.slot]===it.id;
+      row.appendChild(el('span','',it.n+' · '+(own?'owned':it.p+' gold')));
+      const bt=btn('btn btn-secondary',own?(on?'Remove':'Wear'):'Buy',()=>{
+        if(!own){sv.gold-=it.p;sv.owned.push(it.id);sv.worn[it.slot]=it.id;}
+        else if(on)delete sv.worn[it.slot];else sv.worn[it.slot]=it.id;
+        persist();stats();renderShop(b.scrollTop);
+      });
+      if(!own&&sv.gold<it.p)bt.disabled=true;
+      row.appendChild(bt);b.appendChild(row);
     });
-    b.appendChild(go);go.focus();
+    b.appendChild(btn('btn btn-primary','Back',()=>backFn()));
+    b.scrollTop=sc;
   }
   function togglePause(){
     if(mode==='play'){mode='paused';$('hopPause').textContent='Resume';say('Game paused.');}
-    else if(mode==='paused'){mode='play';$('hopPause').textContent='Pause';say('Back online.');}
+    else if(mode==='paused'){mode='play';$('hopPause').textContent='Pause';say('Back on deck.');}
   }
   function action(a){
     if(a==='left')move(-1,0);else if(a==='right')move(1,0);else if(a==='up')move(0,-1);else if(a==='down')move(0,1);else if(a==='pause')togglePause();
@@ -539,38 +668,37 @@ section{padding-top:56px;padding-bottom:56px}
     if(mode==='play'||mode==='paused'){e.preventDefault();action(k);}
   });
   document.querySelectorAll('[data-move]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.move)));
-  $('hopStart').addEventListener('click',start);
+  $('hopStart').addEventListener('click',menu);
   $('hopPause').addEventListener('click',togglePause);
+  $('hopShop').addEventListener('click',()=>{if(mode==='play'||mode==='paused'||mode==='quiz')return;shop(()=>{hide();mode='idle';});});
 
+  /* drawing */
   function band(r,color,label){ctx.fillStyle=color;ctx.fillRect(0,r*S,C*S,S);if(label){ctx.fillStyle=P.mut;ctx.font=MONO;ctx.textAlign='left';ctx.fillText(label,8,r*S+24);}}
+  function waves(r){
+    ctx.strokeStyle='rgba(110,231,255,.13)';ctx.lineWidth=1;ctx.beginPath();
+    for(let x=0;x<=C*S;x+=6){const y=r*S+S/2+Math.sin(x/14+tm*1.5+r)*3;x?ctx.lineTo(x,y):ctx.moveTo(x,y);}
+    ctx.stroke();
+  }
   function draw(){
     ctx.fillStyle=P.bg;ctx.fillRect(0,0,C*S,R*S);
-    for(let r=0;r<R;r++){ctx.strokeStyle='rgba(238,241,255,.07)';ctx.beginPath();ctx.moveTo(0,r*S);ctx.lineTo(C*S,r*S);ctx.stroke();}
-    band(0,'rgba(139,124,255,.28)','AURORA PRIME');
+    base.forEach(l=>waves(l.r));
+    band(0,'rgba(255,201,74,.18)','TREASURE ISLAND');
+    ctx.fillStyle=P.gd;ctx.fillRect(C*S-58,6,26,16);ctx.fillStyle=P.bg;ctx.fillRect(C*S-58,12,26,2);ctx.fillRect(C*S-47,10,4,6);
     band(3,'rgba(110,231,255,'+(cp>=2?'.28':'.14')+')','CHECKPOINT B'+(cp>=2?' ✓':''));
     band(7,'rgba(110,231,255,'+(cp>=1?'.28':'.14')+')','CHECKPOINT A'+(cp>=1?' ✓':''));
-    band(11,'rgba(238,241,255,.07)','LAUNCH PAD');
-    haz.forEach(h=>{
-      const x=h.x*S,y=h.r*S+6,w=h.w*S,hh=S-12;
-      ctx.fillStyle=h.c;ctx.beginPath();
-      if(ctx.roundRect)ctx.roundRect(x,y,w,hh,hh/2);else ctx.rect(x,y,w,hh);
-      ctx.fill();ctx.fillStyle='rgba(7,11,31,.35)';
-      ctx.beginPath();ctx.arc(x+w*.3,y+hh*.4,3,0,7);ctx.arc(x+w*.65,y+hh*.62,2.5,0,7);ctx.fill();
-    });
-    const cx=px*S+S/2,cy=py*S+S/2;
-    ctx.fillStyle=P.cy;ctx.beginPath();ctx.arc(cx,cy,13,0,7);ctx.fill();
-    ctx.fillStyle=P.wh;ctx.beginPath();ctx.arc(cx-6,cy-7,4.5,0,7);ctx.arc(cx+6,cy-7,4.5,0,7);ctx.fill();
-    ctx.fillStyle=P.bg;ctx.beginPath();ctx.arc(cx-6,cy-7,2,0,7);ctx.arc(cx+6,cy-7,2,0,7);ctx.fill();
-    if(mode==='idle'||mode==='over'||mode==='win'||mode==='paused'){
+    band(11,'rgba(238,241,255,.07)','HARBOR');
+    haz.forEach(drawHazard);
+    drawChar(ctx,px*S+S/2,py*S+S/2+2,1);
+    if(mode==='idle'||mode==='over'||mode==='paused'){
       ctx.fillStyle='rgba(7,11,31,.88)';ctx.fillRect(0,0,C*S,R*S);
       ctx.textAlign='center';ctx.fillStyle=P.wh;ctx.font='bold 24px Helvetica,Arial,sans-serif';
-      ctx.fillText(mode==='over'?'LOST IN SPACE':mode==='win'?'AURORA PRIME REACHED':mode==='paused'?'PAUSED':'ASTRO HOPPER',C*S/2,R*S/2-6);
+      ctx.fillText(mode==='over'?'SUNK!':mode==='paused'?'PAUSED':'CAPTAIN BYTE',C*S/2,R*S/2-6);
       ctx.fillStyle=P.mut;ctx.font='13px Helvetica,Arial,sans-serif';
-      if(mode!=='paused')ctx.fillText(mode==='idle'?'Press Start to begin':'Press Start to play again',C*S/2,R*S/2+20);
+      if(mode!=='paused')ctx.fillText(mode==='idle'?'AI pirates · Press Start':'Press Start to sail again',C*S/2,R*S/2+20);
     }
   }
   function loop(t){
-    const dt=Math.min(.05,(t-last)/1000||0);last=t;
+    const dt=Math.min(.05,(t-last)/1000||0);last=t;tm+=dt;
     if(mode==='play'){
       haz.forEach(h=>{h.x+=h.d*h.s*dt;if(h.d>0&&h.x>C+1)h.x-=h.span;if(h.d<0&&h.x<-h.w-1)h.x+=h.span;});
       if(hit())die();
