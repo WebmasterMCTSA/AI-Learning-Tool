@@ -259,11 +259,78 @@ section{padding-top:56px;padding-bottom:56px}
       <ellipse cx="160" cy="160" rx="150" ry="46" transform="rotate(-24 160 160)" stroke-width="3"/>
       <path d="M160 0v320M0 160h320" stroke-width="1" opacity=".5"/>
     </g>
-    <circle cx="160" cy="160" r="46" style="fill:var(--violet)"/>
+
+    <!-- NEW PLANET + UFO ALIEN -->
+    <defs>
+      <radialGradient id="gasGrad" cx="32%" cy="28%" r="85%">
+        <stop offset="0" stop-color="#ffd08a"/>
+        <stop offset=".35" stop-color="#ff7a6b"/>
+        <stop offset=".7" stop-color="#c2307f"/>
+        <stop offset="1" stop-color="#2d0b52"/>
+      </radialGradient>
+      <radialGradient id="gasGlow" cx="50%" cy="50%" r="50%">
+        <stop offset=".65" stop-color="#ff7a9c" stop-opacity=".4"/>
+        <stop offset="1" stop-color="#ff7a9c" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#6ee7ff" stop-opacity=".55"/>
+        <stop offset="1" stop-color="#6ee7ff" stop-opacity="0"/>
+      </linearGradient>
+      <clipPath id="gasClip"><circle cx="150" cy="140" r="74"/></clipPath>
+    </defs>
+
+    <!-- planet group, shifted so the planet sits at the center (160,160) -->
+    <g transform="translate(10 20)">
+      <!-- glow -->
+      <circle cx="150" cy="140" r="110" fill="url(#gasGlow)"/>
+
+      <!-- planet -->
+      <circle cx="150" cy="140" r="74" fill="url(#gasGrad)"/>
+      <g clip-path="url(#gasClip)">
+        <path d="M70 104q40-16 80 0t80 0" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="8"/>
+        <path d="M70 126q40 14 80 0t80 0" fill="none" stroke="#ffd08a" stroke-opacity=".35" stroke-width="6"/>
+        <path d="M70 168q40-14 80 0t80 0" fill="none" stroke="#5a0f6e" stroke-opacity=".45" stroke-width="10"/>
+        <path d="M70 192q40 12 80 0t80 0" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="7"/>
+        <ellipse cx="178" cy="150" rx="19" ry="11" fill="#7a1458" fill-opacity=".75"/>
+        <ellipse cx="178" cy="150" rx="12" ry="6" fill="#ff9a6b" fill-opacity=".8"/>
+        <ellipse cx="178" cy="150" rx="5" ry="2.5" fill="#ffd08a"/>
+        <circle cx="150" cy="140" r="74" fill="none" stroke="#000" stroke-opacity=".3" stroke-width="20"/>
+      </g>
+    </g>
+
+    <!-- moons -->
+    <circle cx="252" cy="84" r="13" fill="#b9c2ee"/>
+    <circle cx="247" cy="80" r="3" fill="#7e89c4"/><circle cx="257" cy="90" r="2.4" fill="#7e89c4"/>
+    <circle cx="62" cy="236" r="7" fill="#ffc94a"/>
+    <circle cx="60" cy="234" r="2" fill="#a86b00" opacity=".6"/>
+
+    <!-- sparkles -->
+    <path d="M40 80l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#ffc94a"/>
+    <path d="M280 220l1.6 4.8 4.8 1.6-4.8 1.6-1.6 4.8-1.6-4.8-4.8-1.6 4.8-1.6z" fill="#6ee7ff"/>
+
+    <!-- tractor beam -->
+    <polygon points="186,226 226,226 252,300 160,300" fill="url(#beam)"/>
+
+    <!-- UFO + alien -->
+    <g>
+      <line x1="206" y1="182" x2="206" y2="168" stroke="#5eead4" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="206" cy="166" r="4" fill="#ffc94a"/>
+      <path d="M180 210a26 26 0 0 1 52 0z" fill="#6ee7ff" fill-opacity=".3" stroke="#6ee7ff" stroke-width="2"/>
+      <ellipse cx="206" cy="198" rx="12" ry="13" fill="#5eead4" stroke="#0b1030" stroke-width="2"/>
+      <ellipse cx="200" cy="197" rx="3.6" ry="6" transform="rotate(20 200 197)" fill="#0b1030"/>
+      <ellipse cx="212" cy="197" rx="3.6" ry="6" transform="rotate(-20 212 197)" fill="#0b1030"/>
+      <circle cx="199" cy="194" r="1.4" fill="#fff"/><circle cx="211" cy="194" r="1.4" fill="#fff"/>
+      <path d="M202 206q4 3 8 0" fill="none" stroke="#0b1030" stroke-width="1.6" stroke-linecap="round"/>
+      <ellipse cx="206" cy="218" rx="30" ry="9" fill="#8b93c9" stroke="#0b1030" stroke-width="2"/>
+      <ellipse cx="206" cy="212" rx="54" ry="13" fill="#d7dcff" stroke="#0b1030" stroke-width="2.5"/>
+      <circle cx="170" cy="213" r="3.2" fill="#ffc94a"/><circle cx="188" cy="217" r="3.2" fill="#ff7a9c"/>
+      <circle cx="206" cy="219" r="3.2" fill="#6ee7ff"/><circle cx="224" cy="217" r="3.2" fill="#ff7a9c"/>
+      <circle cx="242" cy="213" r="3.2" fill="#ffc94a"/>
+    </g>
+
     <circle cx="272" cy="160" r="7" fill="currentColor"/>
     <circle cx="160" cy="48" r="5" fill="currentColor"/>
     <circle cx="106" cy="226" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
-    <rect x="28" y="262" width="30" height="30" fill="currentColor"/>
     <text x="8" y="14">AURORA ONE</text><text x="238" y="14">ORBIT 04</text>
     <text x="8" y="314">LAT 38.2N</text><text x="236" y="314">T+00:42:17</text>
   </svg>
