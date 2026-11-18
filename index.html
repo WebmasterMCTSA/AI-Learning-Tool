@@ -649,7 +649,13 @@ section{padding-top:56px;padding-bottom:56px}
     if(lives<=0){mode='over';say('Sunk! You keep the '+gG+' gold and '+gX+' XP earned from answers. Press Start to sail again.');return;}
     px=4;py=home();best=Math.min(best,py);say('Hit! Back to your last safe spot. '+lives+' '+(lives===1?'life':'lives')+' left.');
   }
-  const hit=()=>haz.some(h=>h.r===py&&px+.15<h.x+h.w&&px+.85>h.x);
+  /* hitboxes match what is drawn: ships get a small inset, balls/krakens use their round body (~.3 cell radius) */
+  const hbox=h=>h.k==='ship'?[h.x+.08,h.x+h.w-.08]:[h.x+h.w/2-.3,h.x+h.w/2+.3];
+  const hit=()=>haz.some(h=>{
+    if(h.r!==py)return false;
+    const b=hbox(h);
+    return px+.26<b[1]&&px+.74>b[0];
+  });
   function move(dx,dy){
     if(mode!=='play')return;
     px=Math.max(0,Math.min(C-1,px+dx));py=Math.max(0,Math.min(R-1,py+dy));
