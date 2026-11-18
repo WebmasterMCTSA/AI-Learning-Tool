@@ -3,81 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PROJECT AURORA | AI Space Academy</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b1f'/%3E%3Ccircle cx='32' cy='32' r='20' fill='%238b7cff'/%3E%3C/svg%3E">
+<title>PROJECT PEARL | AI Pirate Academy</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230b1b26'/%3E%3Ccircle cx='32' cy='30' r='18' fill='%23e9b949'/%3E%3Ccircle cx='25' cy='28' r='4' fill='%230b1b26'/%3E%3Ccircle cx='39' cy='28' r='4' fill='%230b1b26'/%3E%3Crect x='24' y='44' width='16' height='8' fill='%23e9b949'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#070b1f;--gold:#ffc94a;--fg:#eef1ff;--mut:#9aa6c9;--line:#c9d2ff;--soft:#111838;--red:#6ee7ff;--violet:#8b7cff;--bad:#ff7a9c;--ok:#5eead4;--pad:clamp(16px,4vw,56px)}
-@media(prefers-color-scheme:light){:root{--bg:#f4f6ff;--fg:#0b1030;--mut:#4b5578;--line:#0b1030;--soft:#e4e9ff;--red:#2f4bd8;--gold:#a86b00;--violet:#5a3fd6;--bad:#c4204a;--ok:#0a7a5c}}
+:root{--bg:#0b1b26;--gold:#e9b949;--fg:#f3e7c9;--mut:#a9b8b4;--line:#d9c28f;--soft:#14303f;--red:#e5543f;--violet:#2fa6a0;--bad:#ff6b5e;--ok:#6fd1a0;--pad:clamp(16px,4vw,56px);--head:"Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif}
+@media(prefers-color-scheme:light){:root{--bg:#f1e3bf;--fg:#2a1a0e;--mut:#6b5336;--line:#3b2514;--soft:#e4d1a1;--red:#a8281b;--gold:#8a5a00;--violet:#0f6b6b;--bad:#a8281b;--ok:#1c6b45}}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
-body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5;overflow-x:hidden;padding-top:64px;background-image:radial-gradient(color-mix(in srgb,var(--fg) 24%,transparent) 1px,transparent 1.6px);background-size:48px 48px}
-h1,h2,h3,h4{font-weight:700;letter-spacing:-.03em;line-height:1.05}
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5;overflow-x:hidden;padding-top:64px;background-image:radial-gradient(color-mix(in srgb,var(--fg) 18%,transparent) 1px,transparent 1.6px);background-size:48px 48px}
+h1,h2,h3,h4{font-family:var(--head);font-weight:700;letter-spacing:-.02em;line-height:1.05}
 button{font-family:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--red);outline-offset:3px}
 .skip{position:absolute;left:-999px;top:8px;background:var(--red);color:var(--bg);padding:10px;z-index:5000;font-weight:700}
 .skip:focus{left:8px}
 
 /* NAV */
-.navbar{position:fixed;top:0;left:0;right:0;height:64px;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 var(--pad);background:var(--bg);border-bottom:3px solid var(--line)}
+.navbar{position:fixed;top:0;left:0;right:0;height:64px;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 var(--pad);background:var(--bg);border-bottom:3px solid var(--gold)}
 .logo{background:none;border:0;cursor:pointer;text-align:left;line-height:1.1}
-.logo strong{display:block;font-size:16px;letter-spacing:.02em;text-transform:uppercase}
+.logo strong{display:block;font-family:var(--head);font-size:17px;letter-spacing:.02em;text-transform:uppercase;color:var(--gold)}
 .logo span{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
 .nav-links{display:flex;gap:clamp(14px,2.5vw,32px);list-style:none}
 .nav-links a{color:var(--fg);text-decoration:none;font-size:11px;font-weight:700;letter-spacing:.1em;padding:6px 0;border-bottom:3px solid transparent}
 .nav-links a:hover,.nav-links a.active{border-bottom-color:var(--red)}
 .player-mini{display:flex;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase}
-.rank-mini{color:var(--red)}
+.rank-mini{color:var(--gold)}
 .xp-mini{padding-left:8px;border-left:2px solid var(--line)}
 .menu-btn{display:none;background:none;border:2px solid var(--line);font-size:20px;padding:4px 12px;cursor:pointer;min-width:44px;min-height:44px}
-.totop{display:none;position:fixed;left:20px;bottom:20px;width:44px;height:44px;border:2px solid var(--line);background:var(--bg);font-size:20px;cursor:pointer;z-index:900}
+.totop{display:none;position:fixed;left:20px;bottom:20px;width:44px;height:44px;border:2px solid var(--gold);background:var(--bg);font-size:20px;cursor:pointer;z-index:900}
 
-/* SHELL: 12-col feeling via left-aligned headings + hairline rules */
+/* SHELL */
 section,.hero{width:100%;max-width:1400px;margin-inline:auto;padding-left:var(--pad);padding-right:var(--pad)}
-section{padding-top:72px;padding-bottom:72px;border-top:3px solid var(--line)}
+section{padding-top:72px;padding-bottom:72px;border-top:3px double var(--gold)}
 .section-heading{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,4fr);gap:24px 48px;align-items:end;margin-bottom:48px}
 .section-heading h2{font-size:clamp(34px,5vw,64px)}
 .section-heading p{color:var(--mut);font-size:16px;max-width:46ch}
 
 /* HERO */
 .hero{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:end;padding-top:56px;padding-bottom:64px}
-.hero h1{font-size:clamp(52px,9vw,128px);font-weight:700;letter-spacing:-.06em;line-height:.92;margin-bottom:32px}
-.hero h1 span{color:var(--red)}
+.hero h1{font-size:clamp(52px,9vw,124px);font-weight:700;letter-spacing:-.04em;line-height:.94;margin-bottom:32px}
+.hero h1 span{color:var(--gold);font-style:italic}
 .hero p{font-size:clamp(16px,1.5vw,20px);max-width:48ch;margin-bottom:28px}
 .hero-art{display:block;width:100%;max-width:440px;margin-left:auto}
 .hero-buttons{display:flex;gap:12px;flex-wrap:wrap}
-.hero-meta{display:flex;flex-wrap:wrap;margin-top:32px;border-top:3px solid var(--line)}
+.hero-meta{display:flex;flex-wrap:wrap;margin-top:32px;border-top:3px solid var(--gold)}
 .hero-meta span{padding:12px 24px 0 0;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut)}
-.hero-meta strong{font-size:28px;color:var(--fg);margin-right:6px;letter-spacing:-.03em}
+.hero-meta strong{font-family:var(--head);font-size:30px;color:var(--fg);margin-right:6px;letter-spacing:-.03em}
 
 /* BUTTONS */
 .btn{border:2px solid var(--line);padding:12px 22px;min-height:44px;font-weight:700;cursor:pointer;font-size:12px;letter-spacing:.1em;text-transform:uppercase;background:var(--fg);color:var(--bg);border-radius:0}
-.btn-primary{background:var(--red);border-color:var(--red);color:var(--bg)}
+.btn-primary{background:var(--red);border-color:var(--red);color:#fff}
 .btn-secondary{background:transparent;color:var(--fg)}
-.btn:hover:not(:disabled){background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn:hover:not(:disabled){background:var(--gold);color:#1a1008;border-color:var(--gold)}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 
 /* CARDS */
-.card{min-width:0;background:var(--bg);border-top:3px solid var(--line);padding:20px 0 0}
+.card{min-width:0;background:var(--bg);border-top:3px solid var(--gold);padding:20px 0 0}
 .card h3{font-size:22px;margin-bottom:12px}
 .card p{color:var(--mut)}
 .rules{list-style:none;counter-reset:r;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 32px}
 .rules li{counter-increment:r;border-top:3px solid var(--line);padding-top:14px}
-.rules li::before{content:counter(r,decimal-leading-zero);display:block;font-size:56px;font-weight:700;letter-spacing:-.05em;color:var(--red);line-height:1;margin-bottom:14px}
+.rules li::before{content:counter(r,decimal-leading-zero);display:block;font-family:var(--head);font-size:56px;font-weight:700;letter-spacing:-.05em;color:var(--red);line-height:1;margin-bottom:14px}
+.rules li:nth-child(even)::before{color:var(--gold)}
+.rules li:nth-child(3n)::before{color:var(--violet)}
 .rules h3{font-size:22px;margin-bottom:8px}
 .rules p{color:var(--mut)}
 .eq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;margin-top:56px}
-.example{margin-top:0;padding:12px 0 12px 16px;border-bottom:1px solid var(--line);border-left:6px solid var(--fg);font-size:15px}
+.example{margin-top:0;padding:12px 0 12px 16px;border-bottom:1px solid var(--line);border-left:6px solid var(--ok);font-size:15px}
 .example.bad{border-left-color:var(--bad)}
 
 #moduleGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:0;border-left:1px solid var(--line)}
-.module-card{display:flex;flex-direction:column;width:100%;height:100%;text-align:left;color:inherit;cursor:pointer;font-size:inherit;padding:20px;background:var(--bg);border:0;border-top:3px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;transition:background .15s}
+.module-card{display:flex;flex-direction:column;width:100%;height:100%;text-align:left;color:inherit;cursor:pointer;font-size:inherit;padding:20px;background:var(--bg);border:0;border-top:3px solid var(--gold);border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;transition:background .15s}
 .module-card:hover{background:var(--soft)}
 .module-card.locked{opacity:.6}
 .module-number{color:var(--red);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:28px;font-weight:700}
 .module-card h3{font-size:21px;margin-bottom:10px}
 .module-card p{font-size:14px;color:var(--mut);flex:1;margin-bottom:16px}
 .bar{height:6px;background:var(--soft);border:1px solid var(--line)}
-.bar span{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
+.bar span{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
 .module-status{margin-top:10px;color:var(--mut);font-size:12px}
 .module-cta{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
 .module-card.locked .module-cta{font-weight:400;color:var(--mut)}
@@ -86,19 +88,19 @@ section{padding-top:72px;padding-bottom:72px;border-top:3px solid var(--line)}
 .dash{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
 .span2{grid-column:1/-1}
 .xp-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px}
-.xp-top h3{font-size:clamp(32px,5vw,56px);color:var(--red);text-transform:uppercase}
+.xp-top h3{font-size:clamp(32px,5vw,56px);color:var(--gold);text-transform:uppercase}
 .xp-top strong{font-size:28px}
 .xp-bar{height:14px;background:var(--soft);border:2px solid var(--line)}
-.xp-fill{height:100%;width:0;background:var(--red);transition:width .3s}
+.xp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold));transition:width .3s}
 .level-info{margin-top:8px;display:flex;justify-content:space-between;color:var(--mut);font-size:13px}
-#readiness{font-size:clamp(72px,10vw,120px);margin:8px 0;color:var(--fg);font-weight:700;letter-spacing:-.06em;line-height:1}
+#readiness{font-family:var(--head);font-size:clamp(72px,10vw,120px);margin:8px 0;color:var(--fg);font-weight:700;letter-spacing:-.05em;line-height:1}
 .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:8px}
 .stat{padding:14px 0;border-top:1px solid var(--line)}
-.stat strong{display:block;font-size:40px;letter-spacing:-.04em;color:var(--fg)}
+.stat strong{display:block;font-family:var(--head);font-size:40px;letter-spacing:-.04em;color:var(--fg)}
 .stat span{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
 .badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px;margin-top:14px}
 .badge{padding:14px;border:1px dashed var(--mut);color:var(--mut);opacity:.6}
-.badge.unlocked{opacity:1;border:2px solid var(--fg);color:var(--fg)}
+.badge.unlocked{opacity:1;border:2px solid var(--gold);color:var(--fg)}
 .badge-icon{display:block;width:44px;height:44px;margin-bottom:8px}
 .badge-icon svg{width:100%;height:100%}
 .badge:not(.unlocked) .badge-icon{filter:grayscale(1)}
@@ -115,14 +117,14 @@ section{padding-top:72px;padding-bottom:72px;border-top:3px solid var(--line)}
 .glist{margin:12px 0 0 20px;color:var(--mut)}
 .glist li{padding:3px 0}
 .glist b{color:var(--fg)}
-footer{max-width:1400px;margin:auto;border-top:3px solid var(--line);padding:32px var(--pad);color:var(--mut);font-size:13px}
+footer{max-width:1400px;margin:auto;border-top:3px double var(--gold);padding:32px var(--pad);color:var(--mut);font-size:13px}
 .cta{padding:56px 0 0;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:24px 48px;align-items:end}
 .cta h2{font-size:clamp(34px,6vw,80px)}
 
 /* MODAL / QUIZ */
-.modal{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:20px}
+.modal{position:fixed;inset:0;z-index:2000;background:rgba(5,12,18,.7);display:none;align-items:center;justify-content:center;padding:20px}
 .modal.active{display:flex}
-.modal-content{width:min(740px,100%);max-height:90vh;overflow-y:auto;background:var(--bg);border:3px solid var(--line);padding:36px;position:relative}
+.modal-content{width:min(740px,100%);max-height:90vh;overflow-y:auto;background:var(--bg);border:3px solid var(--gold);padding:36px;position:relative}
 .close{position:absolute;top:8px;right:10px;width:44px;height:44px;border:none;background:transparent;font-size:30px;cursor:pointer}
 .close:hover{color:var(--red)}
 .modal-content h2{font-size:34px;margin-bottom:12px;padding-right:30px}
@@ -134,43 +136,43 @@ footer{max-width:1400px;margin:auto;border-top:3px solid var(--line);padding:32p
 .jump{margin-bottom:12px;min-height:38px;padding:8px 14px}
 .quiz-meta{color:var(--red);font-size:12px;text-transform:uppercase;letter-spacing:.1em;margin-top:24px;font-weight:700}
 .quiz-progress{height:6px;background:var(--soft);margin:12px 0}
-.quiz-progress div{height:100%;background:var(--red);transition:width .25s}
+.quiz-progress div{height:100%;background:var(--gold);transition:width .25s}
 .dots{display:flex;gap:6px;margin-top:10px}
 .dot{height:6px;flex:1;background:var(--soft);border:1px solid var(--line)}
-.dot.done{background:var(--fg)}.dot.now{background:var(--red)}
+.dot.done{background:var(--gold)}.dot.now{background:var(--red)}
 .quiz-q{margin:10px 0 12px}
 .answer{display:block;width:100%;text-align:left;min-height:52px;padding:14px 16px;margin:8px 0;background:var(--bg);border:2px solid var(--line);cursor:pointer;font-size:15px;line-height:1.45;border-radius:0}
-.answer:hover:not(:disabled){background:var(--soft);border-color:var(--red)}
+.answer:hover:not(:disabled){background:var(--soft);border-color:var(--gold)}
 .answer:disabled{cursor:default}
 .answer.correct{border-color:var(--ok);border-left-width:10px}
 .answer.wrong{border-color:var(--bad);border-left-width:10px}
-.result{margin-top:16px;padding:14px;background:var(--soft);border-left:6px solid var(--fg)}
+.result{margin-top:16px;padding:14px;background:var(--soft);border-left:6px solid var(--gold)}
 
 /* TOAST */
-.toast{position:fixed;right:20px;bottom:20px;background:var(--fg);color:var(--bg);padding:14px 18px;z-index:3000;transform:translateY(150px);transition:transform .25s;max-width:320px}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--fg);color:var(--bg);padding:14px 18px;z-index:3000;transform:translateY(150px);transition:transform .25s;max-width:320px;border-left:6px solid var(--red)}
 .toast.show{transform:none}
 .toast strong{color:var(--red)}
 
-/* ZIBBLE */
+/* ZIBBLE (the ship's parrot) */
 .zibble-widget{position:fixed;right:20px;bottom:20px;z-index:2500;display:flex;align-items:flex-end;gap:10px;max-width:min(390px,calc(100vw - 32px))}
-.zibble-avatar{width:84px;height:84px;flex:none;border:3px solid var(--line);border-radius:50%;background:var(--bg);cursor:pointer;display:grid;place-items:center;padding:8px}
+.zibble-avatar{width:84px;height:84px;flex:none;border:3px solid var(--gold);border-radius:50%;background:var(--bg);cursor:pointer;display:grid;place-items:center;padding:6px}
 .zibble-avatar svg{width:100%;height:100%}
-.zibble-bubble{position:relative;background:var(--bg);color:var(--fg);border:3px solid var(--line);padding:12px 14px;max-width:285px;font-size:14px}
+.zibble-bubble{position:relative;background:var(--bg);color:var(--fg);border:3px solid var(--gold);padding:12px 14px;max-width:285px;font-size:14px}
 .zibble-bubble strong{display:block;color:var(--red);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
 .zibble-bubble p{color:var(--fg)}
 .zibble-actions{display:flex;gap:8px;margin-top:10px}
 .zibble-actions button{border:2px solid var(--line);background:transparent;padding:5px 9px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
-.zibble-actions button:hover{background:var(--fg);color:var(--bg)}
+.zibble-actions button:hover{background:var(--gold);color:#1a1008;border-color:var(--gold)}
 .zibble-widget.minimized .zibble-bubble{display:none}
 .zibble-eye{transform-box:fill-box;transform-origin:center;animation:zibbleBlink 4.5s infinite}
 @keyframes zibbleBlink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
 
-/* NEURAL STACK */
+/* PIRATE GAME */
 .neural-game{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:20px;align-items:start}
-.neural-board-wrap{background:var(--soft);border:2px solid var(--line);padding:12px;display:flex;justify-content:center}
-#hopBoard{display:block;width:min(100%,360px);height:auto;aspect-ratio:3/4;background:#070b1f;border:1px solid var(--line);touch-action:manipulation}
+.neural-board-wrap{background:var(--soft);border:2px solid var(--gold);padding:12px;display:flex;justify-content:center}
+#hopBoard{display:block;width:min(100%,360px);height:auto;aspect-ratio:3/4;background:#0b1b26;border:1px solid var(--line);touch-action:manipulation}
 .neural-board-wrap{position:relative}
-.fq{display:none;position:absolute;inset:12px;background:var(--bg);border:2px solid var(--line);padding:16px;overflow-y:auto}
+.fq{display:none;position:absolute;inset:12px;background:var(--bg);border:2px solid var(--gold);padding:16px;overflow-y:auto}
 .fq.active{display:block}
 .fq h4{font-size:19px;line-height:1.2;margin:8px 0 10px}
 .fq .answer{min-height:44px;padding:10px 12px;font-size:14px;margin:6px 0}
@@ -179,13 +181,13 @@ footer{max-width:1400px;margin:auto;border-top:3px solid var(--line);padding:32p
 .shop-item{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding:6px 0;font-size:14px}
 .shop-item .btn{margin:0;padding:6px 12px;min-height:34px}
 .neural-side{display:grid;gap:12px}
-.neural-stat{padding:8px 0;border-top:3px solid var(--line)}
+.neural-stat{padding:8px 0;border-top:3px solid var(--gold)}
 .neural-stat span{display:block;color:var(--mut);font-size:11px;letter-spacing:.1em}
-.neural-stat strong{font-size:30px;letter-spacing:-.04em}
-.neural-next{display:block;width:100%;max-width:120px;margin:8px 0 0;background:#070b1f;border:1px solid var(--line)}
+.neural-stat strong{font-family:var(--head);font-size:30px;letter-spacing:-.04em}
+.neural-next{display:block;width:100%;max-width:120px;margin:8px 0 0;background:#0b1b26;border:1px solid var(--line)}
 .neural-controls{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .neural-controls button{min-height:42px;border:2px solid var(--line);background:var(--bg);cursor:pointer;font-weight:700}
-.neural-controls button:hover{background:var(--fg);color:var(--bg)}
+.neural-controls button:hover{background:var(--gold);color:#1a1008}
 .neural-message{color:var(--mut);font-size:13px;min-height:40px}
 .neural-touch{display:none}
 
@@ -199,7 +201,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-f
 @media(max-width:900px){.section-heading,.hero,.grid2,.cta{grid-template-columns:minmax(0,1fr)}.rules{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-art{margin:0;max-width:280px}}
 @media(max-width:760px){
 .menu-btn{display:block}
-.nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:3px solid var(--line)}
+.nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:3px solid var(--gold)}
 .nav-links.open{display:flex}
 .nav-links a{display:block;padding:15px var(--pad);border-top:1px solid var(--line);border-bottom:0;font-size:12px}
 .player-mini{margin-left:auto}.rank-mini{display:none}
@@ -222,7 +224,7 @@ section{padding-top:56px;padding-bottom:56px}
 <a class="skip" href="#main">Skip to content</a>
 
 <nav class="navbar" aria-label="Main">
-  <button class="logo" onclick="scrollToSection('home')" aria-label="Project Aurora home"><strong>Project Aurora</strong><span>AI learning portal</span></button>
+  <button class="logo" onclick="scrollToSection('home')" aria-label="Project Pearl home"><strong>Project Pearl</strong><span>AI learning portal</span></button>
   <ul class="nav-links" id="navLinks">
     <li><a href="#guide">ETHICAL AI GUIDE</a></li>
     <li><a href="#academy">AI TRAINING</a></li>
@@ -230,7 +232,7 @@ section{padding-top:56px;padding-bottom:56px}
     <li><a href="#game">THE GAME</a></li>
   </ul>
   <div class="player-mini">
-    <div class="rank-mini" id="navRank">CADET</div>
+    <div class="rank-mini" id="navRank">CABIN BOY</div>
     <div class="xp-mini" id="navXP">0 XP</div>
   </div>
   <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">☰</button>
@@ -240,9 +242,9 @@ section{padding-top:56px;padding-bottom:56px}
 <main id="main">
 <header class="hero" id="home">
   <div class="hero-content">
-    <span class="eyebrow">Aurora One / Mission briefing / T+00:00</span>
+    <span class="eyebrow">Captain’s log / Day 1 / Setting sail</span>
     <h1>Using AI well<br>is a <span>skill.</span></h1>
-    <p>Learn how to use AI for school without cheating yourself: what’s fine, what isn’t, and how to tell the difference. Then set sail in our AI pirate game, where every checkpoint tests these habits and every win earns gold.</p>
+    <p>Learn how to use AI for school without cheating yourself: what’s fine, what isn’t, and how to tell the difference. Then set sail in our AI pirate battle, where every cannon shot tests these habits and every win earns gold.</p>
     <div class="hero-buttons">
       <button class="btn btn-primary" id="heroStart" onclick="startNext()">Start Module 1</button>
       <button class="btn btn-secondary" onclick="scrollToSection('guide')">Read the guide first</button>
@@ -253,93 +255,91 @@ section{padding-top:56px;padding-bottom:56px}
       <span><strong>2/3</strong>to pass</span>
     </div>
   </div>
-  <svg class="hero-art" viewBox="0 0 320 320" aria-hidden="true">
-    <g fill="none" stroke="currentColor" stroke-width="1.5">
-      <circle cx="160" cy="160" r="150"/><circle cx="160" cy="160" r="112"/><circle cx="160" cy="160" r="76" stroke-dasharray="2 5"/>
-      <ellipse cx="160" cy="160" rx="150" ry="46" transform="rotate(-24 160 160)" stroke-width="3"/>
-      <path d="M160 0v320M0 160h320" stroke-width="1" opacity=".5"/>
-    </g>
 
-    <!-- NEW PLANET + UFO ALIEN -->
+  <!-- PIRATE SHIP ON A COMPASS ROSE -->
+  <svg class="hero-art" viewBox="0 0 320 320" aria-hidden="true">
     <defs>
-      <radialGradient id="gasGrad" cx="32%" cy="28%" r="85%">
-        <stop offset="0" stop-color="#ffd08a"/>
-        <stop offset=".35" stop-color="#ff7a6b"/>
-        <stop offset=".7" stop-color="#c2307f"/>
-        <stop offset="1" stop-color="#2d0b52"/>
-      </radialGradient>
-      <radialGradient id="gasGlow" cx="50%" cy="50%" r="50%">
-        <stop offset=".65" stop-color="#ff7a9c" stop-opacity=".4"/>
-        <stop offset="1" stop-color="#ff7a9c" stop-opacity="0"/>
-      </radialGradient>
-      <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#6ee7ff" stop-opacity=".55"/>
-        <stop offset="1" stop-color="#6ee7ff" stop-opacity="0"/>
+      <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#2fa6a0"/>
+        <stop offset="1" stop-color="#0f4a5a"/>
       </linearGradient>
-      <clipPath id="gasClip"><circle cx="150" cy="140" r="74"/></clipPath>
+      <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+        <stop offset=".5" stop-color="#ffc94a" stop-opacity=".45"/>
+        <stop offset="1" stop-color="#ffc94a" stop-opacity="0"/>
+      </radialGradient>
+      <clipPath id="seaClip"><circle cx="160" cy="160" r="112"/></clipPath>
     </defs>
 
-    <!-- planet group, shifted so the planet sits at the center (160,160) -->
-    <g transform="translate(10 20)">
-      <!-- glow -->
-      <circle cx="150" cy="140" r="110" fill="url(#gasGlow)"/>
-
-      <!-- planet -->
-      <circle cx="150" cy="140" r="74" fill="url(#gasGrad)"/>
-      <g clip-path="url(#gasClip)">
-        <path d="M70 104q40-16 80 0t80 0" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="8"/>
-        <path d="M70 126q40 14 80 0t80 0" fill="none" stroke="#ffd08a" stroke-opacity=".35" stroke-width="6"/>
-        <path d="M70 168q40-14 80 0t80 0" fill="none" stroke="#5a0f6e" stroke-opacity=".45" stroke-width="10"/>
-        <path d="M70 192q40 12 80 0t80 0" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="7"/>
-        <ellipse cx="178" cy="150" rx="19" ry="11" fill="#7a1458" fill-opacity=".75"/>
-        <ellipse cx="178" cy="150" rx="12" ry="6" fill="#ff9a6b" fill-opacity=".8"/>
-        <ellipse cx="178" cy="150" rx="5" ry="2.5" fill="#ffd08a"/>
-        <circle cx="150" cy="140" r="74" fill="none" stroke="#000" stroke-opacity=".3" stroke-width="20"/>
-      </g>
+    <!-- compass rose -->
+    <g fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="160" cy="160" r="150"/>
+      <circle cx="160" cy="160" r="112" stroke-width="3"/>
+      <circle cx="160" cy="160" r="76" stroke-dasharray="2 5"/>
+      <path d="M160 0v320M0 160h320" stroke-width="1" opacity=".45"/>
+      <path d="M160 6l9 36h-18zM160 314l9-36h-18zM6 160l36-9v18zM314 160l-36-9v18z" fill="#e5543f" stroke="none"/>
     </g>
 
-    <!-- moons -->
-    <circle cx="252" cy="84" r="13" fill="#b9c2ee"/>
-    <circle cx="247" cy="80" r="3" fill="#7e89c4"/><circle cx="257" cy="90" r="2.4" fill="#7e89c4"/>
-    <circle cx="62" cy="236" r="7" fill="#ffc94a"/>
-    <circle cx="60" cy="234" r="2" fill="#a86b00" opacity=".6"/>
-
-    <!-- sparkles -->
-    <path d="M40 80l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#ffc94a"/>
-    <path d="M280 220l1.6 4.8 4.8 1.6-4.8 1.6-1.6 4.8-1.6-4.8-4.8-1.6 4.8-1.6z" fill="#6ee7ff"/>
-
-    <!-- tractor beam -->
-    <polygon points="186,226 226,226 252,300 160,300" fill="url(#beam)"/>
-
-    <!-- UFO + alien -->
-    <g>
-      <line x1="206" y1="182" x2="206" y2="168" stroke="#5eead4" stroke-width="2.5" stroke-linecap="round"/>
-      <circle cx="206" cy="166" r="4" fill="#ffc94a"/>
-      <path d="M180 210a26 26 0 0 1 52 0z" fill="#6ee7ff" fill-opacity=".3" stroke="#6ee7ff" stroke-width="2"/>
-      <ellipse cx="206" cy="198" rx="12" ry="13" fill="#5eead4" stroke="#0b1030" stroke-width="2"/>
-      <ellipse cx="200" cy="197" rx="3.6" ry="6" transform="rotate(20 200 197)" fill="#0b1030"/>
-      <ellipse cx="212" cy="197" rx="3.6" ry="6" transform="rotate(-20 212 197)" fill="#0b1030"/>
-      <circle cx="199" cy="194" r="1.4" fill="#fff"/><circle cx="211" cy="194" r="1.4" fill="#fff"/>
-      <path d="M202 206q4 3 8 0" fill="none" stroke="#0b1030" stroke-width="1.6" stroke-linecap="round"/>
-      <ellipse cx="206" cy="218" rx="30" ry="9" fill="#8b93c9" stroke="#0b1030" stroke-width="2"/>
-      <ellipse cx="206" cy="212" rx="54" ry="13" fill="#d7dcff" stroke="#0b1030" stroke-width="2.5"/>
-      <circle cx="170" cy="213" r="3.2" fill="#ffc94a"/><circle cx="188" cy="217" r="3.2" fill="#ff7a9c"/>
-      <circle cx="206" cy="219" r="3.2" fill="#6ee7ff"/><circle cx="224" cy="217" r="3.2" fill="#ff7a9c"/>
-      <circle cx="242" cy="213" r="3.2" fill="#ffc94a"/>
+    <!-- sky, sun and sea inside the porthole -->
+    <g clip-path="url(#seaClip)">
+      <rect x="40" y="40" width="240" height="240" fill="#f0b45a" fill-opacity=".28"/>
+      <circle cx="226" cy="108" r="40" fill="url(#sunGlow)"/>
+      <circle cx="226" cy="108" r="17" fill="#ffc94a"/>
+      <rect x="40" y="226" width="240" height="60" fill="url(#sea)"/>
+      <path d="M40 232q20-8 40 0t40 0 40 0 40 0 40 0 40 0" fill="none" stroke="#f3e7c9" stroke-opacity=".5" stroke-width="2"/>
+      <path d="M40 246q20 8 40 0t40 0 40 0 40 0 40 0 40 0" fill="none" stroke="#f3e7c9" stroke-opacity=".3" stroke-width="2"/>
     </g>
 
+    <!-- ship -->
+    <g stroke="#1a1008" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+      <!-- masts -->
+      <line x1="140" y1="214" x2="140" y2="78" fill="none"/>
+      <line x1="194" y1="214" x2="194" y2="100" fill="none"/>
+      <!-- sails -->
+      <path d="M142 90Q184 130 142 178Z" fill="#f3e7c9"/>
+      <path d="M142 184Q188 214 142 214Z" fill="#e9d6a4" stroke-width="0"/>
+      <path d="M196 110Q232 144 196 184Z" fill="#f3e7c9"/>
+      <!-- red stripe on sail -->
+      <path d="M142 126Q166 142 142 158Z" fill="#e5543f" stroke-width="0"/>
+      <!-- hull -->
+      <path d="M84 212H236L216 248H108Z" fill="#7a4a2a"/>
+      <path d="M96 226H224" fill="none" stroke="#e9b949" stroke-width="3"/>
+      <circle cx="132" cy="236" r="3" fill="#1a1008"/><circle cx="160" cy="236" r="3" fill="#1a1008"/><circle cx="188" cy="236" r="3" fill="#1a1008"/>
+      <!-- bowsprit -->
+      <line x1="236" y1="212" x2="262" y2="200" fill="none"/>
+      <!-- flag -->
+      <path d="M140 78V64" fill="none"/>
+      <rect x="140" y="58" width="30" height="18" fill="#111" stroke-width="1.5"/>
+    </g>
+    <!-- skull and crossbones on flag -->
+    <circle cx="155" cy="64" r="4" fill="#f3e7c9"/>
+    <rect x="152" y="67" width="6" height="3" fill="#f3e7c9"/>
+    <circle cx="153.5" cy="63.5" r="1" fill="#111"/><circle cx="156.5" cy="63.5" r="1" fill="#111"/>
+    <path d="M147 72l16-12M163 72l-16-12" stroke="#f3e7c9" stroke-width="1.2" fill="none"/>
+
+    <!-- treasure chest in the foreground -->
+    <g stroke="#1a1008" stroke-width="2" stroke-linejoin="round">
+      <rect x="244" y="262" width="44" height="26" fill="#7a4a2a"/>
+      <path d="M244 262q22-22 44 0z" fill="#9a5f33"/>
+      <rect x="244" y="268" width="44" height="5" fill="#e9b949" stroke-width="0"/>
+      <rect x="262" y="266" width="8" height="10" fill="#e9b949"/>
+    </g>
+    <circle cx="256" cy="259" r="3.2" fill="#ffc94a"/><circle cx="268" cy="257" r="3.2" fill="#ffc94a"/><circle cx="278" cy="260" r="3.2" fill="#ffc94a"/>
+
+    <!-- gold sparkle + gulls -->
+    <path d="M52 92l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#ffc94a"/>
+    <path d="M70 64q6-7 12 0M86 72q6-7 12 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     <circle cx="272" cy="160" r="7" fill="currentColor"/>
-    <circle cx="160" cy="48" r="5" fill="currentColor"/>
-    <circle cx="106" cy="226" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
-    <text x="8" y="14">AURORA ONE</text><text x="238" y="14">ORBIT 04</text>
-    <text x="8" y="314">LAT 38.2N</text><text x="236" y="314">T+00:42:17</text>
+    <circle cx="160" cy="48" r="5" fill="#e5543f"/>
+    <circle cx="60" cy="236" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+    <text x="8" y="14">CAPTAIN’S LOG</text><text x="244" y="14">DAY 04</text>
+    <text x="8" y="314">LAT 38.2N</text><text x="236" y="314">FAIR WINDS</text>
   </svg>
 </header>
 
 <section id="guide" aria-labelledby="guideTitle">
   <div class="section-heading">
-    <span class="eyebrow">01 / Briefing / Flight rules</span>
-    <h2 id="guideTitle">Six habits that keep you out of trouble.</h2>
+    <span class="eyebrow">01 / The pirate code / Six rules</span>
+    <h2 id="guideTitle">Six habits that keep you off the plank.</h2>
     <p>Writing, studying, coding, it applies to all of it. One catch: your school’s AI policy comes first, and it might be stricter than anything here.</p>
   </div>
   <ol class="rules">
@@ -370,7 +370,7 @@ section{padding-top:56px;padding-bottom:56px}
 
 <section id="academy" aria-labelledby="academyTitle">
   <div class="section-heading">
-    <span class="eyebrow">02 / Training / Mission modules</span>
+    <span class="eyebrow">02 / Training / Deck duties</span>
     <h2 id="academyTitle">Five short modules.</h2>
     <p>Complete each module, then pass its 3-question knowledge check (2 correct to pass) to earn XP, unlock badges, and raise your rank. Modules unlock in order.</p>
   </div>
@@ -379,14 +379,14 @@ section{padding-top:56px;padding-bottom:56px}
 
 <section id="dashboard" aria-labelledby="dashboardTitle">
   <div class="section-heading">
-    <span class="eyebrow">03 / Telemetry / Crew status</span>
+    <span class="eyebrow">03 / Ship’s log / Crew status</span>
     <h2 id="dashboardTitle">Your progress.</h2>
     <p>Your XP, badges, and rank. It all saves in this browser.</p>
   </div>
   <div class="dash">
     <div class="card span2">
       <div class="xp-top">
-        <div><h3 id="rankTitle">CADET</h3><p id="levelText">Level 1</p></div>
+        <div><h3 id="rankTitle">CABIN BOY</h3><p id="levelText">Level 1</p></div>
         <strong id="xpText">0 XP</strong>
       </div>
       <div class="xp-bar" role="progressbar" aria-label="XP to next level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="xpBarWrap"><div class="xp-fill" id="xpFill"></div></div>
@@ -418,42 +418,35 @@ section{padding-top:56px;padding-bottom:56px}
   <div class="section-heading">
     <span class="eyebrow">04 / Pirate mission / AI seas</span>
     <h2 id="gameTitle">Now set sail on the AI seas.</h2>
-    <p>Play Captain Byte, an AI pirate hunting treasure across four voyages. Dodge enemy ships and cannonballs, answer 5 questions at every checkpoint, then spend your gold and XP on costumes.</p>
+    <p>Play Captain Byte, an AI pirate admiral battling across four voyages. Answer a question to load your cannons, fire at the enemy fleet, and sink every ship before they sink yours. Then spend your gold and XP on costumes.</p>
   </div>
   <div class="grid2">
     <div class="card">
       <div class="neural-game" id="gameFrame">
         <div class="neural-board-wrap">
-          <canvas id="hopBoard" width="360" height="480" aria-label="Captain Byte pirate game board"></canvas>
+          <canvas id="hopBoard" width="360" height="480" aria-label="Captain Byte pirate battleship board. Click or tap enemy waters to fire."></canvas>
           <div class="fq" id="hopQuiz" role="dialog" aria-label="Game menu and questions"></div>
         </div>
         <div class="neural-side">
           <div class="neural-stat"><span>VOYAGE</span><strong id="hopLevel">1</strong></div>
-          <div class="neural-stat"><span>LIVES</span><strong id="hopLives">3</strong></div>
-          <div class="neural-stat"><span>CHECKPOINTS</span><strong id="hopCp">0/2</strong></div>
+          <div class="neural-stat"><span>YOUR SHIPS</span><strong id="hopLives">3</strong></div>
+          <div class="neural-stat"><span>ENEMY SHIPS</span><strong id="hopCp">3</strong></div>
           <div class="neural-stat"><span>GOLD</span><strong id="hopGold" style="color:var(--gold)">0</strong></div>
           <div class="neural-stat"><span>RANK</span><strong id="hopRank" style="font-size:16px;letter-spacing:0">Cabin Boy</strong></div>
-          <div class="neural-full"><p class="neural-message" id="hopMsg" aria-live="polite">Press Start to pick a voyage. Answer 5 questions at every checkpoint to sail on.</p></div>
-          <div class="neural-controls neural-touch neural-full" aria-label="Touch game controls">
-            <button type="button" data-move="left" aria-label="Move left">←</button>
-            <button type="button" data-move="up" aria-label="Move up">↑</button>
-            <button type="button" data-move="right" aria-label="Move right">→</button>
-            <button type="button" data-move="down" aria-label="Move down">↓</button>
-            <button type="button" data-move="pause" aria-label="Pause or resume">Ⅱ</button>
-          </div>
-          <div class="neural-full"><button class="btn btn-primary" id="hopStart" type="button">Start</button> <button class="btn btn-secondary" id="hopShop" type="button">Shop</button> <button class="btn btn-secondary" id="hopPause" type="button">Pause</button></div>
+          <div class="neural-full"><p class="neural-message" id="hopMsg" aria-live="polite">Press Start to pick a voyage. Answer a question to fire a cannon and sink the enemy fleet.</p></div>
+          <div class="neural-full"><button class="btn btn-primary" id="hopStart" type="button">Start</button> <button class="btn btn-secondary" id="hopShop" type="button">Shop</button></div>
         </div>
       </div>
-      <p style="margin-top:14px;color:var(--mut);font-size:13px">Keyboard: arrows or WASD to hop · P pause. Get enough answers right at each checkpoint to continue.</p>
+      <p style="margin-top:14px;color:var(--mut);font-size:13px">Answer a question to fire. Then click or tap enemy waters to aim, or use arrows or WASD to move the target and Enter to fire. Miss, or answer wrong, and the enemy shoots back.</p>
     </div>
     <div class="card">
       <h3>About the game</h3>
-      <p>You are Captain Byte, an AI pirate. Hop across lanes of enemy ships, cannonballs and krakens to reach the treasure. Each checkpoint is a port where you answer 5 questions about using AI well. Finish a voyage to earn XP and gold, then buy costumes. Every voyage is faster and the questions get harder.</p>
+      <p>You are Captain Byte, an AI pirate admiral. Enemy ships are hidden on the grid. Answer a question about using AI well to load your cannons, then fire at a square. A hit lets you keep firing; a miss or a wrong answer lets the enemy shoot back. Sink the whole enemy fleet to win XP and gold, then buy costumes. Every voyage has more enemy ships and the questions get harder.</p>
       <ul class="glist">
-        <li><b>Shipwreck Shallows:</b> the basics</li>
-        <li><b>Cannon Cove:</b> real school scenarios</li>
-        <li><b>Kraken Straits:</b> tricky judgment calls</li>
-        <li><b>Black Flag Gauntlet:</b> expert AI habits</li>
+        <li><b>Shipwreck Shallows:</b> 3 enemy ships, the basics</li>
+        <li><b>Cannon Cove:</b> 3 enemy ships, real school scenarios</li>
+        <li><b>Kraken Straits:</b> 4 enemy ships that hunt smarter, tricky judgment calls</li>
+        <li><b>Black Flag Gauntlet:</b> 5 enemy ships, expert AI habits</li>
       </ul>
     </div>
   </div>
@@ -461,10 +454,10 @@ section{padding-top:56px;padding-bottom:56px}
 
 <section>
   <div class="cta">
-    <span class="eyebrow" style="grid-column:1/-1;margin:0">05 / Launch window open</span>
+    <span class="eyebrow" style="grid-column:1/-1;margin:0">05 / Anchors aweigh</span>
     <h2>Ready to use AI the right way?</h2>
     <div>
-      <p style="color:var(--mut);max-width:46ch;margin-bottom:24px">Complete all five trainings, earn your badges, and unlock every mission in the game.</p>
+      <p style="color:var(--mut);max-width:46ch;margin-bottom:24px">Complete all five trainings, earn your badges, and unlock every voyage in the game.</p>
       <button class="btn btn-primary" onclick="scrollToSection('dashboard')">Check my progress</button>
     </div>
   </div>
@@ -485,25 +478,29 @@ section{padding-top:56px;padding-bottom:56px}
 
 <div class="zibble-widget" id="zibbleWidget" aria-label="Zibble assistant">
   <div class="zibble-bubble" id="zibbleBubble" role="status" aria-live="polite">
-    <strong>Zibble / AI online</strong>
-    <p id="zibbleMessage">It looks like you’re learning about AI. Would you like a tip?</p>
+    <strong>Zibble / Ship’s parrot</strong>
+    <p id="zibbleMessage">Ahoy! It looks like you’re learning about AI. Would you like a tip?</p>
     <div class="zibble-actions">
       <button type="button" onclick="zibbleTip()">Give me a tip</button>
       <button type="button" onclick="toggleZibble()">Minimize</button>
     </div>
   </div>
-  <button class="zibble-avatar" type="button" onclick="toggleZibble()" aria-label="Open Zibble alien chatbot" title="Talk to Zibble">
-    <svg viewBox="0 0 64 64" role="img" aria-label="Zibble, an AI core">
-      <circle cx="32" cy="32" r="26" style="fill:var(--violet)"/>
-      <ellipse class="zibble-eye" cx="32" cy="32" rx="12" ry="7" fill="#fff"/>
-      <circle class="zibble-eye" cx="32" cy="32" r="4.5" fill="#111"/>
+  <button class="zibble-avatar" type="button" onclick="toggleZibble()" aria-label="Open Zibble the parrot chatbot" title="Talk to Zibble">
+    <svg viewBox="0 0 64 64" role="img" aria-label="Zibble, a red parrot">
+      <path d="M20 14q12-12 26-2q-8 2-12 8q-8-6-14-6z" fill="#2fa6a0"/>
+      <circle cx="32" cy="34" r="22" fill="#d9402f"/>
+      <path d="M12 38q-4 14 12 18q-10-8-4-16z" fill="#2fa6a0"/>
+      <path d="M46 30q14 2 10 14q-10-2-10-14z" fill="#e9b949" stroke="#1a1008" stroke-width="1.5" stroke-linejoin="round"/>
+      <ellipse class="zibble-eye" cx="33" cy="28" rx="9" ry="8" fill="#fff"/>
+      <circle class="zibble-eye" cx="35" cy="28" r="4" fill="#111"/>
+      <path d="M22 22l22 -2" stroke="#111" stroke-width="3" stroke-linecap="round" opacity="0"/>
     </svg>
   </button>
 </div>
 
 <footer>
-  <p><strong>Project Aurora</strong>, an AI learning portal for high school students</p>
-  <p>End of transmission</p>
+  <p><strong>Project Pearl</strong>, an AI learning portal for high school students</p>
+  <p>Fair winds and following seas</p>
 </footer>
 
 <script>
@@ -513,21 +510,21 @@ section{padding-top:56px;padding-bottom:56px}
 </script>
 
 <script>
-/* Captain Byte: AI pirate Frogger with checkpoint quizzes, levels, XP, gold and costumes */
+/* Captain Byte: AI pirate battleships. Answer a question to fire a cannon, sink the enemy fleet, earn XP, gold and costumes */
 (function(){
   const cv=document.getElementById('hopBoard');
   if(!cv) return;
   const ctx=cv.getContext('2d'), $=id=>document.getElementById(id);
-  const C=9,R=12,S=40,MONO='11px ui-monospace,Menlo,Consolas,monospace',KEY='auroraPirateSave';
-  const P={bg:'#070b1f',cy:'#6ee7ff',vi:'#8b7cff',wh:'#eef1ff',sl:'#4f5d9c',mut:'#9aa6c9',gd:'#ffc94a'};
+  const N=8,CS=40,GX=20,GY=26,MX=20,MY=360,MC=14,MONO='11px ui-monospace,Menlo,Consolas,monospace',KEY='auroraPirateSave';
+  /* pirate palette: deep sea, teal water, mahogany hulls, parchment sails, gold */
+  const P={bg:'#0b1b26',cy:'#3fb8af',vi:'#8c3b2a',wh:'#f3e7c9',sl:'#6b4a2f',mut:'#a9b8b4',gd:'#ffc94a',iron:'#2b2f33',fire:'#ff8a3d',red:'#e5543f'};
+  const PF=[3,2,2];
+  const NAMES=['Galleon','Brig','Sloop','Frigate','Schooner'];
   const LV=[
-    {n:'Shipwreck Shallows',m:.9,t:1,pass:3,gold:60,xp:100,x:0},
-    {n:'Cannon Cove',m:1.15,t:2,pass:3,gold:100,xp:150,x:0},
-    {n:'Kraken Straits',m:1.35,t:3,pass:4,gold:150,xp:220,x:1},
-    {n:'Black Flag Gauntlet',m:1.55,t:4,pass:4,gold:220,xp:300,x:1}];
-  const base=[{r:10,d:1,s:1.8,w:1.5,n:3,k:'ship'},{r:9,d:-1,s:1.3,w:1,n:4,k:'ball'},{r:8,d:1,s:2.4,w:2,n:2,k:'ship'},
-    {r:6,d:-1,s:1.6,w:1,n:4,k:'ball'},{r:5,d:1,s:2.2,w:2,n:2,k:'ship'},{r:4,d:-1,s:1.4,w:1.5,n:3,k:'ship'},
-    {r:2,d:1,s:2.6,w:1,n:3,k:'ball'},{r:1,d:-1,s:2,w:2,n:2,k:'ship'}];
+    {n:'Shipwreck Shallows',t:1,gold:60,xp:100,fleet:[3,2,2],ai:0},
+    {n:'Cannon Cove',t:2,gold:100,xp:150,fleet:[3,3,2],ai:0},
+    {n:'Kraken Straits',t:3,gold:150,xp:220,fleet:[4,3,2,2],ai:1},
+    {n:'Black Flag Gauntlet',t:4,gold:220,xp:300,fleet:[4,3,3,2,2],ai:1}];
   const ITEMS=[
     {id:'bandana',slot:'hat',n:'Red Bandana',p:30},{id:'tricorn',slot:'hat',n:'Tricorn Hat',p:80},{id:'captain',slot:'hat',n:"Captain’s Hat",p:160},
     {id:'patch',slot:'eye',n:'Eyepatch',p:40},{id:'monocle',slot:'eye',n:'Golden Monocle',p:110},
@@ -580,14 +577,14 @@ section{padding-top:56px;padding-bottom:56px}
   try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d)sv=Object.assign(sv,d);}catch(e){}
   const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify(sv));}catch(e){}};
   const rank=()=>{let r=RANKS[0];RANKS.forEach(x=>{if(sv.xp>=x[0])r=x;});return r;};
-  let mode='idle',lvl=0,lives=3,cp=0,px=4,py=11,best=11,haz=[],last=0,used={},qs=[],qi=0,qok=0,pend=0,gG=0,gX=0,backFn=null,tm=0;
-  const home=()=>cp===0?11:cp===1?7:3;
+  let mode='idle',lvl=0,eS=[],pS=[],eSh=[],pSh=[],tgt=[],fx=[],used={},turn=1,gG=0,gX=0,gen=0,backFn=null,tm=0,last=0,hx=-1,hy=-1,kx=3,ky=3;
   const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
   const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;};
   const say=t=>{$('hopMsg').textContent=t;};
   const btn=(cls,txt,fn)=>{const b=el('button',cls,txt);b.type='button';b.addEventListener('click',fn);return b;};
+  const alive=s=>s.filter(x=>x.hits<x.len).length;
   function stats(){
-    $('hopLevel').textContent=lvl+1;$('hopLives').textContent=lives;$('hopCp').textContent=cp+'/2';
+    $('hopLevel').textContent=lvl+1;$('hopLives').textContent=alive(pS);$('hopCp').textContent=alive(eS);
     $('hopGold').textContent=sv.gold;$('hopRank').textContent=rank()[1]+' · '+sv.xp+' XP';
   }
   function box(){const b=$('hopQuiz');b.textContent='';b.classList.add('active');return b;}
@@ -608,94 +605,116 @@ section{padding-top:56px;padding-bottom:56px}
     if(w.hat==='captain'){c.fillStyle='#1a1a2e';c.beginPath();c.arc(cx,cy-11*k,10*k,Math.PI,0);c.fill();c.fillRect(cx-18*k,cy-11*k,36*k,4*k);c.fillStyle=P.gd;c.fillRect(cx-10*k,cy-14*k,20*k,2*k);c.fillStyle=P.wh;c.beginPath();c.arc(cx,cy-18*k,2*k,0,7);c.fill();}
     if(w.pet==='parrot'){const x=cx+15*k,y=cy+3*k;c.fillStyle='#4ade80';c.beginPath();c.arc(x,y,5*k,0,7);c.fill();c.fillStyle='#ff6b6b';c.beginPath();c.arc(x+1*k,y-5*k,3.2*k,0,7);c.fill();c.fillStyle=P.gd;c.beginPath();c.moveTo(x+3*k,y-6*k);c.lineTo(x+7*k,y-5*k);c.lineTo(x+3*k,y-4*k);c.fill();}
   }
-  function drawHazard(h){
-    const x=h.x*S,y=h.r*S+6,w=h.w*S,hh=S-12;
-    if(h.k==='ship'){
-      ctx.fillStyle=h.c;ctx.beginPath();ctx.moveTo(x,y+hh*.55);ctx.lineTo(x+w,y+hh*.55);ctx.lineTo(x+w-hh*.3,y+hh);ctx.lineTo(x+hh*.3,y+hh);ctx.closePath();ctx.fill();
-      ctx.fillStyle=P.wh;ctx.fillRect(x+w/2-1,y,2,hh*.6);
-      ctx.fillStyle='rgba(238,241,255,.9)';ctx.beginPath();ctx.moveTo(x+w/2+2,y+2);ctx.lineTo(x+w/2+2,y+hh*.5);ctx.lineTo(x+w/2+Math.min(w*.35,16),y+hh*.5);ctx.fill();
-      ctx.fillStyle=P.bg;ctx.beginPath();ctx.arc(x+w/2-6,y+3,2,0,7);ctx.fill();
-    }else if(lvl>=2){
-      const cx=x+w/2,cy=y+hh/2;ctx.strokeStyle=P.vi;ctx.lineWidth=3;ctx.lineCap='round';
-      for(let i=-1;i<=1;i++){ctx.beginPath();ctx.moveTo(cx+i*6,cy+4);ctx.quadraticCurveTo(cx+i*10+Math.sin(tm*4+i)*4,cy+12,cx+i*5,cy+hh/2+2);ctx.stroke();}
-      ctx.fillStyle=P.vi;ctx.beginPath();ctx.arc(cx,cy,hh/2-1,0,7);ctx.fill();
-      ctx.fillStyle=P.wh;ctx.beginPath();ctx.arc(cx-4,cy-2,2.5,0,7);ctx.arc(cx+4,cy-2,2.5,0,7);ctx.fill();
-    }else{
-      ctx.fillStyle='#2a3270';ctx.beginPath();ctx.arc(x+w/2,y+hh/2,hh/2-1,0,7);ctx.fill();
-      ctx.fillStyle='rgba(238,241,255,.55)';ctx.beginPath();ctx.arc(x+w/2-4,y+hh/2-4,3,0,7);ctx.fill();
-    }
+  /* fleets */
+  function place(fleet){
+    const occ=new Set(),ships=[];
+    fleet.forEach((len,i)=>{
+      let ok=false;
+      while(!ok){
+        const h=Math.random()<.5,x=Math.floor(Math.random()*(h?N-len+1:N)),y=Math.floor(Math.random()*(h?N:N-len+1)),cells=[];
+        for(let k=0;k<len;k++)cells.push([h?x+k:x,h?y:y+k]);
+        if(cells.every(c=>!occ.has(c[0]+','+c[1]))){cells.forEach(c=>occ.add(c[0]+','+c[1]));ships.push({cells,hits:0,len,h,name:NAMES[i%NAMES.length]});ok=true;}
+      }
+    });
+    return ships;
+  }
+  const shipAt=(ships,x,y)=>ships.find(s=>s.cells.some(c=>c[0]===x&&c[1]===y));
+  function shoot(ships,shots,x,y,side){
+    const i=y*N+x;if(shots[i])return null;
+    const s=shipAt(ships,x,y);
+    fx.push({side,x,y,t:0,hit:!!s});
+    if(s){shots[i]=2;s.hits++;return{hit:true,sunk:s.hits===s.len,ship:s};}
+    shots[i]=1;return{hit:false};
+  }
+  function setup(i){
+    lvl=i;eS=place(LV[i].fleet);pS=place(PF);eSh=Array(N*N).fill(0);pSh=Array(N*N).fill(0);tgt=[];fx=[];
   }
 
   /* game flow */
-  function build(){
-    haz=[];const L=LV[lvl];
-    base.forEach(l=>{const w=l.w,n=l.n+L.x,span=C+w+2;
-      for(let i=0;i<n;i++)haz.push({r:l.r,k:l.k,x:-w-1+(span/n)*i+(l.r%3)*.6,w,d:l.d,s:l.s*L.m,span,c:l.r%2?P.sl:P.vi});});
-  }
   function begin(i){
-    lvl=i;lives=3;cp=0;px=4;py=11;best=11;used={};gG=0;gX=0;build();mode='play';
-    $('hopPause').textContent='Pause';hide();say('Voyage '+(i+1)+': '+LV[i].n+'. Avoid everything that moves.');stats();
+    setup(i);used={};turn=1;gG=0;gX=0;gen++;hide();
+    say('Voyage '+(i+1)+': '+LV[i].n+'. Answer correctly to fire your cannons.');stats();startTurn();
   }
   function menu(){
     mode='menu';const b=box();
     b.appendChild(el('div','quiz-meta',rank()[1]+' · '+sv.xp+' XP · '+sv.gold+' gold'));
     b.appendChild(el('h4','','Choose your voyage'));
-    LV.forEach((l,i)=>{const a=btn('answer','Voyage '+(i+1)+' · '+l.n+(i+1>sv.maxLv?' (locked)':''),()=>begin(i));a.disabled=i+1>sv.maxLv;b.appendChild(a);});
+    LV.forEach((l,i)=>{const a=btn('answer','Voyage '+(i+1)+' · '+l.n+' · '+l.fleet.length+' enemy ships'+(i+1>sv.maxLv?' (locked)':''),()=>begin(i));a.disabled=i+1>sv.maxLv;b.appendChild(a);});
     b.appendChild(btn('btn btn-secondary','Costume shop',()=>shop(menu)));
     stats();
   }
-  function die(){
-    lives--;stats();
-    if(lives<=0){mode='over';say('Sunk! You keep the '+gG+' gold and '+gX+' XP earned from answers. Press Start to sail again.');return;}
-    px=4;py=home();best=Math.min(best,py);say('Hit! Back to your last safe spot. '+lives+' '+(lives===1?'life':'lives')+' left.');
-  }
-  /* hitboxes match what is drawn: ships get a small inset, balls/krakens use their round body (~.3 cell radius) */
-  const hbox=h=>h.k==='ship'?[h.x+.08,h.x+h.w-.08]:[h.x+h.w/2-.3,h.x+h.w/2+.3];
-  const hit=()=>haz.some(h=>{
-    if(h.r!==py)return false;
-    const b=hbox(h);
-    return px+.26<b[1]&&px+.74>b[0];
-  });
-  function move(dx,dy){
-    if(mode!=='play')return;
-    px=Math.max(0,Math.min(C-1,px+dx));py=Math.max(0,Math.min(R-1,py+dy));
-    if(hit()){die();return;}
-    if(py===7&&cp<1)quiz(1);else if(py===3&&cp<2)quiz(2);else if(py===0)win();
-  }
-  function quiz(n){
-    pend=n;mode='quiz';const t=LV[lvl].t,arr=T[t];
+  function pickQ(){
+    const t=LV[lvl].t,arr=T[t];
     used[t]=used[t]||[];
     let pool=arr.map((_,i)=>i).filter(i=>!used[t].includes(i));
-    if(pool.length<5){used[t]=[];pool=arr.map((_,i)=>i);}
-    qs=shuffle(pool).slice(0,5);qs.forEach(i=>used[t].push(i));qi=0;qok=0;showQ();
+    if(!pool.length){used[t]=[];pool=arr.map((_,i)=>i);}
+    const i=pool[Math.floor(Math.random()*pool.length)];used[t].push(i);return arr[i];
   }
-  function showQ(){
-    const b=box(),q=T[LV[lvl].t][qs[qi]],L=LV[lvl];
-    b.appendChild(el('div','quiz-meta','Checkpoint '+(pend===1?'A':'B')+' · Question '+(qi+1)+' of 5 · Need '+L.pass));
+  function startTurn(){mode='quiz';showQ(pickQ());}
+  function showQ(q){
+    const b=box();
+    b.appendChild(el('div','quiz-meta','Turn '+turn+' · Answer to load the cannons'));
     b.appendChild(el('h4','',q[0]));
     const bs=shuffle(q[1].map((t,i)=>({t,ok:i===q[2]}))).map(o=>{const a=btn('answer',o.t,()=>{
       bs.forEach(x=>{x.a.disabled=true;if(x.o.ok)x.a.classList.add('correct');});
-      if(o.ok){qok++;sv.gold+=5;sv.xp+=10;gG+=5;gX+=10;persist();stats();}else a.classList.add('wrong');
+      if(o.ok){sv.gold+=5;sv.xp+=10;gG+=5;gX+=10;persist();stats();}else a.classList.add('wrong');
       b.appendChild(el('div','result',(o.ok?'Correct! +5 gold, +10 XP. ':'Not quite. ')+q[3]));
-      const nx=btn('btn btn-primary',qi<4?'Next question':'See result',()=>{qi++;qi<5?showQ():finish();});b.appendChild(nx);nx.focus();
+      const nx=o.ok?btn('btn btn-primary','Take aim',()=>{hide();mode='aim';turn++;say('Cannons loaded! Pick a target on enemy waters.');}):btn('btn btn-primary','Brace for return fire',()=>{hide();say('No shot this turn. The enemy fires back!');enemyTurn();});
+      b.appendChild(nx);nx.focus();
     });b.appendChild(a);return{a,o};});
   }
-  function finish(){
-    const b=box(),L=LV[lvl],pass=qok>=L.pass;
-    b.appendChild(el('div','quiz-meta','Checkpoint '+(pend===1?'A':'B')));
-    b.appendChild(el('h4','',qok+' of 5 correct'));
-    b.appendChild(el('div','result',pass?'Checkpoint unlocked. Safe to continue.':'You need '+L.pass+' of 5. Try a fresh set of questions.'));
-    const go=btn('btn btn-primary',pass?'Continue':'Try new questions',()=>{
-      if(pass){cp=pend;stats();hide();mode='play';say('Checkpoint saved. If you get hit, you restart here.');}else quiz(pend);
-    });b.appendChild(go);go.focus();
+  function playerShot(x,y){
+    if(mode!=='aim'||x<0||y<0||x>=N||y>=N)return;
+    const r=shoot(eS,eSh,x,y,'e');
+    if(!r){say('You already fired there. Pick another spot.');return;}
+    stats();const g=gen;mode='wait';
+    if(r.hit){
+      if(r.sunk){sv.gold+=15;sv.xp+=20;gG+=15;gX+=20;persist();}
+      if(!alive(eS)){say('You sank the enemy '+r.ship.name+', the last of their fleet!');setTimeout(()=>{if(g===gen)win();},900);return;}
+      say(r.sunk?'Boom! You sank the enemy '+r.ship.name+'! +15 gold, +20 XP. Keep firing!':'Direct hit! Keep firing!');
+      setTimeout(()=>{if(g===gen)startTurn();},r.sunk?1300:900);
+    }else{
+      say('Splash! A miss. The enemy fires back!');
+      setTimeout(()=>{if(g===gen)enemyTurn();},900);
+    }
+  }
+  function enemyPick(){
+    while(LV[lvl].ai&&tgt.length){const c=tgt.pop();if(!pSh[c[1]*N+c[0]])return c;}
+    const free=[];for(let y=0;y<N;y++)for(let x=0;x<N;x++)if(!pSh[y*N+x])free.push([x,y]);
+    return free[Math.floor(Math.random()*free.length)];
+  }
+  function enemyTurn(){
+    mode='wait';const g=gen;
+    setTimeout(()=>{
+      if(g!==gen)return;
+      const c=enemyPick(),r=shoot(pS,pSh,c[0],c[1],'p');stats();
+      let m;
+      if(r.hit){
+        m=r.sunk?'The enemy sank your '+r.ship.name+'!':'The enemy hit your '+r.ship.name+'!';
+        if(r.sunk)tgt=[];else[[1,0],[-1,0],[0,1],[0,-1]].forEach(d=>{const nx=c[0]+d[0],ny=c[1]+d[1];if(nx>=0&&ny>=0&&nx<N&&ny<N&&!pSh[ny*N+nx])tgt.push([nx,ny]);});
+      }else m='The enemy missed. Your move.';
+      say(m);
+      if(!alive(pS)){setTimeout(()=>{if(g===gen)lose();},900);return;}
+      setTimeout(()=>{if(g===gen)startTurn();},1100);
+    },600);
+  }
+  function lose(){
+    mode='over';const b=box();
+    b.appendChild(el('div','quiz-meta','Voyage '+(lvl+1)+' lost'));
+    b.appendChild(el('h4','','Your fleet was sunk!'));
+    b.appendChild(el('div','result','You keep the '+gG+' gold and '+gX+' XP you earned from answers and sinking ships.'));
+    b.appendChild(btn('btn btn-primary','Try again',()=>begin(lvl)));
+    b.appendChild(el('span','',' '));
+    b.appendChild(btn('btn btn-secondary','Voyage menu',menu));
+    say('Sunk! Try again, Captain.');
   }
   function win(){
-    mode='win';const L=LV[lvl],g=L.gold+20*lives,x=L.xp+25*lives;
+    mode='win';const L=LV[lvl],left=alive(pS),g=L.gold+20*left,x=L.xp+25*left;
     sv.gold+=g;sv.xp+=x;sv.maxLv=Math.max(sv.maxLv,Math.min(LV.length,lvl+2));persist();stats();
     const b=box();
     b.appendChild(el('div','quiz-meta','Voyage '+(lvl+1)+' complete'));
-    b.appendChild(el('h4','','Treasure found!'));
-    b.appendChild(el('div','result','Voyage reward: +'+L.gold+' gold, +'+L.xp+' XP\nLives left bonus: +'+(20*lives)+' gold, +'+(25*lives)+' XP\nFrom answers: +'+gG+' gold, +'+gX+' XP\nTotal this voyage: +'+(g+gG)+' gold, +'+(x+gX)+' XP'));
+    b.appendChild(el('h4','','Enemy fleet sunk!'));
+    b.appendChild(el('div','result','Voyage reward: +'+L.gold+' gold, +'+L.xp+' XP\nShips afloat bonus: +'+(20*left)+' gold, +'+(25*left)+' XP\nFrom answers and sinkings: +'+gG+' gold, +'+gX+' XP\nTotal this voyage: +'+(g+gG)+' gold, +'+(x+gX)+' XP'));
     $('hopQuiz').lastChild.style.whiteSpace='pre-line';
     if(lvl<LV.length-1)b.appendChild(btn('btn btn-primary','Next voyage',()=>begin(lvl+1)));
     else b.appendChild(el('div','result','You have conquered every voyage, Captain!'));
@@ -703,7 +722,7 @@ section{padding-top:56px;padding-bottom:56px}
     b.appendChild(btn('btn btn-secondary','Costume shop',()=>shop(menu)));
     b.appendChild(el('span','',' '));
     b.appendChild(btn('btn btn-secondary','Voyage menu',menu));
-    say('Voyage complete! Spend your gold in the shop or sail on.');
+    say('Victory! Spend your gold in the shop or sail on.');
   }
   function shop(back){mode='shop';backFn=back;renderShop(0);}
   function renderShop(sc){
@@ -725,60 +744,113 @@ section{padding-top:56px;padding-bottom:56px}
     b.appendChild(btn('btn btn-primary','Back',()=>backFn()));
     b.scrollTop=sc;
   }
-  function togglePause(){
-    if(mode==='play'){mode='paused';$('hopPause').textContent='Resume';say('Game paused.');}
-    else if(mode==='paused'){mode='play';$('hopPause').textContent='Pause';say('Back on deck.');}
+
+  /* input: click or tap to aim, arrows/WASD + Enter for keyboard */
+  function cellAt(e){
+    const r=cv.getBoundingClientRect(),sx=(e.clientX-r.left)*cv.width/r.width,sy=(e.clientY-r.top)*cv.height/r.height;
+    const x=Math.floor((sx-GX)/CS),y=Math.floor((sy-GY)/CS);
+    return(x>=0&&y>=0&&x<N&&y<N)?[x,y]:null;
   }
-  function action(a){
-    if(a==='left')move(-1,0);else if(a==='right')move(1,0);else if(a==='up')move(0,-1);else if(a==='down')move(0,1);else if(a==='pause')togglePause();
-  }
-  const keys={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down',a:'left',d:'right',w:'up',s:'down',p:'pause'};
+  cv.addEventListener('mousemove',e=>{const c=cellAt(e);hx=c?c[0]:-1;hy=c?c[1]:-1;});
+  cv.addEventListener('mouseleave',()=>{hx=-1;hy=-1;});
+  cv.addEventListener('click',e=>{const c=cellAt(e);if(c){kx=c[0];ky=c[1];playerShot(c[0],c[1]);}});
+  const dirs={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1],a:[-1,0],d:[1,0],w:[0,-1],s:[0,1]};
   document.addEventListener('keydown',e=>{
-    const k=keys[e.key]||keys[(e.key||'').toLowerCase()];
-    if(!k||e.ctrlKey||e.metaKey||e.altKey)return;
+    if(mode!=='aim'||e.ctrlKey||e.metaKey||e.altKey)return;
     const t=document.activeElement.tagName;
-    if(t==='INPUT'||t==='TEXTAREA')return;
-    if(mode==='play'||mode==='paused'){e.preventDefault();action(k);}
+    if(t==='INPUT'||t==='TEXTAREA'||t==='BUTTON')return;
+    const d=dirs[e.key]||dirs[(e.key||'').toLowerCase()];
+    if(d){e.preventDefault();kx=Math.max(0,Math.min(N-1,kx+d[0]));ky=Math.max(0,Math.min(N-1,ky+d[1]));hx=kx;hy=ky;}
+    else if(e.key==='Enter'||e.key===' '){e.preventDefault();playerShot(kx,ky);}
   });
-  document.querySelectorAll('[data-move]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.move)));
   $('hopStart').addEventListener('click',menu);
-  $('hopPause').addEventListener('click',togglePause);
-  $('hopShop').addEventListener('click',()=>{if(mode==='play'||mode==='paused'||mode==='quiz')return;shop(()=>{hide();mode='idle';});});
+  $('hopShop').addEventListener('click',()=>{if(mode==='quiz'||mode==='aim'||mode==='wait')return;shop(()=>{hide();mode='idle';});});
 
   /* drawing */
-  function band(r,color,label){ctx.fillStyle=color;ctx.fillRect(0,r*S,C*S,S);if(label){ctx.fillStyle=P.mut;ctx.font=MONO;ctx.textAlign='left';ctx.fillText(label,8,r*S+24);}}
-  function waves(r){
-    ctx.strokeStyle='rgba(110,231,255,.13)';ctx.lineWidth=1;ctx.beginPath();
-    for(let x=0;x<=C*S;x+=6){const y=r*S+S/2+Math.sin(x/14+tm*1.5+r)*3;x?ctx.lineTo(x,y):ctx.moveTo(x,y);}
-    ctx.stroke();
+  function drawShip(c,s,ox,oy,cs,col,alpha){
+    const x0=Math.min.apply(null,s.cells.map(a=>a[0])),y0=Math.min.apply(null,s.cells.map(a=>a[1]));
+    const w=(s.h?s.len:1)*cs,h=(s.h?1:s.len)*cs,x=ox+x0*cs,y=oy+y0*cs,p=Math.max(2,cs*.12);
+    c.save();c.globalAlpha=alpha;c.fillStyle=col;c.beginPath();
+    if(c.roundRect)c.roundRect(x+p,y+p,w-2*p,h-2*p,cs*.3);else c.rect(x+p,y+p,w-2*p,h-2*p);
+    c.fill();
+    if(cs>=30){
+      c.strokeStyle=P.gd;c.lineWidth=2;c.beginPath();
+      if(s.h){c.moveTo(x+p+6,y+h-p-6);c.lineTo(x+w-p-6,y+h-p-6);}else{c.moveTo(x+w-p-6,y+p+6);c.lineTo(x+w-p-6,y+h-p-6);}
+      c.stroke();
+      const mx=x+w/2,my=y+h/2;
+      c.fillStyle=P.wh;c.fillRect(mx-1,my-12,2,24);
+      c.beginPath();c.moveTo(mx+2,my-10);c.lineTo(mx+2,my+4);c.lineTo(mx+12,my+4);c.fill();
+    }
+    c.restore();
+  }
+  function drawHit(cx,cy,r){
+    ctx.fillStyle=P.fire;ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.fill();
+    ctx.fillStyle=P.gd;ctx.beginPath();ctx.arc(cx,cy,r*.5,0,7);ctx.fill();
+    ctx.strokeStyle=P.bg;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx-r*.6,cy-r*.6);ctx.lineTo(cx+r*.6,cy+r*.6);ctx.moveTo(cx+r*.6,cy-r*.6);ctx.lineTo(cx-r*.6,cy+r*.6);ctx.stroke();
+  }
+  function drawMiss(cx,cy,r){
+    ctx.strokeStyle='rgba(243,231,201,.75)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.stroke();
+    ctx.fillStyle='rgba(243,231,201,.5)';ctx.beginPath();ctx.arc(cx,cy,r*.25,0,7);ctx.fill();
   }
   function draw(){
-    ctx.fillStyle=P.bg;ctx.fillRect(0,0,C*S,R*S);
-    base.forEach(l=>waves(l.r));
-    band(0,'rgba(255,201,74,.18)','TREASURE ISLAND');
-    ctx.fillStyle=P.gd;ctx.fillRect(C*S-58,6,26,16);ctx.fillStyle=P.bg;ctx.fillRect(C*S-58,12,26,2);ctx.fillRect(C*S-47,10,4,6);
-    band(3,'rgba(110,231,255,'+(cp>=2?'.28':'.14')+')','CHECKPOINT B'+(cp>=2?' ✓':''));
-    band(7,'rgba(110,231,255,'+(cp>=1?'.28':'.14')+')','CHECKPOINT A'+(cp>=1?' ✓':''));
-    band(11,'rgba(238,241,255,.07)','HARBOR');
-    haz.forEach(drawHazard);
-    drawChar(ctx,px*S+S/2,py*S+S/2+2,1);
-    if(mode==='idle'||mode==='over'||mode==='paused'){
-      ctx.fillStyle='rgba(7,11,31,.88)';ctx.fillRect(0,0,C*S,R*S);
-      ctx.textAlign='center';ctx.fillStyle=P.wh;ctx.font='bold 24px Helvetica,Arial,sans-serif';
-      ctx.fillText(mode==='over'?'SUNK!':mode==='paused'?'PAUSED':'CAPTAIN BYTE',C*S/2,R*S/2-6);
+    ctx.fillStyle=P.bg;ctx.fillRect(0,0,cv.width,cv.height);
+    ctx.fillStyle=P.red;ctx.font=MONO;ctx.textAlign='left';
+    ctx.fillText('ENEMY WATERS · '+alive(eS)+' ships left',GX,16);
+    /* enemy grid */
+    for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+      ctx.fillStyle=(x+y)%2?'rgba(15,74,90,.55)':'rgba(15,74,90,.3)';ctx.fillRect(GX+x*CS,GY+y*CS,CS,CS);
+    }
+    ctx.strokeStyle='rgba(63,184,175,.2)';ctx.lineWidth=1;ctx.beginPath();
+    for(let k=0;k<N;k++){const y=GY+k*CS+CS/2;for(let x=0;x<=N*CS;x+=6){const yy=y+Math.sin(x/14+tm*1.5+k)*2;x?ctx.lineTo(GX+x,yy):ctx.moveTo(GX,yy);}}
+    ctx.stroke();
+    ctx.strokeStyle='rgba(217,194,143,.35)';ctx.strokeRect(GX,GY,N*CS,N*CS);
+    eS.forEach(s=>{if(s.hits>=s.len)drawShip(ctx,s,GX,GY,CS,P.iron,1);else if(mode==='over')drawShip(ctx,s,GX,GY,CS,P.vi,.55);});
+    eS.forEach(s=>{if(s.hits>=s.len){const x0=Math.min.apply(null,s.cells.map(a=>a[0])),y0=Math.min.apply(null,s.cells.map(a=>a[1]));ctx.fillStyle=P.red;ctx.font='bold 11px Helvetica,Arial,sans-serif';ctx.textAlign='center';ctx.fillText('SUNK',GX+(x0+(s.h?s.len:1)/2)*CS,GY+(y0+(s.h?1:s.len)/2)*CS+4);}});
+    for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+      const v=eSh[y*N+x],cx=GX+x*CS+CS/2,cy=GY+y*CS+CS/2;
+      if(v===2)drawHit(cx,cy,CS*.28);else if(v===1)drawMiss(cx,cy,CS*.2);
+    }
+    /* aim cursor */
+    if(mode==='aim'&&hx>=0&&hy>=0){
+      ctx.strokeStyle=P.gd;ctx.lineWidth=2;ctx.strokeRect(GX+hx*CS+2,GY+hy*CS+2,CS-4,CS-4);
+      const cx=GX+hx*CS+CS/2,cy=GY+hy*CS+CS/2;
+      ctx.beginPath();ctx.moveTo(cx-8,cy);ctx.lineTo(cx+8,cy);ctx.moveTo(cx,cy-8);ctx.lineTo(cx,cy+8);ctx.stroke();
+    }
+    /* your fleet */
+    ctx.fillStyle=P.gd;ctx.font=MONO;ctx.textAlign='left';ctx.fillText('YOUR FLEET',MX,MY-6);
+    for(let y=0;y<N;y++)for(let x=0;x<N;x++){ctx.fillStyle=(x+y)%2?'rgba(15,74,90,.55)':'rgba(15,74,90,.3)';ctx.fillRect(MX+x*MC,MY+y*MC,MC,MC);}
+    ctx.strokeStyle='rgba(217,194,143,.35)';ctx.strokeRect(MX,MY,N*MC,N*MC);
+    pS.forEach(s=>drawShip(ctx,s,MX,MY,MC,s.hits>=s.len?P.iron:P.sl,1));
+    for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+      const v=pSh[y*N+x],cx=MX+x*MC+MC/2,cy=MY+y*MC+MC/2;
+      if(v===2)drawHit(cx,cy,MC*.32);else if(v===1)drawMiss(cx,cy,MC*.22);
+    }
+    /* captain portrait and status */
+    drawChar(ctx,270,MY+40,1.8);
+    ctx.fillStyle=P.wh;ctx.font='bold 12px Palatino,Georgia,serif';ctx.textAlign='center';ctx.fillText('CAPTAIN BYTE',270,MY+80);
+    ctx.fillStyle=P.mut;ctx.font=MONO;
+    ctx.fillText(mode==='aim'?'Aim and fire!':mode==='quiz'?'Load the cannons':mode==='wait'?'...':'Ready',270,MY+98);
+    /* shot effects */
+    fx.forEach(f=>{
+      const k=f.side==='e'?CS:MC,ox=f.side==='e'?GX:MX,oy=f.side==='e'?GY:MY,cx=ox+f.x*k+k/2,cy=oy+f.y*k+k/2,a=1-f.t/.7;
+      ctx.strokeStyle=f.hit?'rgba(255,138,61,'+a+')':'rgba(243,231,201,'+a+')';ctx.lineWidth=3;
+      ctx.beginPath();ctx.arc(cx,cy,k*(.3+f.t*1.2),0,7);ctx.stroke();
+    });
+    if(mode==='idle'||mode==='menu'&&false){}
+    if(mode==='idle'){
+      ctx.fillStyle='rgba(11,27,38,.9)';ctx.fillRect(0,0,cv.width,cv.height);
+      ctx.textAlign='center';ctx.fillStyle=P.gd;ctx.font='bold 24px Palatino,Georgia,serif';
+      ctx.fillText('CAPTAIN BYTE',cv.width/2,cv.height/2-6);
       ctx.fillStyle=P.mut;ctx.font='13px Helvetica,Arial,sans-serif';
-      if(mode!=='paused')ctx.fillText(mode==='idle'?'AI pirates · Press Start':'Press Start to sail again',C*S/2,R*S/2+20);
+      ctx.fillText('Pirate battleships · Press Start',cv.width/2,cv.height/2+20);
     }
   }
   function loop(t){
     const dt=Math.min(.05,(t-last)/1000||0);last=t;tm+=dt;
-    if(mode==='play'){
-      haz.forEach(h=>{h.x+=h.d*h.s*dt;if(h.d>0&&h.x>C+1)h.x-=h.span;if(h.d<0&&h.x<-h.w-1)h.x+=h.span;});
-      if(hit())die();
-    }
+    fx.forEach(f=>f.t+=dt);fx=fx.filter(f=>f.t<.7);
     draw();requestAnimationFrame(loop);
   }
-  build();stats();requestAnimationFrame(loop);
+  setup(0);stats();requestAnimationFrame(loop);
 })();
 </script>
 
@@ -789,7 +861,7 @@ section{padding-top:56px;padding-bottom:56px}
   var i=0,w=document.getElementById("zibbleWidget");
   if(typeof window.toggleZibble!=="function") window.toggleZibble=function(){
     w.classList.toggle("minimized");
-    w.querySelector(".zibble-avatar").setAttribute("aria-label",w.classList.contains("minimized")?"Open Zibble alien chatbot":"Minimize Zibble alien chatbot");
+    w.querySelector(".zibble-avatar").setAttribute("aria-label",w.classList.contains("minimized")?"Open Zibble the parrot chatbot":"Minimize Zibble the parrot chatbot");
   };
   if(typeof window.zibbleTip!=="function") window.zibbleTip=function(){
     document.getElementById("zibbleMessage").textContent=tips[i++%tips.length];
