@@ -148,6 +148,13 @@ footer{max-width:1400px;margin:auto;border-top:3px double var(--gold);padding:32
 .answer.wrong{border-color:var(--bad);border-left-width:10px}
 .result{margin-top:16px;padding:14px;background:var(--soft);border-left:6px solid var(--gold)}
 
+/* GRADE DIFFICULTY SELECTOR */
+.grade-picker{display:grid;grid-template-columns:1fr;gap:8px;margin:12px 0 18px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.grade-picker label{font-size:12px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.grade-picker select{width:100%;min-height:46px;padding:10px 12px;background:var(--bg);color:var(--fg);border:2px solid var(--line);font:inherit}
+.grade-note{font-size:13px;color:var(--mut);margin-top:4px}
+.grade-tag{display:inline-block;color:var(--gold);font-weight:700}
+
 /* TOAST */
 .toast{position:fixed;right:20px;bottom:20px;background:var(--fg);color:var(--bg);padding:14px 18px;z-index:3000;transform:translateY(150px);transition:transform .25s;max-width:320px;border-left:6px solid var(--red)}
 .toast.show{transform:none}
@@ -244,13 +251,13 @@ section{padding-top:56px;padding-bottom:56px}
   <div class="hero-content">
     <span class="eyebrow">Captain’s log / Day 1 / Setting sail</span>
     <h1>Using AI well<br>is a <span>skill.</span></h1>
-    <p>Learn how to use AI for school without cheating yourself: what’s fine, what isn’t, and how to tell the difference. Then set sail in our AI pirate battle, where every cannon shot tests these habits and every win earns gold.</p>
+    <p>Learn how to use AI for school without cheating yourself: what’s fine, what isn’t, and how to tell the difference. Then join Captain Byte on a treasure hunt where every dig is earned by showing what you know about responsible AI use.</p>
     <div class="hero-buttons">
       <button class="btn btn-primary" id="heroStart" onclick="startNext()">Start Module 1</button>
       <button class="btn btn-secondary" onclick="scrollToSection('guide')">Read the guide first</button>
     </div>
     <div class="hero-meta" aria-label="Course overview">
-      <span><strong>5</strong>short modules</span>
+      <span><strong>9–12</strong>grade levels</span>
       <span><strong>3</strong>questions per quiz</span>
       <span><strong>2/3</strong>to pass</span>
     </div>
@@ -416,37 +423,37 @@ section{padding-top:56px;padding-bottom:56px}
 
 <section id="game" aria-labelledby="gameTitle">
   <div class="section-heading">
-    <span class="eyebrow">04 / Pirate mission / AI seas</span>
-    <h2 id="gameTitle">Now set sail on the AI seas.</h2>
-    <p>Play Captain Byte, an AI pirate admiral battling across four voyages. Answer a question to load your cannons, fire at the enemy fleet, and sink every ship before they sink yours. Then spend your gold and XP on costumes.</p>
+    <span class="eyebrow">04 / Treasure hunt / AI islands</span>
+    <h2 id="gameTitle">Hunt for the buried treasure.</h2>
+    <p>Join Captain Byte on four island treasure hunts. Choose Grade 9, 10, 11, or 12 to set the question difficulty. Answer AI questions to earn chances to dig, follow the map clues, uncover buried treasure, and earn gold and XP.</p>
   </div>
   <div class="grid2">
     <div class="card">
       <div class="neural-game" id="gameFrame">
         <div class="neural-board-wrap">
-          <canvas id="hopBoard" width="360" height="480" aria-label="Captain Byte pirate battleship board. Click or tap enemy waters to fire."></canvas>
+          <canvas id="hopBoard" width="360" height="480" aria-label="Captain Byte treasure map. Answer questions and click squares to dig for buried treasure."></canvas>
           <div class="fq" id="hopQuiz" role="dialog" aria-label="Game menu and questions"></div>
         </div>
         <div class="neural-side">
-          <div class="neural-stat"><span>VOYAGE</span><strong id="hopLevel">1</strong></div>
-          <div class="neural-stat"><span>YOUR SHIPS</span><strong id="hopLives">3</strong></div>
-          <div class="neural-stat"><span>ENEMY SHIPS</span><strong id="hopCp">3</strong></div>
+          <div class="neural-stat"><span>ISLAND</span><strong id="hopLevel">1</strong></div>
+          <div class="neural-stat"><span>DIGS LEFT</span><strong id="hopLives">3</strong></div>
+          <div class="neural-stat"><span>CHESTS FOUND</span><strong id="hopCp">3</strong></div>
           <div class="neural-stat"><span>GOLD</span><strong id="hopGold" style="color:var(--gold)">0</strong></div>
           <div class="neural-stat"><span>RANK</span><strong id="hopRank" style="font-size:16px;letter-spacing:0">Cabin Boy</strong></div>
-          <div class="neural-full"><p class="neural-message" id="hopMsg" aria-live="polite">Press Start to pick a voyage. Answer a question to fire a cannon and sink the enemy fleet.</p></div>
+          <div class="neural-full"><p class="neural-message" id="hopMsg" aria-live="polite">Press Start to choose an island. Answer questions and dig for buried treasure.</p></div>
           <div class="neural-full"><button class="btn btn-primary" id="hopStart" type="button">Start</button> <button class="btn btn-secondary" id="hopShop" type="button">Shop</button></div>
         </div>
       </div>
-      <p style="margin-top:14px;color:var(--mut);font-size:13px">Answer a question to fire. Then click or tap enemy waters to aim, or use arrows or WASD to move the target and Enter to fire. Miss, or answer wrong, and the enemy shoots back.</p>
+      <p style="margin-top:14px;color:var(--mut);font-size:13px">Answer an AI question to earn a dig. Then click or tap a square on the island map. Use the warm/cold clues to find all the buried treasure before your digging chances run out.</p>
     </div>
     <div class="card">
       <h3>About the game</h3>
-      <p>You are Captain Byte, an AI pirate admiral. Enemy ships are hidden on the grid. Answer a question about using AI well to load your cannons, then fire at a square. A hit lets you keep firing; a miss or a wrong answer lets the enemy shoot back. Sink the whole enemy fleet to win XP and gold, then buy costumes. Every voyage has more enemy ships and the questions get harder.</p>
+      <p>You are Captain Byte, a treasure hunter exploring islands for lost pirate chests. Answer a question about using AI responsibly to earn a digging turn. Click a square on the map to dig. Follow the warm-and-cold clues to find buried treasure. Find every chest before your digging supplies run out to win XP and gold, then buy costumes. Each island has more treasure to uncover.</p>
       <ul class="glist">
-        <li><b>Shipwreck Shallows:</b> 3 enemy ships, the basics</li>
-        <li><b>Cannon Cove:</b> 3 enemy ships, real school scenarios</li>
-        <li><b>Kraken Straits:</b> 4 enemy ships that hunt smarter, tricky judgment calls</li>
-        <li><b>Black Flag Gauntlet:</b> 5 enemy ships, expert AI habits</li>
+        <li><b>Shipwreck Shallows:</b> 2 treasure chests hidden in the sand</li>
+        <li><b>Cannon Cove:</b> 3 chests hidden across the island</li>
+        <li><b>Kraken Straits:</b> 4 chests, with fewer chances to waste</li>
+        <li><b>Black Flag Gauntlet:</b> 5 chests in the toughest treasure hunt</li>
       </ul>
     </div>
   </div>
@@ -504,33 +511,20 @@ section{padding-top:56px;padding-bottom:56px}
 </footer>
 
 <script>
-/* PASTE YOUR ORIGINAL <script> CONTENTS HERE, UNCHANGED.
-   (Everything between <script> and </script> from your current file:
-   the modules data, badgeInfo, ranks, storage, quiz and Zibble functions, etc.) */
+/* NOTE: The supplied source file contained a placeholder here instead of the
+   original course-module JavaScript. The grade-level selector and the Captain
+   Byte battleship game are implemented in the following script. */
 </script>
 
 <script>
-/* Captain Byte: AI pirate battleships. Answer a question to fire a cannon, sink the enemy fleet, earn XP, gold and costumes */
+/* Captain Byte's Buried Treasure Hunt. Answer AI questions to earn chances to dig. */
 (function(){
-  const cv=document.getElementById('hopBoard');
-  if(!cv) return;
-  const ctx=cv.getContext('2d'), $=id=>document.getElementById(id);
-  const N=8,CS=40,GX=20,GY=26,MX=20,MY=360,MC=14,MONO='11px ui-monospace,Menlo,Consolas,monospace',KEY='auroraPirateSave';
-  /* pirate palette: deep sea, teal water, mahogany hulls, parchment sails, gold */
-  const P={bg:'#0b1b26',cy:'#3fb8af',vi:'#8c3b2a',wh:'#f3e7c9',sl:'#6b4a2f',mut:'#a9b8b4',gd:'#ffc94a',iron:'#2b2f33',fire:'#ff8a3d',red:'#e5543f'};
-  const PF=[3,2,2];
-  const NAMES=['Galleon','Brig','Sloop','Frigate','Schooner'];
-  const LV=[
-    {n:'Shipwreck Shallows',t:1,gold:60,xp:100,fleet:[3,2,2],ai:0},
-    {n:'Cannon Cove',t:2,gold:100,xp:150,fleet:[3,3,2],ai:0},
-    {n:'Kraken Straits',t:3,gold:150,xp:220,fleet:[4,3,2,2],ai:1},
-    {n:'Black Flag Gauntlet',t:4,gold:220,xp:300,fleet:[4,3,3,2,2],ai:1}];
-  const ITEMS=[
-    {id:'bandana',slot:'hat',n:'Red Bandana',p:30},{id:'tricorn',slot:'hat',n:'Tricorn Hat',p:80},{id:'captain',slot:'hat',n:"Captain’s Hat",p:160},
-    {id:'patch',slot:'eye',n:'Eyepatch',p:40},{id:'monocle',slot:'eye',n:'Golden Monocle',p:110},
-    {id:'crimson',slot:'coat',n:'Crimson Coat',p:60},{id:'gold',slot:'coat',n:'Golden Coat',p:200},
-    {id:'parrot',slot:'pet',n:'Parrot',p:120}];
-  const RANKS=[[0,'Cabin Boy'],[200,'Deckhand'],[500,'First Mate'],[1000,'Captain'],[2000,'Pirate Legend']];
+ const cv=document.getElementById('hopBoard');if(!cv)return;
+ const ctx=cv.getContext('2d'),$=id=>document.getElementById(id),N=8,CS=40,GX=20,GY=48,KEY='auroraPirateSave';
+ const P={bg:'#0b1b26',cy:'#3fb8af',wh:'#f3e7c9',sl:'#6b4a2f',mut:'#a9b8b4',gd:'#ffc94a',iron:'#2b2f33'};
+ const LV=[{n:'Shipwreck Shallows',treasure:2,digs:14,gold:60,xp:100},{n:'Cannon Cove',treasure:3,digs:15,gold:100,xp:150},{n:'Kraken Straits',treasure:4,digs:16,gold:150,xp:220},{n:'Black Flag Gauntlet',treasure:5,digs:17,gold:220,xp:300}];
+ const ITEMS=[{id:'bandana',slot:'hat',n:'Red Bandana',p:30},{id:'tricorn',slot:'hat',n:'Tricorn Hat',p:80},{id:'captain',slot:'hat',n:'Captain’s Hat',p:160},{id:'patch',slot:'eye',n:'Eyepatch',p:40},{id:'monocle',slot:'eye',n:'Golden Monocle',p:110},{id:'crimson',slot:'coat',n:'Crimson Coat',p:60},{id:'gold',slot:'coat',n:'Golden Coat',p:200},{id:'parrot',slot:'pet',n:'Parrot',p:120}];
+ const RANKS=[[0,'Cabin Boy'],[200,'Deckhand'],[500,'First Mate'],[1000,'Captain'],[2000,'Pirate Legend']];
   const T={
   1:[
     ["You used AI to help with homework. Your teacher asks about it. What is the honest move?",["Say you did it all alone","Tell them how you used it","Delete the chat","Blame a friend"],1,"Honesty means saying when and how you used AI."],
@@ -553,7 +547,9 @@ section{padding-top:56px;padding-bottom:56px}
     ["You can’t find the source the AI gave you anywhere online. What now?",["Cite it anyway","Remove it or find a real source","Change the author’s name","Add a made-up link"],1,"If you can’t verify a source, don’t cite it."],
     ["Which is the best way to use AI for studying?",["Ask it to write your notes","Explain the topic back to it and ask what you missed","Copy its answers","Skip class"],1,"Explaining it yourself builds understanding."],
     ["A website’s AI chatbot asks for your full name, address and birthday. You should...",["Share everything","Stop and ask a trusted adult","Share only your birthday","Share your address only"],1,"Guard your privacy and check with an adult."],
-    ["Your teacher never mentioned AI. You want it for an essay outline. Best move?",["Assume it’s fine","Ask your teacher first","Use it secretly","Ask a friend if it’s okay"],1,"When unsure, ask the person who sets the rules."]],
+    ["Your teacher never mentioned AI. You want it for an essay outline. Best move?",["Assume it’s fine","Ask your teacher first","Use it secretly","Ask a friend if it’s okay"],1,"When unsure, ask the person who sets the rules."],
+    ["An AI tool rewrites your paragraph. Which action best keeps the work yours?",["Submit the rewrite without reading it","Compare suggestions, choose what helps, and revise in your own words","Change random words","Remove your name"],1,"Use AI suggestions as feedback and make the final decisions yourself."],
+    ["A chatbot asks you to upload a class roster so it can personalize examples. What should you do?",["Upload it","Remove identifying information and ask your teacher before using the tool","Upload only student birthdays","Share it with another chatbot"],1,"Class rosters contain other people's private information."]],
   3:[
     ["Three chatbots give the same answer. Does that prove it’s correct?",["Yes, agreement proves it","No, they can share the same mistakes","Yes, if they’re all popular","Only if the words match"],1,"Different tools can repeat the same error. Check a reliable source."],
     ["You accept every change AI suggests to your draft. What’s the issue?",["None, it’s feedback","You may lose your own voice and not learn","AI feedback is always wrong","You should never get feedback"],1,"Use feedback as suggestions, then revise it yourself."],
@@ -562,7 +558,9 @@ section{padding-top:56px;padding-bottom:56px}
     ["A friend says “everyone uses AI for homework, so it’s fine.” Best response?",["Agree","What others do doesn’t decide what your teacher allows","Use it even more","Hide it"],1,"Your teacher’s and school’s rules decide."],
     ["An AI detector flags a classmate’s own essay as AI-written. What should you remember?",["Detectors are perfect","Detectors can be wrong, so look at real evidence","Always trust the tool","Ignore it forever"],1,"Detectors make mistakes. Look at evidence and talk first."],
     ["You ask the same question twice and get different facts. What does that show?",["One is surely right","AI can be inconsistent, so verify with a source","The AI lies on purpose","You can’t repeat questions"],1,"Inconsistent answers are a sign to check."],
-    ["AI wrote class project code that works, but you don’t understand it. Best move?",["Submit it","Learn how it works or ask your teacher about it","Hide that you used AI","Delete your own work"],1,"Using what you can’t explain skips the learning."]],
+    ["AI wrote class project code that works, but you don’t understand it. Best move?",["Submit it","Learn how it works or ask your teacher about it","Hide that you used AI","Delete your own work"],1,"Using what you can’t explain skips the learning."],
+    ["An AI summary leaves out a limitation mentioned near the end of a research paper. What is the strongest response?",["Use the summary because it is shorter","Read the original paper's methods and limitations before drawing a conclusion","Ask the same AI to summarize again and trust the second version","Remove the limitation from your notes"],1,"A summary can omit details that change what the evidence actually supports."],
+    ["A hiring tool ranks applicants lower when their resumes contain certain neighborhood names. What should investigators examine first?",["Whether the tool has a modern interface","Whether training data or proxy variables create unfair patterns","Whether the tool responds quickly","Whether applicants used the same font"],1,"Proxy variables can reproduce unfair patterns even when protected traits are not directly used."]],
   4:[
     ["Which prompt best reduces bias in an answer about a historical event?",["Tell me what happened","Give several perspectives and tell me where I can verify each","Pick the best side","Be short"],1,"Ask for multiple viewpoints and verify them yourself."],
     ["AI says a law passed last month. Why is that risky to trust?",["AI always knows current events","Its knowledge can be outdated or incomplete, so check official sources","Laws never change","AI avoids laws"],1,"Check current facts with official sources."],
@@ -571,287 +569,43 @@ section{padding-top:56px;padding-bottom:56px}
     ["Why is a deepfake of a public figure still harmful?",["It isn’t, they’re famous","It can spread false information and damage trust","Only if it’s funny","Only if it’s long"],1,"Fake media about real people spreads false beliefs."],
     ["Which habit best protects you from AI making things up in research?",["Using one chatbot","Cross-checking key claims in two reliable, independent sources","Asking the AI how confident it is","Asking for longer answers"],1,"Independent sources catch invented claims."],
     ["An AI tutor shows a worked solution. How do you make sure you learn?",["Copy it","Cover it, redo the steps yourself, then compare","Memorize it","Skip it"],1,"Practice recall instead of copying."],
-    ["Your group wants AI to write the whole report and split the grade. Best response?",["Go along with it","Agree on allowed AI use with your teacher and do real work","Hide it","Blame one member"],1,"Check the rules and do your own thinking."]]
+    ["Your group wants AI to write the whole report and split the grade. Best response?",["Go along with it","Agree on allowed AI use with your teacher and do real work","Hide it","Blame one member"],1,"Check the rules and do your own thinking."],
+    ["A school proposes an AI system to flag students who may need academic support. Which safeguard is most important?",["Let the system make final decisions automatically","Have trained staff review results, check for bias, and give students a way to correct errors","Keep the system's purpose secret","Use the score as the only measure of a student"],1,"High-impact decisions need human review, transparency, and a way to challenge errors."],
+    ["An AI-generated report supports your argument, but its sources are not traceable. What is the best academic response?",["Cite the report as primary evidence","Treat the claims as unverified until you locate reliable original sources","Assume the sources are private","Use the claims only in the conclusion"],1,"A claim is not evidence until you can verify where it came from."],
+    ["Your team is comparing two AI tools for a community project. Which evaluation is most complete?",["Choose the one with the nicest design","Compare accuracy, privacy, accessibility, bias, cost, and whether AI is needed at all","Choose the fastest tool","Use whichever tool gives the longest answers"],1,"Responsible evaluation considers performance and real-world impacts, not just convenience."]]
   };
-  let sv={gold:0,xp:0,owned:[],worn:{},maxLv:1};
+  let sv={gold:0,xp:0,owned:[],worn:{},maxLv:1,gradeTier:1};
   try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d)sv=Object.assign(sv,d);}catch(e){}
+  sv.gradeTier=Math.max(1,Math.min(4,Number(sv.gradeTier)||1));
   const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify(sv));}catch(e){}};
   const rank=()=>{let r=RANKS[0];RANKS.forEach(x=>{if(sv.xp>=x[0])r=x;});return r;};
-  let mode='idle',lvl=0,eS=[],pS=[],eSh=[],pSh=[],tgt=[],fx=[],used={},turn=1,gG=0,gX=0,gen=0,backFn=null,tm=0,last=0,hx=-1,hy=-1,kx=3,ky=3;
-  const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+  const gradeName=()=>({1:'Grade 9 · Beginner',2:'Grade 10 · Intermediate',3:'Grade 11 · Advanced',4:'Grade 12 · Expert'}[sv.gradeTier]);
+  const gradeDescription=()=>({1:'Core concepts and straightforward choices. Focus on recognizing safe and responsible AI use.',2:'Apply the rules to classroom situations. Explain why a choice is responsible or risky.',3:'Analyze trade-offs, reliability, privacy, bias, and evidence in realistic situations.',4:'Evaluate complex cases, defend decisions, and consider broader impacts of AI systems.'}[sv.gradeTier]);
   const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;};
-  const say=t=>{$('hopMsg').textContent=t;};
   const btn=(cls,txt,fn)=>{const b=el('button',cls,txt);b.type='button';b.addEventListener('click',fn);return b;};
-  const alive=s=>s.filter(x=>x.hits<x.len).length;
-  function stats(){
-    $('hopLevel').textContent=lvl+1;$('hopLives').textContent=alive(pS);$('hopCp').textContent=alive(eS);
-    $('hopGold').textContent=sv.gold;$('hopRank').textContent=rank()[1]+' · '+sv.xp+' XP';
-  }
-  function box(){const b=$('hopQuiz');b.textContent='';b.classList.add('active');return b;}
-  function hide(){$('hopQuiz').classList.remove('active');}
-
-  /* characters and costumes */
-  function drawChar(c,cx,cy,k){
-    const w=sv.worn||{};
-    c.fillStyle=w.coat==='crimson'?'#d94a5c':w.coat==='gold'?P.gd:P.cy;
-    c.beginPath();c.arc(cx,cy,13*k,0,7);c.fill();
-    c.fillStyle=P.wh;c.beginPath();c.arc(cx-6*k,cy-4*k,4.5*k,0,7);c.arc(cx+6*k,cy-4*k,4.5*k,0,7);c.fill();
-    c.fillStyle=P.bg;c.beginPath();c.arc(cx-6*k,cy-4*k,2*k,0,7);c.arc(cx+6*k,cy-4*k,2*k,0,7);c.fill();
-    c.strokeStyle=P.bg;c.lineWidth=1.5*k;c.beginPath();c.arc(cx,cy+3*k,5*k,.2,Math.PI-.2);c.stroke();
-    if(w.eye==='patch'){c.fillStyle='#111';c.beginPath();c.arc(cx-6*k,cy-4*k,5.2*k,0,7);c.fill();c.strokeStyle='#111';c.lineWidth=1.5*k;c.beginPath();c.moveTo(cx-13*k,cy-9*k);c.lineTo(cx+12*k,cy-6*k);c.stroke();}
-    if(w.eye==='monocle'){c.strokeStyle=P.gd;c.lineWidth=2*k;c.beginPath();c.arc(cx+6*k,cy-4*k,6*k,0,7);c.stroke();}
-    if(w.hat==='bandana'){c.fillStyle='#e0455a';c.beginPath();c.arc(cx,cy-3*k,13.5*k,Math.PI*1.08,Math.PI*1.92);c.closePath();c.fill();c.fillRect(cx+10*k,cy-12*k,6*k,3*k);}
-    if(w.hat==='tricorn'){c.fillStyle='#1a1a2e';c.strokeStyle=P.gd;c.lineWidth=1.5*k;c.beginPath();c.moveTo(cx-17*k,cy-9*k);c.lineTo(cx,cy-25*k);c.lineTo(cx+17*k,cy-9*k);c.closePath();c.fill();c.stroke();}
-    if(w.hat==='captain'){c.fillStyle='#1a1a2e';c.beginPath();c.arc(cx,cy-11*k,10*k,Math.PI,0);c.fill();c.fillRect(cx-18*k,cy-11*k,36*k,4*k);c.fillStyle=P.gd;c.fillRect(cx-10*k,cy-14*k,20*k,2*k);c.fillStyle=P.wh;c.beginPath();c.arc(cx,cy-18*k,2*k,0,7);c.fill();}
-    if(w.pet==='parrot'){const x=cx+15*k,y=cy+3*k;c.fillStyle='#4ade80';c.beginPath();c.arc(x,y,5*k,0,7);c.fill();c.fillStyle='#ff6b6b';c.beginPath();c.arc(x+1*k,y-5*k,3.2*k,0,7);c.fill();c.fillStyle=P.gd;c.beginPath();c.moveTo(x+3*k,y-6*k);c.lineTo(x+7*k,y-5*k);c.lineTo(x+3*k,y-4*k);c.fill();}
-  }
-  /* fleets */
-  function place(fleet){
-    const occ=new Set(),ships=[];
-    fleet.forEach((len,i)=>{
-      let ok=false;
-      while(!ok){
-        const h=Math.random()<.5,x=Math.floor(Math.random()*(h?N-len+1:N)),y=Math.floor(Math.random()*(h?N:N-len+1)),cells=[];
-        for(let k=0;k<len;k++)cells.push([h?x+k:x,h?y:y+k]);
-        if(cells.every(c=>!occ.has(c[0]+','+c[1]))){cells.forEach(c=>occ.add(c[0]+','+c[1]));ships.push({cells,hits:0,len,h,name:NAMES[i%NAMES.length]});ok=true;}
-      }
-    });
-    return ships;
-  }
-  const shipAt=(ships,x,y)=>ships.find(s=>s.cells.some(c=>c[0]===x&&c[1]===y));
-  function shoot(ships,shots,x,y,side){
-    const i=y*N+x;if(shots[i])return null;
-    const s=shipAt(ships,x,y);
-    fx.push({side,x,y,t:0,hit:!!s});
-    if(s){shots[i]=2;s.hits++;return{hit:true,sunk:s.hits===s.len,ship:s};}
-    shots[i]=1;return{hit:false};
-  }
-  function setup(i){
-    lvl=i;eS=place(LV[i].fleet);pS=place(PF);eSh=Array(N*N).fill(0);pSh=Array(N*N).fill(0);tgt=[];fx=[];
-  }
-
-  /* game flow */
-  function begin(i){
-    setup(i);used={};turn=1;gG=0;gX=0;gen++;hide();
-    say('Voyage '+(i+1)+': '+LV[i].n+'. Answer correctly to fire your cannons.');stats();startTurn();
-  }
-  function menu(){
-    mode='menu';const b=box();
-    b.appendChild(el('div','quiz-meta',rank()[1]+' · '+sv.xp+' XP · '+sv.gold+' gold'));
-    b.appendChild(el('h4','','Choose your voyage'));
-    LV.forEach((l,i)=>{const a=btn('answer','Voyage '+(i+1)+' · '+l.n+' · '+l.fleet.length+' enemy ships'+(i+1>sv.maxLv?' (locked)':''),()=>begin(i));a.disabled=i+1>sv.maxLv;b.appendChild(a);});
-    b.appendChild(btn('btn btn-secondary','Costume shop',()=>shop(menu)));
-    stats();
-  }
-  function pickQ(){
-    const t=LV[lvl].t,arr=T[t];
-    used[t]=used[t]||[];
-    let pool=arr.map((_,i)=>i).filter(i=>!used[t].includes(i));
-    if(!pool.length){used[t]=[];pool=arr.map((_,i)=>i);}
-    const i=pool[Math.floor(Math.random()*pool.length)];used[t].push(i);return arr[i];
-  }
-  function startTurn(){mode='quiz';showQ(pickQ());}
-  function showQ(q){
-    const b=box();
-    b.appendChild(el('div','quiz-meta','Turn '+turn+' · Answer to load the cannons'));
-    b.appendChild(el('h4','',q[0]));
-    const bs=shuffle(q[1].map((t,i)=>({t,ok:i===q[2]}))).map(o=>{const a=btn('answer',o.t,()=>{
-      bs.forEach(x=>{x.a.disabled=true;if(x.o.ok)x.a.classList.add('correct');});
-      if(o.ok){sv.gold+=5;sv.xp+=10;gG+=5;gX+=10;persist();stats();}else a.classList.add('wrong');
-      b.appendChild(el('div','result',(o.ok?'Correct! +5 gold, +10 XP. ':'Not quite. ')+q[3]));
-      const nx=o.ok?btn('btn btn-primary','Take aim',()=>{hide();mode='aim';turn++;say('Cannons loaded! Pick a target on enemy waters.');}):btn('btn btn-primary','Brace for return fire',()=>{hide();say('No shot this turn. The enemy fires back!');enemyTurn();});
-      b.appendChild(nx);nx.focus();
-    });b.appendChild(a);return{a,o};});
-  }
-  function playerShot(x,y){
-    if(mode!=='aim'||x<0||y<0||x>=N||y>=N)return;
-    const r=shoot(eS,eSh,x,y,'e');
-    if(!r){say('You already fired there. Pick another spot.');return;}
-    stats();const g=gen;mode='wait';
-    if(r.hit){
-      if(r.sunk){sv.gold+=15;sv.xp+=20;gG+=15;gX+=20;persist();}
-      if(!alive(eS)){say('You sank the enemy '+r.ship.name+', the last of their fleet!');setTimeout(()=>{if(g===gen)win();},900);return;}
-      say(r.sunk?'Boom! You sank the enemy '+r.ship.name+'! +15 gold, +20 XP. Keep firing!':'Direct hit! Keep firing!');
-      setTimeout(()=>{if(g===gen)startTurn();},r.sunk?1300:900);
-    }else{
-      say('Splash! A miss. The enemy fires back!');
-      setTimeout(()=>{if(g===gen)enemyTurn();},900);
-    }
-  }
-  function enemyPick(){
-    while(LV[lvl].ai&&tgt.length){const c=tgt.pop();if(!pSh[c[1]*N+c[0]])return c;}
-    const free=[];for(let y=0;y<N;y++)for(let x=0;x<N;x++)if(!pSh[y*N+x])free.push([x,y]);
-    return free[Math.floor(Math.random()*free.length)];
-  }
-  function enemyTurn(){
-    mode='wait';const g=gen;
-    setTimeout(()=>{
-      if(g!==gen)return;
-      const c=enemyPick(),r=shoot(pS,pSh,c[0],c[1],'p');stats();
-      let m;
-      if(r.hit){
-        m=r.sunk?'The enemy sank your '+r.ship.name+'!':'The enemy hit your '+r.ship.name+'!';
-        if(r.sunk)tgt=[];else[[1,0],[-1,0],[0,1],[0,-1]].forEach(d=>{const nx=c[0]+d[0],ny=c[1]+d[1];if(nx>=0&&ny>=0&&nx<N&&ny<N&&!pSh[ny*N+nx])tgt.push([nx,ny]);});
-      }else m='The enemy missed. Your move.';
-      say(m);
-      if(!alive(pS)){setTimeout(()=>{if(g===gen)lose();},900);return;}
-      setTimeout(()=>{if(g===gen)startTurn();},1100);
-    },600);
-  }
-  function lose(){
-    mode='over';const b=box();
-    b.appendChild(el('div','quiz-meta','Voyage '+(lvl+1)+' lost'));
-    b.appendChild(el('h4','','Your fleet was sunk!'));
-    b.appendChild(el('div','result','You keep the '+gG+' gold and '+gX+' XP you earned from answers and sinking ships.'));
-    b.appendChild(btn('btn btn-primary','Try again',()=>begin(lvl)));
-    b.appendChild(el('span','',' '));
-    b.appendChild(btn('btn btn-secondary','Voyage menu',menu));
-    say('Sunk! Try again, Captain.');
-  }
-  function win(){
-    mode='win';const L=LV[lvl],left=alive(pS),g=L.gold+20*left,x=L.xp+25*left;
-    sv.gold+=g;sv.xp+=x;sv.maxLv=Math.max(sv.maxLv,Math.min(LV.length,lvl+2));persist();stats();
-    const b=box();
-    b.appendChild(el('div','quiz-meta','Voyage '+(lvl+1)+' complete'));
-    b.appendChild(el('h4','','Enemy fleet sunk!'));
-    b.appendChild(el('div','result','Voyage reward: +'+L.gold+' gold, +'+L.xp+' XP\nShips afloat bonus: +'+(20*left)+' gold, +'+(25*left)+' XP\nFrom answers and sinkings: +'+gG+' gold, +'+gX+' XP\nTotal this voyage: +'+(g+gG)+' gold, +'+(x+gX)+' XP'));
-    $('hopQuiz').lastChild.style.whiteSpace='pre-line';
-    if(lvl<LV.length-1)b.appendChild(btn('btn btn-primary','Next voyage',()=>begin(lvl+1)));
-    else b.appendChild(el('div','result','You have conquered every voyage, Captain!'));
-    b.appendChild(el('span','',' '));
-    b.appendChild(btn('btn btn-secondary','Costume shop',()=>shop(menu)));
-    b.appendChild(el('span','',' '));
-    b.appendChild(btn('btn btn-secondary','Voyage menu',menu));
-    say('Victory! Spend your gold in the shop or sail on.');
-  }
-  function shop(back){mode='shop';backFn=back;renderShop(0);}
-  function renderShop(sc){
-    const b=box();
-    b.appendChild(el('div','quiz-meta','Costume shop · '+sv.gold+' gold'));
-    const pv=document.createElement('canvas');pv.width=pv.height=96;pv.style.cssText='display:block;margin:8px 0;border:1px solid var(--line)';b.appendChild(pv);
-    const pc=pv.getContext('2d');pc.fillStyle=P.bg;pc.fillRect(0,0,96,96);drawChar(pc,48,54,2);
-    ITEMS.forEach(it=>{
-      const row=el('div','shop-item'),own=sv.owned.includes(it.id),on=sv.worn[it.slot]===it.id;
-      row.appendChild(el('span','',it.n+' · '+(own?'owned':it.p+' gold')));
-      const bt=btn('btn btn-secondary',own?(on?'Remove':'Wear'):'Buy',()=>{
-        if(!own){sv.gold-=it.p;sv.owned.push(it.id);sv.worn[it.slot]=it.id;}
-        else if(on)delete sv.worn[it.slot];else sv.worn[it.slot]=it.id;
-        persist();stats();renderShop(b.scrollTop);
-      });
-      if(!own&&sv.gold<it.p)bt.disabled=true;
-      row.appendChild(bt);b.appendChild(row);
-    });
-    b.appendChild(btn('btn btn-primary','Back',()=>backFn()));
-    b.scrollTop=sc;
-  }
-
-  /* input: click or tap to aim, arrows/WASD + Enter for keyboard */
-  function cellAt(e){
-    const r=cv.getBoundingClientRect(),sx=(e.clientX-r.left)*cv.width/r.width,sy=(e.clientY-r.top)*cv.height/r.height;
-    const x=Math.floor((sx-GX)/CS),y=Math.floor((sy-GY)/CS);
-    return(x>=0&&y>=0&&x<N&&y<N)?[x,y]:null;
-  }
-  cv.addEventListener('mousemove',e=>{const c=cellAt(e);hx=c?c[0]:-1;hy=c?c[1]:-1;});
-  cv.addEventListener('mouseleave',()=>{hx=-1;hy=-1;});
-  cv.addEventListener('click',e=>{const c=cellAt(e);if(c){kx=c[0];ky=c[1];playerShot(c[0],c[1]);}});
-  const dirs={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1],a:[-1,0],d:[1,0],w:[0,-1],s:[0,1]};
-  document.addEventListener('keydown',e=>{
-    if(mode!=='aim'||e.ctrlKey||e.metaKey||e.altKey)return;
-    const t=document.activeElement.tagName;
-    if(t==='INPUT'||t==='TEXTAREA'||t==='BUTTON')return;
-    const d=dirs[e.key]||dirs[(e.key||'').toLowerCase()];
-    if(d){e.preventDefault();kx=Math.max(0,Math.min(N-1,kx+d[0]));ky=Math.max(0,Math.min(N-1,ky+d[1]));hx=kx;hy=ky;}
-    else if(e.key==='Enter'||e.key===' '){e.preventDefault();playerShot(kx,ky);}
-  });
-  $('hopStart').addEventListener('click',menu);
-  $('hopShop').addEventListener('click',()=>{if(mode==='quiz'||mode==='aim'||mode==='wait')return;shop(()=>{hide();mode='idle';});});
-
-  /* drawing */
-  function drawShip(c,s,ox,oy,cs,col,alpha){
-    const x0=Math.min.apply(null,s.cells.map(a=>a[0])),y0=Math.min.apply(null,s.cells.map(a=>a[1]));
-    const w=(s.h?s.len:1)*cs,h=(s.h?1:s.len)*cs,x=ox+x0*cs,y=oy+y0*cs,p=Math.max(2,cs*.12);
-    c.save();c.globalAlpha=alpha;c.fillStyle=col;c.beginPath();
-    if(c.roundRect)c.roundRect(x+p,y+p,w-2*p,h-2*p,cs*.3);else c.rect(x+p,y+p,w-2*p,h-2*p);
-    c.fill();
-    if(cs>=30){
-      c.strokeStyle=P.gd;c.lineWidth=2;c.beginPath();
-      if(s.h){c.moveTo(x+p+6,y+h-p-6);c.lineTo(x+w-p-6,y+h-p-6);}else{c.moveTo(x+w-p-6,y+p+6);c.lineTo(x+w-p-6,y+h-p-6);}
-      c.stroke();
-      const mx=x+w/2,my=y+h/2;
-      c.fillStyle=P.wh;c.fillRect(mx-1,my-12,2,24);
-      c.beginPath();c.moveTo(mx+2,my-10);c.lineTo(mx+2,my+4);c.lineTo(mx+12,my+4);c.fill();
-    }
-    c.restore();
-  }
-  function drawHit(cx,cy,r){
-    ctx.fillStyle=P.fire;ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.fill();
-    ctx.fillStyle=P.gd;ctx.beginPath();ctx.arc(cx,cy,r*.5,0,7);ctx.fill();
-    ctx.strokeStyle=P.bg;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx-r*.6,cy-r*.6);ctx.lineTo(cx+r*.6,cy+r*.6);ctx.moveTo(cx+r*.6,cy-r*.6);ctx.lineTo(cx-r*.6,cy+r*.6);ctx.stroke();
-  }
-  function drawMiss(cx,cy,r){
-    ctx.strokeStyle='rgba(243,231,201,.75)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.stroke();
-    ctx.fillStyle='rgba(243,231,201,.5)';ctx.beginPath();ctx.arc(cx,cy,r*.25,0,7);ctx.fill();
-  }
-  function draw(){
-    ctx.fillStyle=P.bg;ctx.fillRect(0,0,cv.width,cv.height);
-    ctx.fillStyle=P.red;ctx.font=MONO;ctx.textAlign='left';
-    ctx.fillText('ENEMY WATERS · '+alive(eS)+' ships left',GX,16);
-    /* enemy grid */
-    for(let y=0;y<N;y++)for(let x=0;x<N;x++){
-      ctx.fillStyle=(x+y)%2?'rgba(15,74,90,.55)':'rgba(15,74,90,.3)';ctx.fillRect(GX+x*CS,GY+y*CS,CS,CS);
-    }
-    ctx.strokeStyle='rgba(63,184,175,.2)';ctx.lineWidth=1;ctx.beginPath();
-    for(let k=0;k<N;k++){const y=GY+k*CS+CS/2;for(let x=0;x<=N*CS;x+=6){const yy=y+Math.sin(x/14+tm*1.5+k)*2;x?ctx.lineTo(GX+x,yy):ctx.moveTo(GX,yy);}}
-    ctx.stroke();
-    ctx.strokeStyle='rgba(217,194,143,.35)';ctx.strokeRect(GX,GY,N*CS,N*CS);
-    eS.forEach(s=>{if(s.hits>=s.len)drawShip(ctx,s,GX,GY,CS,P.iron,1);else if(mode==='over')drawShip(ctx,s,GX,GY,CS,P.vi,.55);});
-    eS.forEach(s=>{if(s.hits>=s.len){const x0=Math.min.apply(null,s.cells.map(a=>a[0])),y0=Math.min.apply(null,s.cells.map(a=>a[1]));ctx.fillStyle=P.red;ctx.font='bold 11px Helvetica,Arial,sans-serif';ctx.textAlign='center';ctx.fillText('SUNK',GX+(x0+(s.h?s.len:1)/2)*CS,GY+(y0+(s.h?1:s.len)/2)*CS+4);}});
-    for(let y=0;y<N;y++)for(let x=0;x<N;x++){
-      const v=eSh[y*N+x],cx=GX+x*CS+CS/2,cy=GY+y*CS+CS/2;
-      if(v===2)drawHit(cx,cy,CS*.28);else if(v===1)drawMiss(cx,cy,CS*.2);
-    }
-    /* aim cursor */
-    if(mode==='aim'&&hx>=0&&hy>=0){
-      ctx.strokeStyle=P.gd;ctx.lineWidth=2;ctx.strokeRect(GX+hx*CS+2,GY+hy*CS+2,CS-4,CS-4);
-      const cx=GX+hx*CS+CS/2,cy=GY+hy*CS+CS/2;
-      ctx.beginPath();ctx.moveTo(cx-8,cy);ctx.lineTo(cx+8,cy);ctx.moveTo(cx,cy-8);ctx.lineTo(cx,cy+8);ctx.stroke();
-    }
-    /* your fleet */
-    ctx.fillStyle=P.gd;ctx.font=MONO;ctx.textAlign='left';ctx.fillText('YOUR FLEET',MX,MY-6);
-    for(let y=0;y<N;y++)for(let x=0;x<N;x++){ctx.fillStyle=(x+y)%2?'rgba(15,74,90,.55)':'rgba(15,74,90,.3)';ctx.fillRect(MX+x*MC,MY+y*MC,MC,MC);}
-    ctx.strokeStyle='rgba(217,194,143,.35)';ctx.strokeRect(MX,MY,N*MC,N*MC);
-    pS.forEach(s=>drawShip(ctx,s,MX,MY,MC,s.hits>=s.len?P.iron:P.sl,1));
-    for(let y=0;y<N;y++)for(let x=0;x<N;x++){
-      const v=pSh[y*N+x],cx=MX+x*MC+MC/2,cy=MY+y*MC+MC/2;
-      if(v===2)drawHit(cx,cy,MC*.32);else if(v===1)drawMiss(cx,cy,MC*.22);
-    }
-    /* captain portrait and status */
-    drawChar(ctx,270,MY+40,1.8);
-    ctx.fillStyle=P.wh;ctx.font='bold 12px Palatino,Georgia,serif';ctx.textAlign='center';ctx.fillText('CAPTAIN BYTE',270,MY+80);
-    ctx.fillStyle=P.mut;ctx.font=MONO;
-    ctx.fillText(mode==='aim'?'Aim and fire!':mode==='quiz'?'Load the cannons':mode==='wait'?'...':'Ready',270,MY+98);
-    /* shot effects */
-    fx.forEach(f=>{
-      const k=f.side==='e'?CS:MC,ox=f.side==='e'?GX:MX,oy=f.side==='e'?GY:MY,cx=ox+f.x*k+k/2,cy=oy+f.y*k+k/2,a=1-f.t/.7;
-      ctx.strokeStyle=f.hit?'rgba(255,138,61,'+a+')':'rgba(243,231,201,'+a+')';ctx.lineWidth=3;
-      ctx.beginPath();ctx.arc(cx,cy,k*(.3+f.t*1.2),0,7);ctx.stroke();
-    });
-    if(mode==='idle'||mode==='menu'&&false){}
-    if(mode==='idle'){
-      ctx.fillStyle='rgba(11,27,38,.9)';ctx.fillRect(0,0,cv.width,cv.height);
-      ctx.textAlign='center';ctx.fillStyle=P.gd;ctx.font='bold 24px Palatino,Georgia,serif';
-      ctx.fillText('CAPTAIN BYTE',cv.width/2,cv.height/2-6);
-      ctx.fillStyle=P.mut;ctx.font='13px Helvetica,Arial,sans-serif';
-      ctx.fillText('Pirate battleships · Press Start',cv.width/2,cv.height/2+20);
-    }
-  }
-  function loop(t){
-    const dt=Math.min(.05,(t-last)/1000||0);last=t;tm+=dt;
-    fx.forEach(f=>f.t+=dt);fx=fx.filter(f=>f.t<.7);
-    draw();requestAnimationFrame(loop);
-  }
-  setup(0);stats();requestAnimationFrame(loop);
+  const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+  let mode='idle',lvl=0,treasures=[],dug=[],turn=1,digsLeft=0,found=0,gG=0,gX=0,used={},hx=-1,hy=-1,backFn=null,fx=[],last=0;
+  const say=t=>{$('hopMsg').textContent=t;};
+  function stats(){$('hopLevel').textContent=lvl+1;$('hopLives').textContent=digsLeft;$('hopCp').textContent=found+'/'+(LV[lvl]?.treasure||0);$('hopGold').textContent=sv.gold;$('hopRank').textContent=rank()[1]+' · '+sv.xp+' XP';}
+  function box(){const b=$('hopQuiz');b.textContent='';b.classList.add('active');return b;}function hide(){$('hopQuiz').classList.remove('active');}
+  function pickQ(){const arr=T[sv.gradeTier];used[sv.gradeTier]=used[sv.gradeTier]||[];let pool=arr.map((_,i)=>i).filter(i=>!used[sv.gradeTier].includes(i));if(!pool.length){used[sv.gradeTier]=[];pool=arr.map((_,i)=>i);}const i=pool[Math.floor(Math.random()*pool.length)];used[sv.gradeTier].push(i);return arr[i];}
+  function setup(i){lvl=i;treasures=[];dug=Array(N*N).fill(0);found=0;digsLeft=LV[i].digs;turn=1;fx=[];while(treasures.length<LV[i].treasure){const x=Math.floor(Math.random()*N),y=Math.floor(Math.random()*N),idx=y*N+x;if(!treasures.some(t=>t.idx===idx))treasures.push({x,y,idx,found:false});}}
+  function begin(i){setup(i);used={};gG=0;gX=0;hide();mode='quiz';stats();say('Voyage '+(i+1)+': '+LV[i].n+'. Answer a question, then choose a patch of sand to dig.');showQ(pickQ());}
+  function menu(){mode='menu';const b=box();b.appendChild(el('div','quiz-meta',rank()[1]+' · '+sv.xp+' XP · '+sv.gold+' gold · '+gradeName()));b.appendChild(el('h4','','Choose your difficulty'));const picker=el('div','grade-picker'),label=el('label','','Select your current grade level');label.htmlFor='pearlGradeSelect';const select=document.createElement('select');select.id='pearlGradeSelect';[['1','Grade 9 — Beginner'],['2','Grade 10 — Intermediate'],['3','Grade 11 — Advanced'],['4','Grade 12 — Expert']].forEach(([v,t])=>{const o=document.createElement('option');o.value=v;o.textContent=t;o.selected=Number(v)===sv.gradeTier;select.appendChild(o);});select.addEventListener('change',()=>{sv.gradeTier=Number(select.value);used={};persist();menu();});picker.appendChild(label);picker.appendChild(select);picker.appendChild(el('p','grade-note',gradeDescription()));b.appendChild(picker);b.appendChild(el('div','quiz-meta','Question difficulty: '+gradeName()));b.appendChild(el('h4','','Choose your treasure hunt'));LV.forEach((l,i)=>{const a=btn('answer','Voyage '+(i+1)+' · '+l.n+' · '+l.treasure+' treasure chests'+(i+1>sv.maxLv?' (locked)':''),()=>begin(i));a.disabled=i+1>sv.maxLv;b.appendChild(a);});b.appendChild(btn('btn btn-secondary','Costume shop',()=>shop(menu)));stats();}
+  function showQ(q){mode='quiz';const b=box();b.appendChild(el('div','quiz-meta','Dig '+turn+' · '+gradeName()+' · Answer to earn a dig'));b.appendChild(el('h4','',q[0]));shuffle(q[1].map((t,i)=>({t,ok:i===q[2]}))).forEach(o=>{const a=btn('answer',o.t,()=>{Array.from(b.querySelectorAll('button.answer')).forEach(x=>x.disabled=true);if(o.ok){a.classList.add('correct');sv.gold+=5;sv.xp+=10;gG+=5;gX+=10;persist();stats();}else a.classList.add('wrong');b.appendChild(el('div','result',(o.ok?'Correct! You earned a chance to dig. +5 gold, +10 XP. ':'Not quite. You lose one digging chance. ')+q[3]));b.appendChild(btn('btn btn-primary',o.ok?'Choose where to dig':'Continue',()=>{hide();if(!o.ok){digsLeft--;stats();if(digsLeft<=0){lose();return;}mode='quiz';say('No dig this turn. Your supplies are running low.');setTimeout(()=>showQ(pickQ()),500);return;}mode='dig';say('Choose a square on the map to dig.');}));});b.appendChild(a);});}
+  function clue(x,y){const d=Math.min(...treasures.filter(t=>!t.found).map(t=>Math.abs(t.x-x)+Math.abs(t.y-y)));if(d<=1)return 'The sand is warm! You are very close to buried treasure.';if(d<=3)return 'Your map is getting warmer. The treasure is nearby.';if(d<=5)return 'A faint signal. The treasure may be a few steps away.';return 'Cold sand. The treasure is farther away. Try another area.';}
+  function digAt(x,y){if(mode!=='dig'||x<0||y<0||x>=N||y>=N)return;const idx=y*N+x;if(dug[idx]){say('You already dug here. Choose a different square.');return;}dug[idx]=1;digsLeft--;turn++;const chest=treasures.find(t=>t.idx===idx&&!t.found);if(chest){chest.found=true;found++;const reward=25+lvl*10;sv.gold+=reward;sv.xp+=35+lvl*10;gG+=reward;gX+=35+lvl*10;persist();fx.push({x,y,t:0});say('TREASURE FOUND! You uncovered a chest worth '+reward+' gold.');}else say(clue(x,y));stats();if(found>=LV[lvl].treasure){setTimeout(win,850);return;}if(digsLeft<=0){setTimeout(lose,650);return;}setTimeout(()=>{if(mode==='dig'){mode='quiz';showQ(pickQ());}},chest?1100:700);}
+  function lose(){mode='over';const b=box();b.appendChild(el('div','quiz-meta','Voyage '+(lvl+1)+' ended'));b.appendChild(el('h4','','The treasure is still buried!'));b.appendChild(el('div','result','You found '+found+' of '+LV[lvl].treasure+' chests. Keep the '+gG+' gold and '+gX+' XP earned during this voyage.'));b.appendChild(btn('btn btn-primary','Try again',()=>begin(lvl)));b.appendChild(btn('btn btn-secondary','Voyage menu',menu));say('Your digging supplies ran out. Study the clues and try again, Captain.');}
+  function win(){mode='win';const L=LV[lvl];sv.gold+=L.gold;sv.xp+=L.xp;sv.maxLv=Math.max(sv.maxLv,Math.min(LV.length,lvl+2));persist();stats();const b=box();b.appendChild(el('div','quiz-meta','Voyage '+(lvl+1)+' complete'));b.appendChild(el('h4','','You found every treasure chest!'));b.appendChild(el('div','result','Voyage reward: +'+L.gold+' gold, +'+L.xp+' XP\nFrom questions and treasure: +'+gG+' gold, +'+gX+' XP'));b.lastChild.style.whiteSpace='pre-line';if(lvl<LV.length-1)b.appendChild(btn('btn btn-primary','Next voyage',()=>begin(lvl+1)));else b.appendChild(el('div','result','You discovered every treasure stash. You are a Pirate Legend!'));b.appendChild(btn('btn btn-secondary','Costume shop',()=>shop(menu)));b.appendChild(btn('btn btn-secondary','Voyage menu',menu));say('Treasure recovered! Spend your gold or set sail for the next island.');}
+  function drawChar(c,x,y,k){const w=sv.worn||{};c.fillStyle=w.coat==='crimson'?'#d94a5c':w.coat==='gold'?P.gd:P.cy;c.beginPath();c.arc(x,y,13*k,0,Math.PI*2);c.fill();c.fillStyle=P.wh;c.beginPath();c.arc(x-6*k,y-4*k,4.5*k,0,Math.PI*2);c.arc(x+6*k,y-4*k,4.5*k,0,Math.PI*2);c.fill();c.fillStyle=P.bg;c.beginPath();c.arc(x-6*k,y-4*k,2*k,0,Math.PI*2);c.arc(x+6*k,y-4*k,2*k,0,Math.PI*2);c.fill();c.fillStyle=P.gd;c.beginPath();c.moveTo(x,y+1*k);c.lineTo(x+11*k,y+5*k);c.lineTo(x,y+9*k);c.fill();if(w.hat==='tricorn'||w.hat==='captain'){c.fillStyle=w.hat==='captain'?P.gd:P.sl;c.fillRect(x-14*k,y-15*k,28*k,4*k);c.fillRect(x-8*k,y-22*k,16*k,8*k);}if(w.eye==='patch'){c.fillStyle=P.iron;c.fillRect(x-11*k,y-8*k,11*k,7*k);}}
+  function shop(back){mode='shop';backFn=back;const b=box();b.appendChild(el('div','quiz-meta','Costume shop · '+sv.gold+' gold'));const pv=document.createElement('canvas');pv.width=pv.height=96;pv.style.cssText='display:block;margin:8px 0;border:1px solid var(--line)';b.appendChild(pv);const pc=pv.getContext('2d');pc.fillStyle=P.bg;pc.fillRect(0,0,96,96);drawChar(pc,48,54,2);ITEMS.forEach(it=>{const row=el('div','shop-item'),own=sv.owned.includes(it.id),on=sv.worn[it.slot]===it.id;row.appendChild(el('span','',it.n+' · '+(own?'owned':it.p+' gold')));const bt=btn('btn btn-secondary',own?(on?'Remove':'Wear'):'Buy',()=>{if(!own){sv.gold-=it.p;sv.owned.push(it.id);sv.worn[it.slot]=it.id;}else if(on)delete sv.worn[it.slot];else sv.worn[it.slot]=it.id;persist();shop(back);});if(!own&&sv.gold<it.p)bt.disabled=true;row.appendChild(bt);b.appendChild(row);});b.appendChild(btn('btn btn-primary','Back',()=>backFn()));}
+  function cellAt(e){const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*cv.width/r.width,y=(e.clientY-r.top)*cv.height/r.height,gx=Math.floor((x-GX)/CS),gy=Math.floor((y-GY)/CS);return gx>=0&&gy>=0&&gx<N&&gy<N?[gx,gy]:null;}
+  cv.addEventListener('mousemove',e=>{const c=cellAt(e);hx=c?c[0]:-1;hy=c?c[1]:-1;});cv.addEventListener('mouseleave',()=>{hx=hy=-1;});cv.addEventListener('click',e=>{const c=cellAt(e);if(c)digAt(c[0],c[1]);});
+  function draw(){ctx.fillStyle=P.bg;ctx.fillRect(0,0,cv.width,cv.height);ctx.textAlign='left';ctx.fillStyle=P.gd;ctx.font='bold 13px Georgia,serif';ctx.fillText('TREASURE ISLAND · '+found+'/'+(LV[lvl]?.treasure||0)+' CHESTS',GX,25);for(let y=0;y<N;y++)for(let x=0;x<N;x++){const px=GX+x*CS,py=GY+y*CS;ctx.fillStyle=(x+y)%2?'#80613b':'#967247';ctx.fillRect(px,py,CS,CS);ctx.strokeStyle='rgba(243,231,201,.2)';ctx.strokeRect(px,py,CS,CS);const idx=y*N+x;if(dug[idx]){const chest=treasures.some(t=>t.idx===idx&&t.found);if(chest){ctx.fillStyle=P.gd;ctx.fillRect(px+9,py+17,22,17);ctx.fillStyle=P.sl;ctx.fillRect(px+8,py+14,24,6);ctx.fillStyle=P.wh;ctx.fillRect(px+18,py+20,4,7);}else{ctx.fillStyle='#4b3526';ctx.beginPath();ctx.ellipse(px+20,py+22,10,5,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#c5a06a';ctx.beginPath();ctx.moveTo(px+13,py+17);ctx.lineTo(px+27,py+27);ctx.stroke();}}else{ctx.fillStyle='rgba(35,28,18,.25)';ctx.beginPath();ctx.arc(px+20,py+20,2,0,Math.PI*2);ctx.fill();}}if(mode==='dig'&&hx>=0&&hy>=0){ctx.strokeStyle=P.gd;ctx.lineWidth=3;ctx.strokeRect(GX+hx*CS+3,GY+hy*CS+3,CS-6,CS-6);}const fy=GY+N*CS+22;ctx.fillStyle=P.wh;ctx.font='12px ui-monospace,monospace';ctx.fillText(mode==='dig'?'CLICK A TILE TO DIG':'ANSWER A QUESTION TO EARN A DIG',GX,fy);ctx.fillStyle=P.cy;ctx.fillText('DIGS LEFT: '+digsLeft+'     TREASURE FOUND: '+found,GX,fy+20);drawChar(ctx,285,fy+10,1.2);ctx.fillStyle=P.mut;ctx.textAlign='center';ctx.fillText('CAPTAIN BYTE',285,fy+40);fx.forEach(f=>{f.t+=.016;const a=1-f.t/.8;ctx.strokeStyle='rgba(255,201,74,'+a+')';ctx.lineWidth=3;ctx.beginPath();ctx.arc(GX+f.x*CS+20,GY+f.y*CS+20,12+f.t*22,0,Math.PI*2);ctx.stroke();});fx=fx.filter(f=>f.t<.8);if(mode==='idle'){ctx.fillStyle='rgba(11,27,38,.88)';ctx.fillRect(0,0,cv.width,cv.height);ctx.textAlign='center';ctx.fillStyle=P.gd;ctx.font='bold 25px Georgia,serif';ctx.fillText('BURIED TREASURE',cv.width/2,cv.height/2-8);ctx.fillStyle=P.wh;ctx.font='13px Arial,sans-serif';ctx.fillText('Press Start to choose an island',cv.width/2,cv.height/2+19);}}
+  function loop(){draw();requestAnimationFrame(loop);}
+  $('hopStart').addEventListener('click',menu);$('hopShop').addEventListener('click',()=>{if(mode==='quiz'||mode==='dig')return;shop(()=>{hide();mode='idle';});});stats();requestAnimationFrame(loop);
 })();
+
 </script>
 
 <script>
